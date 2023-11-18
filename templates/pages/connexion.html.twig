@@ -1,0 +1,50 @@
+
+{% extends 'page.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+    <h1>Connexion</h1>
+
+    <form method="post" action="process_connexion.php">
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" value="{{ last_username }}" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="mdp_user" name="mdp_user" required>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+        </div>
+    </form>
+
+    
+    <h1>Inscription</h1>
+
+    <form method="post" action="process_inscription.php">
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" value="{{ last_username }}" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="mdp_user" name="mdp_user" required>
+        </div>
+
+        <fieldset class="form-compte">
+            <legend>Confirmer le Mdp :</legend>
+            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Mot de passe" autocomplete="off" required>
+        </fieldset>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+        </div>
+    </form>
+
+
+{% endblock %}

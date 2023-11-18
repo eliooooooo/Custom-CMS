@@ -1,0 +1,28 @@
+{% extends "page.html.twig" %}
+
+{% block title %}ReadOne{% endblock %}
+
+{% block content %}
+
+    <h1>ReadOne</h1>
+    {% if element %}
+        {% if element.balise %} 
+            {% if element.balise == 'img' %}
+                <img src="{{element.src}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}>
+            {% endif %}
+            <{{element.balise}} {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.contenu}} </{{element.balise}}>
+        {% endif %}
+    {% else %}
+        {% if article.article.h1 %} 
+            <h1>{{article.article.h1}}</h1>
+            {% if article.article.h2 %}
+            <h2>{{ article.article.h2 }}</h2>
+            {% endif %}
+            {% if article.elements %}
+                {% for element in article.elements %}
+                    {% include 'affichage/affichage_readall.html.twig' %}
+                {% endfor %} 
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

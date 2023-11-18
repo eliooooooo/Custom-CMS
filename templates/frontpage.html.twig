@@ -1,0 +1,18 @@
+{% extends "page.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <h1>Home</h1>
+
+    <form method="post" action="index.php?page=element&action=create">
+            <input type="text" name="balise" value="{{element.balise}}">
+            <input type="text" name="contenu" value="{{element.contenu}}">
+            <input type="text" name="class" value="{{element.class}}">
+            <input type="text" name="src" value="{{element.src}}">
+            <input type="text" name="alt" value="{{element.alt}}">
+            <input type="submit" value="Create">
+    </form>
+
+{% endblock %}

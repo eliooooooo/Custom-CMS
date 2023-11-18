@@ -1,0 +1,9 @@
+@import "./base/base.scss";
+@import "./base/header.scss";
+@import "./base/footer.scss";
+@import "./base/admintoolbar.scss";
+
+.element {
+    background-color: bisque;
+    margin: 10px 0;
+}

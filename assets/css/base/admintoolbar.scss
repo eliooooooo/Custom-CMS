@@ -1,0 +1,31 @@
+.admin-toolbar {
+    background-color: #f1c40f;
+    margin: 0;
+    padding: 0;
+
+    .admin-toolbar-liste {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        margin: 0;
+
+        .admin-toolbar-liste-item {
+            padding: 0 20px;
+
+            .admin-toolbar-liste-item-link {
+
+                display: block;
+                padding: 15px;
+                text-align: center;
+                color: #000;
+                text-decoration: none;
+            }
+
+        }
+
+        .admin-toolbar-liste-item:hover {
+            background-color: #f39c12;
+        }
+
+    }
+}

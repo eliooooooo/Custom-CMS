@@ -1,0 +1,27 @@
+{% extends "page.html.twig" %}
+
+{% block title %}ReadAll{% endblock %}
+
+{% block content %}
+
+    <h1>ReadAll</h1>
+    {% if element %}
+        {% for element in element %}
+            {% include 'affichage/affichage_readall.html.twig' %}
+        {% endfor %}
+    {% else %}
+        {% if article.article.h1 %} 
+            <h1>{{article.article.h1}}</h1>
+            {% if article.article.h2 %}
+            <h2>{{ article.article.h2 }}</h2>
+            {% endif %}
+            {% if article.elements %}
+                {% for element in article.elements %}
+                    {% include 'affichage/affichage_readall.html.twig' %}
+                {% endfor %} 
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    
+
+{% endblock %}
