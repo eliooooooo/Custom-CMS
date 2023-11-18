@@ -7,11 +7,8 @@ class Element {
     public $alt;
     public $src;
     public $class;
-    private $message_erreur;
 
     function __construct() {
-        // définit un attribut complémentaire (hors base de données)
-        $this->message_erreur = 'Erreur dans la class Element';
     }
 
     function affiche() {

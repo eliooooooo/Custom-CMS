@@ -9,18 +9,24 @@
         {% for element in element %}
             {% include 'affichage/affichage_readall.html.twig' %}
         {% endfor %}
-    {% else %}
-        {% if article.article.h1 %} 
-            <h1>{{article.article.h1}}</h1>
-            {% if article.article.h2 %}
-            <h2>{{ article.article.h2 }}</h2>
+    {% elseif article %}
+        {% for article in article %}
+            {% if article.h1 %}
+                <h1>{{ article.h1 }}</h1>
+            {% endif %}
+            {% if article.h2 %}
+                <h2>{{ article.h2 }}</h2>
             {% endif %}
             {% if article.elements %}
                 {% for element in article.elements %}
                     {% include 'affichage/affichage_readall.html.twig' %}
-                {% endfor %} 
+                {% endfor %}
+            {% else %}
+                <p>pas de contenu trouvé</p>
             {% endif %}
-        {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>pas de contenu trouvé</p>
     {% endif %}
     
 

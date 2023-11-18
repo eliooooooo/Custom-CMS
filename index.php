@@ -1,4 +1,5 @@
 <?php 
+session_start();
 
 include('./includes/connexion.php');
 include('./includes/element.php');
@@ -63,7 +64,6 @@ switch ($page) {
       $data = [];
   }
 
-session_start();
 
 // Vérifiez si l'utilisateur est connecté
 $id_user = '';
