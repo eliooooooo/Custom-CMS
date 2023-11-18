@@ -40,7 +40,7 @@ class Article {
 
     static function readOne($id){
         // Première requête
-        $sql1 = 'select e.* from article AS a, element AS e where a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
+        $sql1 = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
         $pdo = connexion();
         $query1 = $pdo->prepare($sql1);
         $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
@@ -48,7 +48,7 @@ class Article {
         $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Element');
     
         // Deuxième requête
-        $sql2 = 'select * from article where id_article = :valeur';
+        $sql2 = 'SELECT * FROM article WHERE id_article = :valeur';
         $query2 = $pdo->prepare($sql2);
         $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
         $query2->execute();

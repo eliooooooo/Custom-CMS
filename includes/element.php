@@ -21,7 +21,7 @@ class Element {
 
     static function readAll() {
         // définition de la requête SQL
-        $sql= 'select * from element';
+        $sql= 'SELECT * FROM element';
      
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -33,7 +33,7 @@ class Element {
 
     static function readOne($id){
         // définition de la requête SQL avec un paramètre :valeur
-        $sql= 'select * from element where id = :valeur';
+        $sql= 'SELECT * FROM element WHERE id = :valeur';
      
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -158,7 +158,7 @@ class Element {
 
     static function readByArticle($id){
         // définition de la requête SQL avec un paramètre :valeur
-        $sql= 'select * from element where article = :valeur';
+        $sql= 'SELECT * FROM element WHERE article = :valeur';
      
         $pdo = connexion();
         $query = $pdo->prepare($sql);
