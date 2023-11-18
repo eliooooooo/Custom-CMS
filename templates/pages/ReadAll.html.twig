@@ -11,23 +11,26 @@
         {% endfor %}
     {% elseif article %}
         {% for article in article %}
-            {% if article.h1 %}
-                <h1>{{ article.h1 }}</h1>
-            {% endif %}
-            {% if article.h2 %}
-                <h2>{{ article.h2 }}</h2>
-            {% endif %}
-            {% if article.elements %}
-                {% for element in article.elements %}
-                    {% include 'affichage/affichage_readall.html.twig' %}
-                {% endfor %}
-            {% else %}
-                <p>Aucun contenu existant pour cet article</p>
-            {% endif %}
+            <article class="article--full">
+                {% if article.h1 %}
+                    <h1 class="article__title">{{ article.h1 }}</h1>
+                {% endif %}
+                {% if article.h2 %}
+                    <h2 class="article__subtitle">{{ article.h2 }}</h2>
+                {% endif %}
+                {% if article.elements %}
+                    {% for element in article.elements %}
+                        {% include 'affichage/affichage_readall.html.twig' %}
+                    {% endfor %}
+                {% else %}
+                    <p>Aucun contenu existant pour cet article</p>
+                {% endif %}
+                <p class="author" > {{ article.auteur }} </p>
+            </article>
         {% endfor %}
     {% else %}
         <p>Aucun articles existant</p>
     {% endif %}
-    
+
 
 {% endblock %}
