@@ -5,8 +5,7 @@ header {
     display: flex;
     flex-direction: column;
     padding: 0;
-    background-color: $dark;
-    color: #fff;
+    background-color: rgb(6, 6, 26);
     display: flex;
     nav {
         ul {
@@ -15,7 +14,7 @@ header {
             list-style: none;
             gap: 20px;
             a {
-                color: #fff;
+                color: white;
                 text-decoration: none;
             }
         }

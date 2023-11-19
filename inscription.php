@@ -21,6 +21,6 @@ include('includes/connexion.php');
 $pdo = connexion();
 
 // Lancement du moteur Twig avec les données
-echo $twig->render('./pages/connexion.html.twig', [
+echo $twig->render('./pages/inscription.html.twig', [
     'username' => $username,
 ]);

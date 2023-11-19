@@ -1,7 +1,7 @@
 @import "./../../variables/color.scss";
 
 .article--full {
-    background-color: $color1;
-    border: $color2;
+    background-color: $light;
+    border: $dark-green 1px solid;
     width: auto;
 }
