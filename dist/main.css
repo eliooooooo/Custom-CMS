@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100vw;
+  font-family: "Roboto", sans-serif;
 }
 
 /* assets/css/base/header.scss */
@@ -10,7 +11,7 @@ header {
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: #333;
+  background-color: #0e0e20;
   color: #fff;
   display: flex;
 }
@@ -18,12 +19,22 @@ header nav ul {
   display: flex;
   flex-direction: row;
   list-style: none;
+  gap: 20px;
+}
+header nav ul a {
+  color: #fff;
+  text-decoration: none;
 }
 
 /* assets/css/base/footer.scss */
 footer {
-  background-color: lightgray;
-  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #0e0e20;
+  color: white;
 }
 
 /* assets/css/base/admintoolbar.scss */

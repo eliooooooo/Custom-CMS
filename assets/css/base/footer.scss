@@ -1,4 +1,11 @@
+@import "./../variables/color.scss";
+
 footer {
-    background-color: lightgray;
-    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: $dark;
+    color: white;
 }
