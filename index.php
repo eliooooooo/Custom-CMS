@@ -5,6 +5,8 @@ include('./includes/connexion.php');
 include('./includes/element.php');
 include('./includes/article.php');
 
+echo '<div class="text-banner" > 🚧 Site en construction 🚧 </div>';
+
 // récupération de la variable page sur l'URL
 if (isset($_GET['page'])) $page = $_GET['page']; else $page = '';
  
