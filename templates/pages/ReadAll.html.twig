@@ -20,9 +20,7 @@
     {% elseif article %}
         {% for article in article %}
             <article class="article--full">
-                {% if article.h1 %}
-                    <h1 class="article__title">{{ article.h1 }}</h1>
-                {% endif %}
+                <h1 class="article__title">{{ article.h1 }}</h1>
                 {% if article.h2 %}
                     <h2 class="article__subtitle">{{ article.h2 }}</h2>
                 {% endif %}
@@ -36,6 +34,8 @@
                 <p class="author" > {{ article.auteur }} </p>
             </article>
         {% endfor %}
+    {% elseif categorie %}
+        {{  dump(categorie)}}
     {% else %}
         <p>Aucun articles existant</p>
     {% endif %}

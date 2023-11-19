@@ -4,6 +4,7 @@ session_start();
 include('./includes/connexion.php');
 include('./includes/element.php');
 include('./includes/article.php');
+include('./includes/categorie.php');
 
 echo '<div class="text-banner" > 🚧 Site en construction 🚧 </div>';
 
@@ -84,7 +85,40 @@ switch ($page) {
                 break;
         }
         break;   
-    default :
+        case 'categorie':
+            switch ($action) {
+                case 'read' :
+                    if ($id > 0) {
+                        $modele = './pages/ReadOne.html.twig';
+                        $data = ['categorie' => Categorie::readOne($id)];
+                    }
+                    else {
+                        $modele = './pages/ReadAll.html.twig';
+                        $data = ['categorie' => Categorie::readAll()];
+                    }
+                    break;
+                case 'create' :
+                    $categorie = new Categorie();
+                    $categorie->modifier($_POST['nom']);
+                    $categorie->create();
+                    $modele = './pages/ReadOne.html.twig';
+                    $data = ['categorie' => Categorie::readOne($categorie->id)];
+                    break;
+                case 'delete' :
+                    Categorie::delete($id);
+                    $modele = './pages/ReadAll.html.twig';
+                    $data = ['categorie' => Categorie::readAll()];
+                    break;
+                case 'update' :
+                    $categorie = Categorie::readOne($id);
+                    $categorie->modifier($_POST['nom']);
+                    $categorie->update();
+                    $modele = './pages/ReadOne.html.twig';
+                    $data = ['categorie' => Categorie::readOne($id)];
+                    break;
+            }
+            break;
+        default :
       $modele = 'frontpage.html.twig';
       $data = [];
   }

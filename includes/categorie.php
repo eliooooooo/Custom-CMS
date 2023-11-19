@@ -21,49 +21,64 @@ class Categorie {
         $query1 = $pdo->prepare($sql1);
         $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
         $query1->execute();
-        $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Element');
+        $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Categorie');
     
         // Deuxième requête
-        $sql2 = 'SELECT * FROM article WHERE id_article = :valeur';
+        $sql2 = 'SELECT * FROM article WHERE id_categorie = :valeur';
         $query2 = $pdo->prepare($sql2);
         $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
         $query2->execute();
         $result2 = $query2->fetchObject('Article');
     
         // Retourner les deux résultats sous forme de tableau
-        return ['elements' => $result1, 'article' => $result2];
+        return ['categorie' => $result1, 'article' => $result2];
+    }
+
+    static function readAll() {
+        // Requête pour récupérer toutes les catégories
+        $sql = 'SELECT * FROM categorie ORDER BY id_categorie';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->execute();
+        $categorie = $query->fetchAll(PDO::FETCH_CLASS, 'Categorie');
+
+        // Pour chaque article, récupérer ses éléments
+        foreach ($categorie as $categorie) {
+            $sql = 'SELECT a.* FROM article AS a WHERE a.id_categorie = :cat ORDER BY a.id_article';
+            $query = $pdo->prepare($sql);
+            $query->execute([':cat' => $categorie->id_categorie]);
+            $article = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
+
+            // Ajouter les éléments à l'article
+            $categorie->article = $article;
+        }
+
+        // Retourner les articles avec leurs éléments
+        return $categorie;
     }
 
     function create(){
-        #Construction de la requete create
-        $sql = 'INSERT INTO article (h1, h2, auteur, class) VALUES (:h1, :h2, :auteur, :class)';
-        
+        $sql = 'INSERT INTO categorie (nom, description, image) VALUES (:nom, :description, :image)';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
-        $query->bindValue(':h1', $this->h1, PDO::PARAM_STR);
-        $query->bindValue(':h2', $this->h2, PDO::PARAM_STR);
-        $query->bindValue(':auteur', $this->auteur, PDO::PARAM_STR);
-        $query->bindValue(':class', $this->class, PDO::PARAM_STR);
+        $query->bindValue(':nom', $this->nom, PDO::PARAM_STR);
+        $query->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $query->bindValue(':image', $this->image, PDO::PARAM_STR);
         $query->execute();
-
-        #Recuperation de l'id
-        $this->id = $pdo->lastInsertId();
+        $this->id_categorie = $pdo->lastInsertId();
     }
 
-    function modifier($h1, $h2, $auteur, $class){
-        $this->h1 = $h1;
-        $this->h2 = $h2;
-        $this->auteur = $auteur;
-        $this->class = $class;
+    function modifier($nom, $description, $image){
+        $this->nom = $nom;
+        $this->description = $description;
+        $this->image = $image;
 
-        if (empty($this->h1)) $this->h1 = NULL;
-        if (empty($this->h2)) $this->h2 = NULL;
-        if (empty($this->auteur)) $this->auteur = NULL;
-        if (empty($this->class)) $this->class = NULL;
+        if (empty($this->description)) $this->description = NULL;
+        if (empty($this->image)) $this->image = NULL;        
     }
 
     static function delete($id){
-        $sql = 'DELETE FROM article WHERE id = :id';
+        $sql = 'DELETE FROM categorie WHERE id_categorie = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
         $query->bindValue(':id', $id, PDO::PARAM_INT);
@@ -72,65 +87,42 @@ class Categorie {
 
     function update() {
         $fields = [];
-        $params = [':id' => $this->id];
+        $params = [':id' => $this->id_categorie];
 
-        if ($this->h1 !== null) {
-            $fields[] = 'h1 = :h1';
-            $params[':h1'] = $this->h1;
+        if ($this->nom !== null) {
+            $fields[] = 'nom = :nom';
+            $params[':nom'] = $this->nom;
+        }
+        if ($this->description !== null) {
+            $fields[] = 'description = :description';
+            $params[':description'] = $this->description;
+        }
+        if ($this->image !== null) {
+            $fields[] = 'image = :image';
+            $params[':image'] = $this->image;
         }
 
-        if ($this->h2 !== null) {
-            $fields[] = 'h2 = :h2';
-            $params[':h2'] = $this->h2;
-        }
-
-        if ($this->auteur !== null) {
-            $fields[] = 'auteur = :auteur';
-            $params[':auteur'] = $this->auteur;
-        }
-
-        if ($this->class !== null) {
-            $fields[] = 'class = :class';
-            $params[':class'] = $this->class;
-        }
-
-        if (!empty($fields)) {
-            $sql = sprintf(
-                'UPDATE element SET %s WHERE id = :id',
-                implode(', ', $fields)
-            );
-
-            $pdo = connexion();
-            $query = $pdo->prepare($sql);
-
-            foreach ($params as $key => $value) {
-                $query->bindValue($key, $value);
-            }
-
-            $query->execute();
-        }
+        $sql = 'UPDATE categorie SET '.implode(', ', $fields).' WHERE id_categorie = :id';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->execute($params);
     }
 
     function chargePOST(){
-        if (isset($_POST['h1'])) {
-            $this->h1 = $_POST['h1'];
+        if (isset($_POST['nom'])) {
+            $this->nom = $_POST['nom'];
         } else {
-            $this->h1 = NULL;
+            $this->nom = NULL;
         }
-        if (isset($_POST['h2'])) {
-            $this->h2 = $_POST['h2'];
+        if (isset($_POST['description'])) {
+            $this->description = $_POST['description'];
         } else {
-            $this->h2 = NULL;
+            $this->description = NULL;
         }
-        if (isset($_POST['auteur'])) {
-            $this->auteur = $_POST['auteur'];
+        if (isset($_POST['image'])) {
+            $this->image = $_POST['image'];
         } else {
-            $this->auteur = NULL;
-        }
-        if (isset($_POST['class'])) {
-            $this->class = $_POST['class'];
-        } else {
-            $this->class = NULL;
+            $this->image = NULL;
         }
     }
 }

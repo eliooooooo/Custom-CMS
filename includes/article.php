@@ -15,20 +15,19 @@ class Article {
     }
 
     static function readAll() {
-        $pdo = connexion();
-
         // Requête pour récupérer tous les articles
-        $sqlArticles = 'SELECT * FROM article ORDER BY id_article';
-        $queryArticles = $pdo->prepare($sqlArticles);
-        $queryArticles->execute();
-        $articles = $queryArticles->fetchAll(PDO::FETCH_CLASS, 'Article');
+        $sql = 'SELECT * FROM article ORDER BY id_article';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->execute();
+        $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
 
         // Pour chaque article, récupérer ses éléments
         foreach ($articles as $article) {
-            $sqlElements = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
-            $queryElements = $pdo->prepare($sqlElements);
-            $queryElements->execute([':articleId' => $article->id_article]);
-            $elements = $queryElements->fetchAll(PDO::FETCH_CLASS, 'Element');
+            $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+            $query = $pdo->prepare($sql);
+            $query->execute([':articleId' => $article->id_article]);
+            $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
 
             // Ajouter les éléments à l'article
             $article->elements = $elements;
@@ -80,7 +79,6 @@ class Article {
         $this->auteur = $auteur;
         $this->class = $class;
 
-        if (empty($this->h1)) $this->h1 = NULL;
         if (empty($this->h2)) $this->h2 = NULL;
         if (empty($this->auteur)) $this->auteur = NULL;
         if (empty($this->class)) $this->class = NULL;

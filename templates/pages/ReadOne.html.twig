@@ -12,7 +12,7 @@
             {% endif %}
             <{{element.balise}} {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.contenu}} </{{element.balise}}>
         {% endif %}
-    {% else %}
+    {% elseif article %}
         {% if article.article.h1 %} 
             <h1>{{article.article.h1}}</h1>
             {% if article.article.h2 %}
@@ -24,5 +24,16 @@
                 {% endfor %} 
             {% endif %}
         {% endif %}
+    {% elseif categorie %}
+        {{dump(categorie)}}
+        <h1> {{ categorie.categorie.nom }} </h1>
+        <hr>
+        {{dump(categorie.categorie)}}
+        <hr>
+        {{ dump(categorie.categorie.0) }}
+        <hr>
+        {{ dump(categorie.categorie.0.nom) }}
+    {% else %}
+        <p>Aucun contenu à afficher</p>
     {% endif %}
 {% endblock %}
