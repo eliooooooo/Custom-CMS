@@ -1,9 +1,21 @@
 @import "./base/base.scss";
 @import "./base/header.scss";
 @import "./base/footer.scss";
+@import "./base/login.scss";
 @import "./base/admintoolbar.scss";
-
+@import "./variables/color.scss";
+@import "./components/article/article--full.scss";
+@import "./components/wrapper.scss";
+ 
 .element {
     background-color: bisque;
     margin: 10px 0;
+}
+
+.text-banner {
+    background-color: rgb(255, 81, 0);
+    color: white;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
 }

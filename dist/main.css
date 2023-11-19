@@ -1,0 +1,136 @@
+/* assets/css/base/base.scss */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+}
+img {
+  max-width: 100%;
+}
+
+/* assets/css/base/header.scss */
+header {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: rgb(6, 6, 26);
+  display: flex;
+}
+header nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 20px;
+}
+header nav ul a {
+  color: white;
+  text-decoration: none;
+}
+
+/* assets/css/base/footer.scss */
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(6, 6, 26);
+  color: white;
+}
+
+/* assets/css/base/login.scss */
+.login-container {
+  background-color: rgb(235, 235, 235);
+  border: 1px solid black;
+  margin: auto;
+  padding: 20px;
+  max-width: 400px;
+}
+.login-container .hidden {
+  display: none;
+}
+.login-container div form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.login-container div form div {
+  display: flex;
+  flex-direction: column;
+}
+.login-container div form div label {
+  margin-bottom: 5px;
+}
+.login-container div form div button {
+  background-color: black;
+  color: white;
+  border: none;
+  height: 40px;
+  width: 50%;
+  margin: auto;
+}
+.login-container div h1 {
+  text-align: center;
+}
+
+/* assets/css/base/admintoolbar.scss */
+.admin-toolbar {
+  background-color: #f1c40f;
+  margin: 0;
+  padding: 0;
+}
+.admin-toolbar .admin-toolbar-liste {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+}
+.admin-toolbar .admin-toolbar-liste .admin-toolbar-liste-item {
+  padding: 0 20px;
+}
+.admin-toolbar .admin-toolbar-liste .admin-toolbar-liste-item .admin-toolbar-liste-item-link {
+  display: block;
+  padding: 15px;
+  text-align: center;
+  color: #000;
+  text-decoration: none;
+}
+.admin-toolbar .admin-toolbar-liste .admin-toolbar-liste-item:hover {
+  background-color: #f39c12;
+}
+
+/* assets/css/variables/color.scss */
+
+/* assets/css/components/article/article--full.scss */
+.article--full {
+  background-color: #f8f9fa;
+  border: #091a09 1px solid;
+  width: auto;
+}
+
+/* assets/css/components/wrapper.scss */
+.wrapper {
+  max-width: 960px;
+  margin: auto;
+  padding: 20px;
+}
+@media (min-width: 1440px) {
+  .wrapper {
+    max-width: 1280px;
+  }
+}
+
+/* assets/css/style.css */
+.element {
+  background-color: bisque;
+  margin: 10px 0;
+}
+.text-banner {
+  background-color: rgb(255, 81, 0);
+  color: white;
+  width: 100%;
+  padding: 5px 0;
+  text-align: center;
+}

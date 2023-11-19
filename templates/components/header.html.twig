@@ -1,31 +1,7 @@
 <header>
     {# Si l'utilisateur avec l'id_user 1 est connecté, alors on affiche l'admin toolbar #}
-    {% if id_user == 1 %}
-        <div class="admin-toolbar">
-            <ul class="admin-toolbar-liste">
-                <li class="admin-toolbar-liste-item">
-                    <a href="#" class="admin-toolbar-liste-item-link">{{username}}</a> 
-                </li>
-                <li class="admin-toolbar-liste-item">
-                    <a href="index.php" class="admin-toolbar-liste-item-link">Accueil - Titre du site</a> 
-                </li>
-                <li class="admin-toolbar-liste-item">
-                    <a href="index.php?page=element&action=read" class="admin-toolbar-liste-item-link">ReadAll</a> 
-                </li>
-                <li class="admin-toolbar-liste-item">
-                    <a href="index.php?page=element&action=read&id=4" class="admin-toolbar-liste-item-link">ReadOne</a> 
-                </li>
-                <li class="admin-toolbar-liste-item">
-                    <a href="index.php?page=element&action=readarticle&id=1" class="admin-toolbar-liste-item-link">ReadOne Article</a> 
-                </li>
-                <li class="admin-toolbar-liste-item">
-                    <a href="index.php?page=element&action=create" class="admin-toolbar-liste-item-link">Create</a> 
-                </li>
-                <li class="admin-toolbar-liste-item">
-                    <a href="index.php?page=element&action=delete" class="admin-toolbar-liste-item-link">Delete</a> 
-                </li>
-            </ul>
-        </div>
+    {% if id_user == 1 %}   
+        {% include './components/admin_toolbar.html.twig' %}
     {% endif %}
 
     {# On affiche la navigation #}

@@ -6,11 +6,8 @@ class Article {
     public $h2;
     public $auteur;
     public $class;
-    private $message_erreur;
 
     function __construct() {
-        // définit un attribut complémentaire (hors base de données)
-        $this->message_erreur = 'Erreur dans la class Article';
     }
 
     function affiche() {
@@ -18,37 +15,31 @@ class Article {
     }
 
     static function readAll() {
-        // // définition de la requête SQL
-        // $sql= 'select * from article';
-     
-        // $pdo = connexion();
-        // $query = $pdo->prepare($sql);
-        // $query->execute();
-        // $tableau = $query->fetchAll(PDO::FETCH_CLASS,'Article');
-        
-        // return $tableau;
-        // Première requête
-        $sql1 = 'select e.* from article AS a, element AS e where a.id_article = e.article ORDER BY e.article;';
+        // Requête pour récupérer tous les articles
+        $sql = 'SELECT * FROM article ORDER BY id_article';
         $pdo = connexion();
-        $query1 = $pdo->prepare($sql1);
-        $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query1->execute();
-        $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Element');
-    
-        // Deuxième requête
-        $sql2 = 'select * from article where id_article = :valeur';
-        $query2 = $pdo->prepare($sql2);
-        $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query2->execute();
-        $result2 = $query2->fetchObject('Article');
-    
-        // Retourner les deux résultats sous forme de tableau
-        return ['elements' => $result1, 'article' => $result2];
+        $query = $pdo->prepare($sql);
+        $query->execute();
+        $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
+
+        // Pour chaque article, récupérer ses éléments
+        foreach ($articles as $article) {
+            $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+            $query = $pdo->prepare($sql);
+            $query->execute([':articleId' => $article->id_article]);
+            $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+
+            // Ajouter les éléments à l'article
+            $article->elements = $elements;
+        }
+
+        // Retourner les articles avec leurs éléments
+        return $articles;
     }
 
     static function readOne($id){
         // Première requête
-        $sql1 = 'select e.* from article AS a, element AS e where a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
+        $sql1 = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
         $pdo = connexion();
         $query1 = $pdo->prepare($sql1);
         $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
@@ -56,7 +47,7 @@ class Article {
         $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Element');
     
         // Deuxième requête
-        $sql2 = 'select * from article where id_article = :valeur';
+        $sql2 = 'SELECT * FROM article WHERE id_article = :valeur';
         $query2 = $pdo->prepare($sql2);
         $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
         $query2->execute();
@@ -88,7 +79,6 @@ class Article {
         $this->auteur = $auteur;
         $this->class = $class;
 
-        if (empty($this->h1)) $this->h1 = NULL;
         if (empty($this->h2)) $this->h2 = NULL;
         if (empty($this->auteur)) $this->auteur = NULL;
         if (empty($this->class)) $this->class = NULL;

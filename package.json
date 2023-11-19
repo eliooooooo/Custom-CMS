@@ -1,0 +1,21 @@
+{
+  "name": "personnal-cms",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "prod": "node ./esbuild.prod.js",
+    "build": "node ./esbuild.build.js",
+    "watch": "node ./esbuild.watch.js",
+    "preview": "vite preview",
+    "lint:style": "stylelint \"**/*.scss\" --ignore-path .gitignore"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.13",
+    "postcss": "^8.4.16"
+  },
+  "dependencies": {
+    "esbuild-sass-plugin": "^2.16.0",
+    "postcss-scss": "^4.0.5",
+    "sass": "^1.54.9"
+  }
+}

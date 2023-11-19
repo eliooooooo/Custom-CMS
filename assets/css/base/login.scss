@@ -1,0 +1,36 @@
+.login-container {
+    background-color: rgb(235, 235, 235);
+    border: 1px solid black;
+    margin: auto;
+    padding: 20px;
+    max-width: 400px;
+    .hidden {
+        display: none;
+    }
+    div {
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            div {
+                display: flex;
+                flex-direction: column;
+                label {
+                    margin-bottom: 5px;
+                }
+                button {
+                    background-color: black;
+                    color: white;
+                    border: none;
+                    height: 40px;
+                    width: 50%;
+                    margin: auto;
+                }
+            }
+    
+        }
+        h1 {
+            text-align: center;
+        }
+    } 
+}

@@ -1,8 +1,12 @@
 <?php 
+session_start();
 
 include('./includes/connexion.php');
 include('./includes/element.php');
 include('./includes/article.php');
+include('./includes/categorie.php');
+
+echo '<div class="text-banner" > 🚧 Site en construction 🚧 </div>';
 
 // récupération de la variable page sur l'URL
 if (isset($_GET['page'])) $page = $_GET['page']; else $page = '';
@@ -27,16 +31,6 @@ switch ($page) {
                 $data = ['element' => Element::readAll()];
             }
             break;
-        case 'readarticle' :
-            if ($id > 0) {
-                $modele = './pages/ReadOne.html.twig';
-                $data = ['article' => Article::readOne($id)];
-            }
-            else {
-                $modele = './pages/ReadAll.html.twig';
-                $data = ['article' => Article::readAll()];
-            }
-            break;
         case 'create' :
             $element = new Element();
             $element->modifier($_POST['balise'], $_POST['contenu'], $_POST['alt'], $_POST['src'], $_POST['class']);
@@ -57,13 +51,78 @@ switch ($page) {
             $data = ['element' => Element::readOne($id)];
             break;
       }
-      break;   
-    default :
+      break;
+    case 'article' :
+        switch ($action) {
+            case 'read' :
+                if ($id > 0) {
+                    $modele = './pages/ReadOne.html.twig';
+                    $data = ['article' => Article::readOne($id)];
+                }
+                else {
+                    $modele = './pages/ReadAll.html.twig';
+                    $data = ['article' => Article::readAll()];
+                }
+                break;
+            case 'create' :
+                $article = new Article();
+                $article->modifier($_POST['h1'], $_POST['h2'], $_POST['auteur'], $_POST['class']);
+                $article->create();
+                $modele = './pages/ReadOne.html.twig';
+                $data = ['article' => Article::readOne($article->id)];
+                break;
+            case 'delete' :
+                Article::delete($id);
+                $modele = './pages/ReadAll.html.twig';
+                $data = ['article' => Article::readAll()];
+                break;
+            case 'update' :
+                $article = Article::readOne($id);
+                $article->modifier($_POST['h1'], $_POST['h2'], $_POST['auteur'], $_POST['class']);
+                $article->update();
+                $modele = './pages/ReadOne.html.twig';
+                $data = ['article' => Article::readOne($id)];
+                break;
+        }
+        break;   
+        case 'categorie':
+            switch ($action) {
+                case 'read' :
+                    if ($id > 0) {
+                        $modele = './pages/ReadOne.html.twig';
+                        $data = ['categorie' => Categorie::readOne($id)];
+                    }
+                    else {
+                        $modele = './pages/ReadAll.html.twig';
+                        $data = ['categorie' => Categorie::readAll()];
+                    }
+                    break;
+                case 'create' :
+                    $categorie = new Categorie();
+                    $categorie->modifier($_POST['nom']);
+                    $categorie->create();
+                    $modele = './pages/ReadOne.html.twig';
+                    $data = ['categorie' => Categorie::readOne($categorie->id)];
+                    break;
+                case 'delete' :
+                    Categorie::delete($id);
+                    $modele = './pages/ReadAll.html.twig';
+                    $data = ['categorie' => Categorie::readAll()];
+                    break;
+                case 'update' :
+                    $categorie = Categorie::readOne($id);
+                    $categorie->modifier($_POST['nom']);
+                    $categorie->update();
+                    $modele = './pages/ReadOne.html.twig';
+                    $data = ['categorie' => Categorie::readOne($id)];
+                    break;
+            }
+            break;
+        default :
       $modele = 'frontpage.html.twig';
       $data = [];
   }
 
-session_start();
 
 // Vérifiez si l'utilisateur est connecté
 $id_user = '';

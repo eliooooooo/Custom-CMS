@@ -5,23 +5,40 @@
 {% block content %}
 
     <h1>ReadAll</h1>
+    <form method="post" action="index.php?page=element&action=create">
+            <input type="text" name="balise" value="{{element.balise}}">
+            <input type="text" name="contenu" value="{{element.contenu}}">
+            <input type="text" name="class" value="{{element.class}}">
+            <input type="text" name="src" value="{{element.src}}">
+            <input type="text" name="alt" value="{{element.alt}}">
+            <input type="submit" value="Create">
+    </form>
     {% if element %}
         {% for element in element %}
             {% include 'affichage/affichage_readall.html.twig' %}
         {% endfor %}
+    {% elseif article %}
+        {% for article in article %}
+            <article class="article--full">
+                <h1 class="article__title">{{ article.h1 }}</h1>
+                {% if article.h2 %}
+                    <h2 class="article__subtitle">{{ article.h2 }}</h2>
+                {% endif %}
+                {% if article.elements %}
+                    {% for element in article.elements %}
+                        {% include 'affichage/affichage_readall.html.twig' %}
+                    {% endfor %}
+                {% else %}
+                    <p>Aucun contenu existant pour cet article</p>
+                {% endif %}
+                <p class="author" > {{ article.auteur }} </p>
+            </article>
+        {% endfor %}
+    {% elseif categorie %}
+        {{  dump(categorie)}}
     {% else %}
-        {% if article.article.h1 %} 
-            <h1>{{article.article.h1}}</h1>
-            {% if article.article.h2 %}
-            <h2>{{ article.article.h2 }}</h2>
-            {% endif %}
-            {% if article.elements %}
-                {% for element in article.elements %}
-                    {% include 'affichage/affichage_readall.html.twig' %}
-                {% endfor %} 
-            {% endif %}
-        {% endif %}
+        <p>Aucun articles existant</p>
     {% endif %}
-    
+
 
 {% endblock %}

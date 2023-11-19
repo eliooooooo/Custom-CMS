@@ -1,16 +1,22 @@
+@import "./../variables/color.scss";
+
+
 header {
     display: flex;
     flex-direction: column;
     padding: 0;
-    background-color: #333;
-    color: #fff;
+    background-color: rgb(6, 6, 26);
     display: flex;
     nav {
         ul {
             display: flex;
             flex-direction: row;
             list-style: none;
-            
+            gap: 20px;
+            a {
+                color: white;
+                text-decoration: none;
+            }
         }
     }
 }
