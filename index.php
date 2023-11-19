@@ -30,16 +30,6 @@ switch ($page) {
                 $data = ['element' => Element::readAll()];
             }
             break;
-        case 'readarticle' :
-            if ($id > 0) {
-                $modele = './pages/ReadOne.html.twig';
-                $data = ['article' => Article::readOne($id)];
-            }
-            else {
-                $modele = './pages/ReadAll.html.twig';
-                $data = ['article' => Article::readAll()];
-            }
-            break;
         case 'create' :
             $element = new Element();
             $element->modifier($_POST['balise'], $_POST['contenu'], $_POST['alt'], $_POST['src'], $_POST['class']);
@@ -60,7 +50,40 @@ switch ($page) {
             $data = ['element' => Element::readOne($id)];
             break;
       }
-      break;   
+      break;
+    case 'article' :
+        switch ($action) {
+            case 'read' :
+                if ($id > 0) {
+                    $modele = './pages/ReadOne.html.twig';
+                    $data = ['article' => Article::readOne($id)];
+                }
+                else {
+                    $modele = './pages/ReadAll.html.twig';
+                    $data = ['article' => Article::readAll()];
+                }
+                break;
+            case 'create' :
+                $article = new Article();
+                $article->modifier($_POST['h1'], $_POST['h2'], $_POST['auteur'], $_POST['class']);
+                $article->create();
+                $modele = './pages/ReadOne.html.twig';
+                $data = ['article' => Article::readOne($article->id)];
+                break;
+            case 'delete' :
+                Article::delete($id);
+                $modele = './pages/ReadAll.html.twig';
+                $data = ['article' => Article::readAll()];
+                break;
+            case 'update' :
+                $article = Article::readOne($id);
+                $article->modifier($_POST['h1'], $_POST['h2'], $_POST['auteur'], $_POST['class']);
+                $article->update();
+                $modele = './pages/ReadOne.html.twig';
+                $data = ['article' => Article::readOne($id)];
+                break;
+        }
+        break;   
     default :
       $modele = 'frontpage.html.twig';
       $data = [];
