@@ -36,6 +36,8 @@
         {% endfor %}
     {% elseif categorie %}
         {{ dump(categorie)}}
+        <hr>
+        {{ dump(categorie.0) }}
         <h1> {{ categorie.categorie.nom }} </h1>
         <p>{{ categorie.categorie.description }}</p>
         {# <img src="{{categorie.categorie.image}}" alt="{{categorie.categorie.nom}}"> #}
