@@ -35,7 +35,25 @@
             </article>
         {% endfor %}
     {% elseif categorie %}
-        {{  dump(categorie)}}
+        {{ dump(categorie)}}
+        <h1> {{ categorie.categorie.nom }} </h1>
+        <p>{{ categorie.categorie.description }}</p>
+        {# <img src="{{categorie.categorie.image}}" alt="{{categorie.categorie.nom}}"> #}
+        {% if categorie.article %}
+          {% for article in categorie.article %}
+              <h2>{{ article.h1 }}</h2>
+              {% if article.h2 %}
+              <h3>{{ article.h2 }}</h3>
+              {% endif %}
+              {% if article.elements %}
+                  {% for element in article.elements %}
+                      {% include 'affichage/affichage_readall.html.twig' %}
+                  {% endfor %} 
+              {% endif %}
+          {% endfor %}
+        {% else %}
+          <p>Aucun article à afficher</p>
+        {% endif %}
     {% else %}
         <p>Aucun articles existant</p>
     {% endif %}

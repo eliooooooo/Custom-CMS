@@ -21,17 +21,29 @@ class Categorie {
         $query1 = $pdo->prepare($sql1);
         $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
         $query1->execute();
-        $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Categorie');
+        $result1 = $query1->fetchObject('Categorie');
     
-        // Deuxième requête
-        $sql2 = 'SELECT * FROM article WHERE id_categorie = :valeur';
-        $query2 = $pdo->prepare($sql2);
-        $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query2->execute();
-        $result2 = $query2->fetchObject('Article');
+        // Requête pour récupérer tous les articles
+        $sql = 'SELECT * FROM article WHERE id_categorie = :valeur ORDER BY id_article';
+        $pdo = connexion();
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+        $query->execute();
+        $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
+
+        // Pour chaque article, récupérer ses éléments
+        foreach ($articles as $article) {
+            $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+            $query = $pdo->prepare($sql);
+            $query->execute([':articleId' => $article->id_article]);
+            $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+
+            // Ajouter les éléments à l'article
+            $article->elements = $elements;
+        }
     
         // Retourner les deux résultats sous forme de tableau
-        return ['categorie' => $result1, 'article' => $result2];
+        return ['categorie' => $result1, 'article' => $articles];
     }
 
     static function readAll() {
@@ -40,21 +52,31 @@ class Categorie {
         $pdo = connexion();
         $query = $pdo->prepare($sql);
         $query->execute();
-        $categorie = $query->fetchAll(PDO::FETCH_CLASS, 'Categorie');
+        $categories = $query->fetchAll(PDO::FETCH_CLASS, 'Categorie');
 
         // Pour chaque article, récupérer ses éléments
-        foreach ($categorie as $categorie) {
+        foreach ($categories as $categorie) {
             $sql = 'SELECT a.* FROM article AS a WHERE a.id_categorie = :cat ORDER BY a.id_article';
             $query = $pdo->prepare($sql);
             $query->execute([':cat' => $categorie->id_categorie]);
-            $article = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
+            $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
 
             // Ajouter les éléments à l'article
-            $categorie->article = $article;
+            $categorie->articles = $articles;
+
+            foreach ($articles as $article) {
+                $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+                $query = $pdo->prepare($sql);
+                $query->execute([':articleId' => $article->id_article]);
+                $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+
+                // Ajouter les éléments à l'article
+                $article->elements = $elements;
+            }
         }
 
         // Retourner les articles avec leurs éléments
-        return $categorie;
+        return $categories;
     }
 
     function create(){

@@ -3,9 +3,9 @@ const sassPlugin = require('esbuild-sass-plugin').default;
 require("esbuild")
     .build({
         logLevel: "debug",
-        entryPoints: ["assets/js/main.js"],
+        entryPoints: ["./assets/js/main.js"],
         bundle: true,
-        outdir: 'dist',
+        outdir: './dist',
         minify: false,
         plugins: [sassPlugin({ absWorkingDir: process.cwd() })],
         watch: {
