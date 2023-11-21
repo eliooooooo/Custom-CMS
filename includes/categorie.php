@@ -47,36 +47,15 @@ class Categorie {
     }
 
     static function readAll() {
-        // Requête pour récupérer toutes les catégories
-        $sql = 'SELECT * FROM categorie ORDER BY id_categorie';
-        $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->execute();
-        $categories = $query->fetchAll(PDO::FETCH_CLASS, 'Categorie');
+      // Requête pour récupérer toutes les catégories
+      $sql = 'SELECT * FROM categorie ORDER BY id_categorie';
+      $pdo = connexion();
+      $query = $pdo->prepare($sql);
+      $query->execute();
+      $categories = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        // Pour chaque article, récupérer ses éléments
-        foreach ($categories as $categorie) {
-            $sql = 'SELECT a.* FROM article AS a WHERE a.id_categorie = :cat ORDER BY a.id_article';
-            $query = $pdo->prepare($sql);
-            $query->execute([':cat' => $categorie->id_categorie]);
-            $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
-
-            // Ajouter les éléments à l'article
-            $categorie->articles = $articles;
-
-            foreach ($articles as $article) {
-                $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
-                $query = $pdo->prepare($sql);
-                $query->execute([':articleId' => $article->id_article]);
-                $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
-
-                // Ajouter les éléments à l'article
-                $article->elements = $elements;
-            }
-        }
-
-        // Retourner les articles avec leurs éléments
-        return $categories;
+      // Retourner toutes les catégories
+      return $categories;
     }
 
     function create(){

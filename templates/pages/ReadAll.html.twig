@@ -18,6 +18,7 @@
             {% include 'affichage/affichage_readall.html.twig' %}
         {% endfor %}
     {% elseif article %}
+      <section>
         {% for article in article %}
             <article class="article--full">
                 <h1 class="article__title">{{ article.h1 }}</h1>
@@ -34,31 +35,19 @@
                 <p class="author" > {{ article.auteur }} </p>
             </article>
         {% endfor %}
+      </section>
     {% elseif categorie %}
-        {{ dump(categorie)}}
-        <hr>
-        {{ dump(categorie.0) }}
-        <h1> {{ categorie.categorie.nom }} </h1>
-        <p>{{ categorie.categorie.description }}</p>
-        {# <img src="{{categorie.categorie.image}}" alt="{{categorie.categorie.nom}}"> #}
-        {% if categorie.article %}
-          {% for article in categorie.article %}
-              <h2>{{ article.h1 }}</h2>
-              {% if article.h2 %}
-              <h3>{{ article.h2 }}</h3>
-              {% endif %}
-              {% if article.elements %}
-                  {% for element in article.elements %}
-                      {% include 'affichage/affichage_readall.html.twig' %}
-                  {% endfor %} 
-              {% endif %}
-          {% endfor %}
-        {% else %}
-          <p>Aucun article à afficher</p>
-        {% endif %}
+      <section>
+        {% for categorie in categorie %}
+          <article>
+            <h1>{{ categorie.nom }}</h1>
+            <p>{{ categorie.description }}</p>
+            <a href="index.php?page=categorie&action=read&id={{ categorie.id_categorie }}">Decouvrir</a>
+            {# <img src="{{categorie.image}}" alt="{{categorie.nom}}"> #}
+          </article>
+        {% endfor %}
+      </section>
     {% else %}
         <p>Aucun articles existant</p>
     {% endif %}
-
-
 {% endblock %}
