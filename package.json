@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "prod": "node ./esbuild.prod.js",
-    "build": "node ./esbuild.build.js",
-    "watch": "node ./esbuild.watch.js",
+    "prod": "node ./esbuild/esbuild.prod.js",
+    "build": "node ./esbuild/esbuild.build.js",
+    "watch": "node ./esbuild/esbuild.watch.js",
     "preview": "vite preview",
     "lint:style": "stylelint \"**/*.scss\" --ignore-path .gitignore"
   },

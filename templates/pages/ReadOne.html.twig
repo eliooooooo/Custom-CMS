@@ -20,7 +20,7 @@
             {% endif %}
             {% if article.elements %}
                 {% for element in article.elements %}
-                    {% include 'affichage/affichage_readall.html.twig' %}
+                    {% include 'affichage/affichage_elements.html.twig' %}
                 {% endfor %} 
             {% endif %}
         {% endif %}
@@ -36,7 +36,7 @@
               {% endif %}
               {% if article.elements %}
                   {% for element in article.elements %}
-                      {% include 'affichage/affichage_readall.html.twig' %}
+                      {% include 'affichage/affichage_elements.html.twig' %}
                   {% endfor %} 
               {% endif %}
           {% endfor %}

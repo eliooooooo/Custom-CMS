@@ -1,0 +1,15 @@
+.form-update {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  .group-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .group-form-check {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+  }
+}

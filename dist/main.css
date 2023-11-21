@@ -110,6 +110,22 @@ footer {
   width: auto;
 }
 
+/* assets/css/components/form/form-update.scss */
+.form-update {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.form-update .group-form {
+  display: flex;
+  flex-direction: column;
+}
+.form-update .group-form-check {
+  display: flex;
+  flex-direction: row;
+}
+
 /* assets/css/components/wrapper.scss */
 .wrapper {
   max-width: 960px;
