@@ -20,7 +20,7 @@ class Element {
     }
 
     static function readAll() {
-        // définition de la requête SQL
+        // Requête pour récupérer tous les éléments
         $sql= 'SELECT * FROM element';
      
         $pdo = connexion();
@@ -32,7 +32,7 @@ class Element {
     }
 
     static function readOne($id){
-        // définition de la requête SQL avec un paramètre :valeur
+        // Requête pour récupérer un seul élément
         $sql= 'SELECT * FROM element WHERE id = :valeur';
      
         $pdo = connexion();
@@ -45,7 +45,7 @@ class Element {
     }
 
     function create(){
-        #Construction de la requete create
+        // Requête pour créer un élément
         $sql = 'INSERT INTO element (balise, contenu, alt, src, class) VALUES (:balise, :contenu, :alt, :src, :class)';
         
         $pdo = connexion();
@@ -57,11 +57,12 @@ class Element {
         $query->bindValue(':class', $this->class, PDO::PARAM_STR);
         $query->execute();
 
-        #Recuperation de l'id
+        // Récupération de l'id de l'élément créé
         $this->id = $pdo->lastInsertId();
     }
 
     function modifier($balise, $contenu, $alt, $src, $class){
+        // Modification des attributs
         $this->balise = $balise;
         $this->contenu = $contenu;
         $this->alt = $alt;
@@ -75,6 +76,7 @@ class Element {
     }
 
     static function delete($id){
+        // Requête pour supprimer un élément
         $sql = 'DELETE FROM element WHERE id = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -83,6 +85,7 @@ class Element {
     }
 
     function update() {
+        // Requête pour modifier un élément
         $fields = [];
         $params = [':id' => $this->id];
 
@@ -129,6 +132,7 @@ class Element {
     }
 
     function chargePOST(){
+        // Charge les attributs à partir des données POST
         if (isset($_POST['balise'])) {
             $this->balise = $_POST['balise'];
         } else {
@@ -157,7 +161,7 @@ class Element {
     }
 
     static function readByArticle($id){
-        // définition de la requête SQL avec un paramètre :valeur
+        // Requête pour récupérer tous les éléments d'un article
         $sql= 'SELECT * FROM element WHERE article = :valeur';
      
         $pdo = connexion();

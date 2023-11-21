@@ -38,27 +38,27 @@ class Article {
     }
 
     static function readOne($id){
-        // Première requête
-        $sql1 = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
+        // Requête pour récupérer un seul article
+        $sql = 'SELECT * FROM article WHERE id_article = :valeur';
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result1 = $query->fetchObject('Article');
+
+        // Requête pour récupérer les éléments de l'article
+        $sql = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
         $pdo = connexion();
-        $query1 = $pdo->prepare($sql1);
-        $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query1->execute();
-        $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Element');
-    
-        // Deuxième requête
-        $sql2 = 'SELECT * FROM article WHERE id_article = :valeur';
-        $query2 = $pdo->prepare($sql2);
-        $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query2->execute();
-        $result2 = $query2->fetchObject('Article');
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result2 = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
     
         // Retourner les deux résultats sous forme de tableau
-        return ['elements' => $result1, 'article' => $result2];
+        return ['article' => $result1, 'elements' => $result2];
     }
 
     function create(){
-        #Construction de la requete create
+        // Requête pour créer un article
         $sql = 'INSERT INTO article (h1, h2, auteur, class) VALUES (:h1, :h2, :auteur, :class)';
         
         $pdo = connexion();
@@ -69,11 +69,12 @@ class Article {
         $query->bindValue(':class', $this->class, PDO::PARAM_STR);
         $query->execute();
 
-        #Recuperation de l'id
+        // Recupération de l'id de l'article créé
         $this->id = $pdo->lastInsertId();
     }
 
     function modifier($h1, $h2, $auteur, $class){
+        // Modification des attributs
         $this->h1 = $h1;
         $this->h2 = $h2;
         $this->auteur = $auteur;
@@ -85,6 +86,7 @@ class Article {
     }
 
     static function delete($id){
+        // Requête pour supprimer un article
         $sql = 'DELETE FROM article WHERE id = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -93,6 +95,7 @@ class Article {
     }
 
     function update() {
+        // Requête pour mettre à jour un article
         $fields = [];
         $params = [':id' => $this->id];
 
@@ -134,6 +137,7 @@ class Article {
     }
 
     function chargePOST(){
+        // Récupération des données du formulaire
         if (isset($_POST['h1'])) {
             $this->h1 = $_POST['h1'];
         } else {

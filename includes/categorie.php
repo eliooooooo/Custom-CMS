@@ -15,15 +15,15 @@ class Categorie {
     }
 
     static function readOne($id){
-        // Première requête
-        $sql1 = 'SELECT * FROM categorie WHERE id_categorie = :valeur';
+        // Requête pour récupérer une catégorie
+        $sql = 'SELECT * FROM categorie WHERE id_categorie = :valeur';
         $pdo = connexion();
-        $query1 = $pdo->prepare($sql1);
-        $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query1->execute();
-        $result1 = $query1->fetchObject('Categorie');
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchObject('Categorie');
     
-        // Requête pour récupérer tous les articles
+        // Requête pour récupérer tous les articles de la catégorie
         $sql = 'SELECT * FROM article WHERE id_categorie = :valeur ORDER BY id_article';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -43,7 +43,7 @@ class Categorie {
         }
     
         // Retourner les deux résultats sous forme de tableau
-        return ['categorie' => $result1, 'article' => $articles];
+        return ['categorie' => $result, 'article' => $articles];
     }
 
     static function readAll() {
@@ -59,6 +59,7 @@ class Categorie {
     }
 
     function create(){
+        // Requête pour créer une catégorie
         $sql = 'INSERT INTO categorie (nom, description, image) VALUES (:nom, :description, :image)';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -70,6 +71,7 @@ class Categorie {
     }
 
     function modifier($nom, $description, $image){
+        // Requête pour modifier une catégorie
         $this->nom = $nom;
         $this->description = $description;
         $this->image = $image;
@@ -79,6 +81,7 @@ class Categorie {
     }
 
     static function delete($id){
+        // Requête pour supprimer une catégorie
         $sql = 'DELETE FROM categorie WHERE id_categorie = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -87,6 +90,7 @@ class Categorie {
     }
 
     function update() {
+        // Requête pour modifier une catégorie
         $fields = [];
         $params = [':id' => $this->id_categorie];
 
@@ -110,6 +114,7 @@ class Categorie {
     }
 
     function chargePOST(){
+        // Charge les attributs à partir des données POST
         if (isset($_POST['nom'])) {
             $this->nom = $_POST['nom'];
         } else {

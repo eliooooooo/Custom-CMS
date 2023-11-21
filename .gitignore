@@ -1,2 +1,4 @@
 connexion.php
 node_modules
+.editorconfig
+dist
