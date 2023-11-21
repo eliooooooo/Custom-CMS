@@ -1,0 +1,15 @@
+{% extends "page.html.twig" %}
+
+{% block content %}
+	<h1>Page Régions</h1>
+
+	<form>
+		{% for region in regions %}
+			{{ dump(region) }}
+			<div class="form-group">
+				<input type="checkbox" id="">
+				<label for="header">{{ region.name }}</label>
+			</div>
+		{% endfor %}
+	</form>
+{% endblock %}

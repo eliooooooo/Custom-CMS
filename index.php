@@ -5,6 +5,7 @@ include('./includes/connexion.php');
 include('./includes/element.php');
 include('./includes/article.php');
 include('./includes/categorie.php');
+include('./includes/regions.php');
 
 echo '<div class="text-banner" > 🚧 Site en construction 🚧 </div>';
 
@@ -117,6 +118,10 @@ switch ($page) {
                     $data = ['categorie' => Categorie::readOne($id)];
                     break;
             }
+            break;
+        case 'regions' :
+            $modele = './pages/regions.html.twig';
+            $data = ['regions' => $regions];
             break;
         default :
       $modele = 'frontpage.html.twig';
