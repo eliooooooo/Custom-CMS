@@ -1,8 +1,9 @@
 <?php
 
 // Définition des régions existantes
+// Créer une table dédiée dans la base de donnée ? Pour modifier les élémets au besoin (par le formulaire checkbox)
 $regions = [
-    'header' => false,
+    'header' => true,
     'primary_menu' => false,
     'secondary_menu' => false,
     'aside_left' => false,
@@ -15,17 +16,10 @@ $regions = [
         'bottom_page_third' => false,
     ],
     'footer' => [
-        'footer_first' => false,
+        'footer_first' => true,
         'footer_second' => false,
         'footer_third' => false,
         'footer_fourth' => false,
     ],
 ];
 
-// var_dump($regions);
-// echo '<br><br>';
-
-// $regions['header'] = true;
-// $regions['bottom_page']['bottom_page_first'] = true;
-
-// var_dump($regions);
