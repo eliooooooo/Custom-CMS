@@ -1,20 +1,21 @@
 <?php 
 session_start();
 
+// Connexion à la base de données
 include('./includes/connexion.php');
+// import des différentes class
 include('./includes/element.php');
 include('./includes/article.php');
 include('./includes/categorie.php');
 include('./includes/regions.php');
 
+// bannière temporaire
 echo '<div class="text-banner" > 🚧 Site en construction 🚧 </div>';
 
 // récupération de la variable page sur l'URL
 if (isset($_GET['page'])) $page = $_GET['page']; else $page = '';
- 
 // récupération de la variable action sur l'URL
 if (isset($_GET['action'])) $action = $_GET['action']; else $action = 'read';
- 
 // récupération de l'id s'il existe (par convention la clé 0 correspond à un id inexistant)
 if (isset($_GET['id'])) $id = intval($_GET['id']); else $id = 0;
  
@@ -119,9 +120,18 @@ switch ($page) {
                     break;
             }
             break;
-        case 'regions' :
-            $modele = './pages/regions.html.twig';
-            $data = ['regions' => $regions];
+        case 'settings' :
+            switch ($action) {
+                // case 'update' :
+                //   $region = Region::readOne($id);
+                //   $region->modifier($_POST['affichage']);
+                //   $region->update();
+                //   $modele = './pages/settings.html.twig';
+                //   $data = ['categorie' => Categorie::readOne($id)];
+                //   break;
+            }
+            $modele = './pages/settings.html.twig';
+            $data = ['regions' => Region::readAll() ];
             break;
         default :
       $modele = 'frontpage.html.twig';

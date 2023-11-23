@@ -38,7 +38,7 @@ class Article {
     }
 
     static function readOne($id){
-        // Première requête
+        // Requête  pour sélectionner un article
         $sql1 = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
         $pdo = connexion();
         $query1 = $pdo->prepare($sql1);
@@ -46,7 +46,7 @@ class Article {
         $query1->execute();
         $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Element');
     
-        // Deuxième requête
+        // On sélectionne ses différents éléments
         $sql2 = 'SELECT * FROM article WHERE id_article = :valeur';
         $query2 = $pdo->prepare($sql2);
         $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
@@ -58,7 +58,7 @@ class Article {
     }
 
     function create(){
-        #Construction de la requete create
+        // Requete pour créer un article
         $sql = 'INSERT INTO article (h1, h2, auteur, class) VALUES (:h1, :h2, :auteur, :class)';
         
         $pdo = connexion();
@@ -69,11 +69,12 @@ class Article {
         $query->bindValue(':class', $this->class, PDO::PARAM_STR);
         $query->execute();
 
-        #Recuperation de l'id
+        // Récupération de l'id de l'article crée
         $this->id = $pdo->lastInsertId();
     }
 
     function modifier($h1, $h2, $auteur, $class){
+        // Requete pour modifier les valeurs
         $this->h1 = $h1;
         $this->h2 = $h2;
         $this->auteur = $auteur;
@@ -85,6 +86,7 @@ class Article {
     }
 
     static function delete($id){
+        // Requete pour supprimer un article
         $sql = 'DELETE FROM article WHERE id = :id';
         $pdo = connexion();
         $query = $pdo->prepare($sql);
@@ -93,6 +95,7 @@ class Article {
     }
 
     function update() {
+        // Requete pour mettre à jour les valeurs
         $fields = [];
         $params = [':id' => $this->id];
 
@@ -134,6 +137,7 @@ class Article {
     }
 
     function chargePOST(){
+        // Permet de charger le formulaire POST
         if (isset($_POST['h1'])) {
             $this->h1 = $_POST['h1'];
         } else {
