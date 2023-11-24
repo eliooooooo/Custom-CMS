@@ -1,6 +1,6 @@
 <?php 
 
-class Categorie {
+class Category {
     // liste des attributs
     public $id_categorie;
     public $nom;
@@ -14,48 +14,47 @@ class Categorie {
         echo '<article class="'.$this->class.'" ><h1>'.$this->h1.'</h1><h2>'.$this->h2.'</h2></article>';
     }
 
-    static function readOne($id){
-        // Première requête
-        $sql1 = 'SELECT * FROM categorie WHERE id_categorie = :valeur';
+    static function read($id = null) {
         $pdo = connexion();
-        $query1 = $pdo->prepare($sql1);
-        $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query1->execute();
-        $result1 = $query1->fetchObject('Categorie');
-    
-        // Requête pour récupérer tous les articles
-        $sql = 'SELECT * FROM article WHERE id_categorie = :valeur ORDER BY id_article';
-        $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query->execute();
-        $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
 
-        // Pour chaque article, récupérer ses éléments
-        foreach ($articles as $article) {
-            $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+        if ($id === null) {
+            // Requête pour récupérer toutes les catégories
+            $sql = 'SELECT * FROM categorie ORDER BY id_categorie';
             $query = $pdo->prepare($sql);
-            $query->execute([':articleId' => $article->id_article]);
-            $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+            $query->execute();
+            $category = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            // Ajouter les éléments à l'article
-            $article->elements = $elements;
+            // Retourner toutes les catégories
+            return $category;
+        } else {
+            // Première requête
+            $sql = 'SELECT * FROM categorie WHERE id_categorie = :valeur';
+            $query = $pdo->prepare($sql);
+            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+            $query->execute();
+            $category = $query->fetchObject('Category');
+        
+            // Requête pour récupérer tous les articles
+            $sql = 'SELECT * FROM article WHERE id_categorie = :valeur ORDER BY id_article';
+            $query = $pdo->prepare($sql);
+            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+            $query->execute();
+            $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
+
+            // Pour chaque article, récupérer ses éléments
+            foreach ($articles as $article) {
+                $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+                $query = $pdo->prepare($sql);
+                $query->execute([':articleId' => $article->id_article]);
+                $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+
+                // Ajouter les éléments à l'article
+                $article->elements = $elements;
+            }
+        
+            // Retourner les deux résultats sous forme de tableau
+            return ['category' => $category, 'article' => $articles];
         }
-    
-        // Retourner les deux résultats sous forme de tableau
-        return ['categorie' => $result1, 'article' => $articles];
-    }
-
-    static function readAll() {
-      // Requête pour récupérer toutes les catégories
-      $sql = 'SELECT * FROM categorie ORDER BY id_categorie';
-      $pdo = connexion();
-      $query = $pdo->prepare($sql);
-      $query->execute();
-      $categories = $query->fetchAll(PDO::FETCH_ASSOC);
-
-      // Retourner toutes les catégories
-      return $categories;
     }
 
     function create(){
@@ -66,7 +65,7 @@ class Categorie {
         $query->bindValue(':description', $this->description, PDO::PARAM_STR);
         $query->bindValue(':image', $this->image, PDO::PARAM_STR);
         $query->execute();
-        $this->id_categorie = $pdo->lastInsertId();
+        $this->id_category = $pdo->lastInsertId();
     }
 
     function modifier($nom, $description, $image){
@@ -88,7 +87,7 @@ class Categorie {
 
     function update() {
         $fields = [];
-        $params = [':id' => $this->id_categorie];
+        $params = [':id' => $this->id_category];
 
         if ($this->nom !== null) {
             $fields[] = 'nom = :nom';

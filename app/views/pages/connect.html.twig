@@ -9,7 +9,7 @@
         <div class="connexion">
             <h1>Formulaire de connexion</h1>
             <hr>
-            <form method="post" action="process_connexion.php">
+            <form method="post" action="./app/controllers/LoginController.php">
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur :</label>
                     <input type="text" id="username" name="username" value="{{ last_username }}" required autofocus>
@@ -24,7 +24,7 @@
                     <button type="submit" class="btn btn-primary">Se connecter</button>
                 </div>
             </form>
-            <p>Vous n'avez pas encore de compte ?<a href="inscription.php">Inscrivez-vous</a></p>
+            {# <p>Vous n'avez pas encore de compte ?<a href="inscription.php">Inscrivez-vous</a></p> #}
         </div>
     </div>
 

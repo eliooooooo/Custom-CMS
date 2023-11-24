@@ -14,47 +14,47 @@ class Article {
         echo '<article class="'.$this->class.'" ><h1>'.$this->h1.'</h1><h2>'.$this->h2.'</h2></article>';
     }
 
-    static function readAll() {
-        // Requête pour récupérer tous les articles
-        $sql = 'SELECT * FROM article ORDER BY id_article';
+    static function read($id = null) {
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->execute();
-        $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
 
-        // Pour chaque article, récupérer ses éléments
-        foreach ($articles as $article) {
-            $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+        if ($id === null) {
+            // Requête pour récupérer tous les articles
+            $sql = 'SELECT * FROM article ORDER BY id_article';
             $query = $pdo->prepare($sql);
-            $query->execute([':articleId' => $article->id_article]);
-            $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+            $query->execute();
+            $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
 
-            // Ajouter les éléments à l'article
-            $article->elements = $elements;
+            // Pour chaque article, récupérer ses éléments
+            foreach ($articles as $article) {
+                $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
+                $query = $pdo->prepare($sql);
+                $query->execute([':articleId' => $article->id_article]);
+                $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+
+                // Ajouter les éléments à l'article
+                $article->elements = $elements;
+            }
+
+            // Retourner les articles avec leurs éléments
+            return $articles;
+        } else {
+            // Requête  pour sélectionner un article
+            $sql = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
+            $query = $pdo->prepare($sql);
+            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+            $query->execute();
+            $result1 = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+        
+            // On sélectionne ses différents éléments
+            $sql = 'SELECT * FROM article WHERE id_article = :valeur';
+            $query = $pdo->prepare($sql);
+            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+            $query->execute();
+            $result2 = $query->fetchObject('Article');
+        
+            // Retourner les deux résultats sous forme de tableau
+            return ['elements' => $result1, 'article' => $result2];
         }
-
-        // Retourner les articles avec leurs éléments
-        return $articles;
-    }
-
-    static function readOne($id){
-        // Requête  pour sélectionner un article
-        $sql1 = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
-        $pdo = connexion();
-        $query1 = $pdo->prepare($sql1);
-        $query1->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query1->execute();
-        $result1 = $query1->fetchAll(PDO::FETCH_CLASS, 'Element');
-    
-        // On sélectionne ses différents éléments
-        $sql2 = 'SELECT * FROM article WHERE id_article = :valeur';
-        $query2 = $pdo->prepare($sql2);
-        $query2->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query2->execute();
-        $result2 = $query2->fetchObject('Article');
-    
-        // Retourner les deux résultats sous forme de tableau
-        return ['elements' => $result1, 'article' => $result2];
     }
 
     function create(){

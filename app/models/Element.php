@@ -19,29 +19,25 @@ class Element {
         }
     }
 
-    static function readAll() {
-        // définition de la requête SQL
-        $sql= 'SELECT * FROM element';
-     
+    static function read($id = null) {
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->execute();
-        $tableau = $query->fetchAll(PDO::FETCH_CLASS,'Element');
-        
-        return $tableau;
-    }
 
-    static function readOne($id){
-        // définition de la requête SQL avec un paramètre :valeur
-        $sql= 'SELECT * FROM element WHERE id = :valeur';
-     
-        $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query->execute();
-        $objet = $query->fetchObject('Element');
-     
-        return $objet;
+        if ($id === null) {
+            // définition de la requête SQL
+            $sql= 'SELECT * FROM element';
+            $query = $pdo->prepare($sql);
+            $query->execute();
+            $tableau = $query->fetchAll(PDO::FETCH_CLASS,'Element');
+            return $tableau;
+        } else {
+            // définition de la requête SQL avec un paramètre :valeur
+            $sql= 'SELECT * FROM element WHERE id = :valeur';
+            $query = $pdo->prepare($sql);
+            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
+            $query->execute();
+            $element = $query->fetchObject('Element');
+            return $element;
+        }
     }
 
     function create(){
