@@ -38,6 +38,7 @@ class SqlController {
         if (!empty($conditions)) {
             $query .= " WHERE $conditions";
         }
+        echo $query;
 
         // Préparation et exécution de la requête
         $statement = $this->pdo->prepare($query);

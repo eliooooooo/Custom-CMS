@@ -2,7 +2,7 @@
 
 class Element {
     // liste des attributs
-    public $balise;
+    public $tags;
     public $contenu;
     public $alt;
     public $src;
@@ -12,10 +12,10 @@ class Element {
     }
 
     function affiche() {
-        if ($this->balise == 'img') {
+        if ($this->tags == 'img') {
             echo '<img src="'.$this->src.'" alt="'.$this->alt.'" class="'.$this->class.'">';
         } else {
-            echo '<'.$this->balise.' class="'.$this->class.'" >'.$this->contenu.'</'.$this->balise.'>';
+            echo '<'.$this->tags.' class="'.$this->class.'" >'.$this->contenu.'</'.$this->balise.'>';
         }
     }
 
@@ -54,7 +54,7 @@ class Element {
         $this->id = $pdo->lastInsertId();
     }
 
-    function modifier($balise, $contenu, $alt, $src, $class){
+    function modifier($tags, $contenu, $alt, $src, $class){
         $this->balise = $balise;
         $this->contenu = $contenu;
         $this->alt = $alt;
@@ -82,8 +82,8 @@ class Element {
         // Construction du tableau de données
         $data = [];
 
-        if ($this->balise !== null) {
-            $data['balise'] = $this->balise;
+        if ($this->tags !== null) {
+            $data['tags'] = $this->tags;
         }
 
         if ($this->contenu !== null) {

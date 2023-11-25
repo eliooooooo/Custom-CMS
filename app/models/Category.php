@@ -2,7 +2,7 @@
 
 class Category {
     // liste des attributs
-    public $id_categorie;
+    public $id;
     public $nom;
     public $description;
     public $image;
@@ -20,20 +20,20 @@ class Category {
 
         if ($id === null) {
             // Requête pour récupérer toutes les catégories
-            $categories = $sqlController->select('categorie', '*', null, 'id_categorie');
+            $categories = $sqlController->select('category', '*');
 
             // Retourner toutes les catégories
             return $categories;
         } else {
             // Première requête pour récupérer la catégorie spécifique
-            $category = $sqlController->select('categorie', '*', 'id_categorie = ' . $id);
+            $category = $sqlController->select('category', '*', 'id = ' . $id);
 
             // Requête pour récupérer tous les articles de cette catégorie
-            $articles = $sqlController->select('article', '*', 'id_categorie = ' . $id, 'id_article');
+            $articles = $sqlController->select('article', '*', 'id_category = ' . $id);
 
             // Pour chaque article, récupérer ses éléments
             foreach ($articles as &$article) {
-                $elements = $sqlController->select('element', '*', 'article = ' . $article["id_article"], 'article');
+                $elements = $sqlController->select('element', '*', 'id_article = ' . $article["id"]);
 
                 // Ajouter les éléments à l'article
                 $article['elements'] = $elements;
@@ -45,14 +45,21 @@ class Category {
     }
 
     function create(){
-        $sql = 'INSERT INTO categorie (nom, description, image) VALUES (:nom, :description, :image)';
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':nom', $this->nom, PDO::PARAM_STR);
-        $query->bindValue(':description', $this->description, PDO::PARAM_STR);
-        $query->bindValue(':image', $this->image, PDO::PARAM_STR);
-        $query->execute();
-        $this->id_category = $pdo->lastInsertId();
+        $sqlController = new SqlController($pdo);
+
+        // Construction du tableau de données
+        $data = [
+            'nom' => $this->nom,
+            'description' => $this->description,
+            'image' => $this->image
+        ];
+
+        // Appel de la méthode insert de SqlController
+        $sqlController->insert('category', $data);
+
+        // Récupération de l'id
+        $this->id = $pdo->lastInsertId();
     }
 
     function modifier($nom, $description, $image){
@@ -65,34 +72,36 @@ class Category {
     }
 
     static function delete($id){
-        $sql = 'DELETE FROM categorie WHERE id_categorie = :id';
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':id', $id, PDO::PARAM_INT);
-        $query->execute();
+        $sqlController = new SqlController($pdo);
+
+        // Appel de la méthode delete de SqlController
+        $sqlController->delete('category', 'id = ' . $id);
     }
 
     function update() {
-        $fields = [];
-        $params = [':id' => $this->id_category];
+        $pdo = connexion();
+        $sqlController = new SqlController($pdo);
+
+        // Construction du tableau de données
+        $data = [];
 
         if ($this->nom !== null) {
-            $fields[] = 'nom = :nom';
-            $params[':nom'] = $this->nom;
-        }
-        if ($this->description !== null) {
-            $fields[] = 'description = :description';
-            $params[':description'] = $this->description;
-        }
-        if ($this->image !== null) {
-            $fields[] = 'image = :image';
-            $params[':image'] = $this->image;
+            $data['nom'] = $this->nom;
         }
 
-        $sql = 'UPDATE categorie SET '.implode(', ', $fields).' WHERE id_categorie = :id';
-        $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->execute($params);
+        if ($this->description !== null) {
+            $data['description'] = $this->description;
+        }
+
+        if ($this->image !== null) {
+            $data['image'] = $this->image;
+        }
+
+        if (!empty($data)) {
+            // Appel de la méthode update de SqlController
+            $sqlController->update('category', $data, 'id = ' . $this->id);
+        }
     }
 
     function chargePOST(){

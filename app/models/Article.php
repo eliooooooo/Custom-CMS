@@ -26,7 +26,7 @@ class Article {
 
             // Pour chaque article, récupérer ses éléments
             foreach ($articles as &$article) {
-                $elements = $sqlController->select('element', '*', 'article = ' . $article["id_article"], 'article');
+                $elements = $sqlController->select('element', '*', 'id_article = ' . $article["id"]);
 
                 // Ajouter les éléments à l'article
                 $article['elements'] = $elements;
@@ -36,8 +36,8 @@ class Article {
             return $articles;
         } else {
             // Requête pour sélectionner un article
-            $elements = $sqlController->select('element', '*', 'article = ' . $id, 'id');
-            $article = $sqlController->select('article', '*', 'id_article = ' . $id);
+            $elements = $sqlController->select('element', '*', 'id_article = ' . $id);
+            $article = $sqlController->select('article', '*', 'id = ' . $id);
 
             // Retourner les deux résultats sous forme de tableau
             return ['elements' => $elements, 'article' => $article];
@@ -45,18 +45,21 @@ class Article {
     }
 
     function create(){
-        // Requete pour créer un article
-        $sql = 'INSERT INTO article (h1, h2, auteur, class) VALUES (:h1, :h2, :auteur, :class)';
-        
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':h1', $this->h1, PDO::PARAM_STR);
-        $query->bindValue(':h2', $this->h2, PDO::PARAM_STR);
-        $query->bindValue(':auteur', $this->auteur, PDO::PARAM_STR);
-        $query->bindValue(':class', $this->class, PDO::PARAM_STR);
-        $query->execute();
+        $sqlController = new SqlController($pdo);
 
-        // Récupération de l'id de l'article crée
+        // Construction du tableau de données
+        $data = [
+            'h1' => $this->h1,
+            'h2' => $this->h2,
+            'auteur' => $this->auteur,
+            'class' => $this->class
+        ];
+
+        // Appel de la méthode insert de SqlController
+        $sqlController->insert('article', $data);
+
+        // Récupération de l'id
         $this->id = $pdo->lastInsertId();
     }
 
@@ -73,53 +76,39 @@ class Article {
     }
 
     static function delete($id){
-        // Requete pour supprimer un article
-        $sql = 'DELETE FROM article WHERE id = :id';
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':id', $id, PDO::PARAM_INT);
-        $query->execute();
+        $sqlController = new SqlController($pdo);
+
+        // Appel de la méthode delete de SqlController
+        $sqlController->delete('article', 'id = ' . $id);
     }
 
     function update() {
-        // Requete pour mettre à jour les valeurs
-        $fields = [];
-        $params = [':id' => $this->id];
+        $pdo = connexion();
+        $sqlController = new SqlController($pdo);
+
+        // Construction du tableau de données
+        $data = [];
 
         if ($this->h1 !== null) {
-            $fields[] = 'h1 = :h1';
-            $params[':h1'] = $this->h1;
+            $data['h1'] = $this->h1;
         }
 
         if ($this->h2 !== null) {
-            $fields[] = 'h2 = :h2';
-            $params[':h2'] = $this->h2;
+            $data['h2'] = $this->h2;
         }
 
         if ($this->auteur !== null) {
-            $fields[] = 'auteur = :auteur';
-            $params[':auteur'] = $this->auteur;
+            $data['auteur'] = $this->auteur;
         }
 
         if ($this->class !== null) {
-            $fields[] = 'class = :class';
-            $params[':class'] = $this->class;
+            $data['class'] = $this->class;
         }
 
-        if (!empty($fields)) {
-            $sql = sprintf(
-                'UPDATE element SET %s WHERE id = :id',
-                implode(', ', $fields)
-            );
-
-            $pdo = connexion();
-            $query = $pdo->prepare($sql);
-
-            foreach ($params as $key => $value) {
-                $query->bindValue($key, $value);
-            }
-
-            $query->execute();
+        if (!empty($data)) {
+            // Appel de la méthode update de SqlController
+            $sqlController->update('element', $data, 'id = ' . $this->id);
         }
     }
 

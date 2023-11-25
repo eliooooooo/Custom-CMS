@@ -1,6 +1,6 @@
 <?php
 $host = '';
-$db   = 'burkle_bdd_test';
+$db   = '';
 $user = '';
 $pass = '';
 $charset = 'utf8';
@@ -22,21 +22,27 @@ try {
 
     CREATE TABLE IF NOT EXISTS category (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL
+        name VARCHAR(255) NOT NULL,
+        description TEXT NULL,
+        image TEXT NULL
     );
 
     CREATE TABLE IF NOT EXISTS article (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         content TEXT,
-        id_categorie INT,
-        FOREIGN KEY (id_categorie) REFERENCES categorie(id)
+        id_category INT,
+        FOREIGN KEY (id_category) REFERENCES category(id)
     );
 
     CREATE TABLE IF NOT EXISTS element (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        id_article INT,
+        tags VARCHAR(11) NOT NULL,
+        content TEXT NULL,
+        alt VARCHAR(255) NULL,
+        src TEXT NULL,
+        class TEXT NULL,
+        id_article INT NULL,
         FOREIGN KEY (id_article) REFERENCES article(id)
     );
     ";

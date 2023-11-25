@@ -5,6 +5,6 @@ les requetes update, modifier et chargePOST peuvent être construites automatiqu
 Créer un fichier qui crée automatiquement la base de données (à optimiser, avec la class sql ??)
 Installer
 
-Mettre à jour la bdd avec des infos généralisées
+Mettre à jour la bdd, ajouter certaines balises
 
-La class Element est à jour et fonctionnelle, rest à update article et categorie
+Pour chaque modéles, mettre à jour la fonction update (à générer automatiquement, en fonction des variables de la class)
