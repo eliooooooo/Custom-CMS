@@ -21,39 +21,36 @@ class Element {
 
     static function read($id = null) {
         $pdo = connexion();
+        $sqlController = new SqlController($pdo);
 
         if ($id === null) {
-            // définition de la requête SQL
-            $sql= 'SELECT * FROM element';
-            $query = $pdo->prepare($sql);
-            $query->execute();
-            $tableau = $query->fetchAll(PDO::FETCH_CLASS,'Element');
-            return $tableau;
+            // Requête pour récupérer tous les éléments
+            $elements = $sqlController->select('element');
+            return $elements;
         } else {
-            // définition de la requête SQL avec un paramètre :valeur
-            $sql= 'SELECT * FROM element WHERE id = :valeur';
-            $query = $pdo->prepare($sql);
-            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-            $query->execute();
-            $element = $query->fetchObject('Element');
+            // Requête pour sélectionner un élément spécifique
+            $element = $sqlController->select('element', '*', 'id = ' . $id);
             return $element;
         }
     }
 
     function create(){
-        #Construction de la requete create
-        $sql = 'INSERT INTO element (balise, contenu, alt, src, class) VALUES (:balise, :contenu, :alt, :src, :class)';
-        
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':balise', $this->balise, PDO::PARAM_STR);
-        $query->bindValue(':contenu', $this->contenu, PDO::PARAM_STR);
-        $query->bindValue(':alt', $this->alt, PDO::PARAM_STR);
-        $query->bindValue(':src', $this->src, PDO::PARAM_STR);
-        $query->bindValue(':class', $this->class, PDO::PARAM_STR);
-        $query->execute();
+        $sqlController = new SqlController($pdo);
 
-        #Recuperation de l'id
+        // Construction du tableau de données
+        $data = [
+            'balise' => $this->balise,
+            'contenu' => $this->contenu,
+            'alt' => $this->alt,
+            'src' => $this->src,
+            'class' => $this->class
+        ];
+
+        // Appel de la méthode insert de SqlController
+        $sqlController->insert('element', $data);
+
+        // Récupération de l'id
         $this->id = $pdo->lastInsertId();
     }
 
@@ -71,56 +68,43 @@ class Element {
     }
 
     static function delete($id){
-        $sql = 'DELETE FROM element WHERE id = :id';
         $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':id', $id, PDO::PARAM_INT);
-        $query->execute();
+        $sqlController = new SqlController($pdo);
+
+        // Appel de la méthode delete de SqlController
+        $sqlController->delete('element', 'id = ' . $id);
     }
 
     function update() {
-        $fields = [];
-        $params = [':id' => $this->id];
+        $pdo = connexion();
+        $sqlController = new SqlController($pdo);
+
+        // Construction du tableau de données
+        $data = [];
 
         if ($this->balise !== null) {
-            $fields[] = 'balise = :balise';
-            $params[':balise'] = $this->balise;
+            $data['balise'] = $this->balise;
         }
 
         if ($this->contenu !== null) {
-            $fields[] = 'contenu = :contenu';
-            $params[':contenu'] = $this->contenu;
+            $data['contenu'] = $this->contenu;
         }
 
         if ($this->alt !== null) {
-            $fields[] = 'alt = :alt';
-            $params[':alt'] = $this->alt;
+            $data['alt'] = $this->alt;
         }
 
         if ($this->src !== null) {
-            $fields[] = 'src = :src';
-            $params[':src'] = $this->src;
+            $data['src'] = $this->src;
         }
 
         if ($this->class !== null) {
-            $fields[] = 'class = :class';
-            $params[':class'] = $this->class;
+            $data['class'] = $this->class;
         }
 
-        if (!empty($fields)) {
-            $sql = sprintf(
-                'UPDATE element SET %s WHERE id = :id',
-                implode(', ', $fields)
-            );
-
-            $pdo = connexion();
-            $query = $pdo->prepare($sql);
-
-            foreach ($params as $key => $value) {
-                $query->bindValue($key, $value);
-            }
-
-            $query->execute();
+        if (!empty($data)) {
+            // Appel de la méthode update de SqlController
+            $sqlController->update('element', $data, 'id = ' . $this->id);
         }
     }
 
@@ -150,18 +134,5 @@ class Element {
         } else {
             $this->class = NULL;
         }
-    }
-
-    static function readByArticle($id){
-        // définition de la requête SQL avec un paramètre :valeur
-        $sql= 'SELECT * FROM element WHERE article = :valeur';
-     
-        $pdo = connexion();
-        $query = $pdo->prepare($sql);
-        $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-        $query->execute();
-        $tableau = $query->fetchAll(PDO::FETCH_CLASS,'Element');
-     
-        return $tableau;
     }
   }

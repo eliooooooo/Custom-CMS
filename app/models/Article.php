@@ -1,5 +1,7 @@
 <?php
 
+include_once 'app/controllers/SqlController.php';
+
 class Article {
     // liste des attributs
     public $h1;
@@ -16,44 +18,29 @@ class Article {
 
     static function read($id = null) {
         $pdo = connexion();
+        $sqlController = new SqlController($pdo);
 
         if ($id === null) {
             // Requête pour récupérer tous les articles
-            $sql = 'SELECT * FROM article ORDER BY id_article';
-            $query = $pdo->prepare($sql);
-            $query->execute();
-            $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
+            $articles = $sqlController->select('article');
 
             // Pour chaque article, récupérer ses éléments
-            foreach ($articles as $article) {
-                $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
-                $query = $pdo->prepare($sql);
-                $query->execute([':articleId' => $article->id_article]);
-                $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+            foreach ($articles as &$article) {
+                $elements = $sqlController->select('element', '*', 'article = ' . $article["id_article"], 'article');
 
                 // Ajouter les éléments à l'article
-                $article->elements = $elements;
+                $article['elements'] = $elements;
             }
 
             // Retourner les articles avec leurs éléments
             return $articles;
         } else {
-            // Requête  pour sélectionner un article
-            $sql = 'SELECT e.* FROM article AS a, element AS e WHERE a.id_article = :valeur AND e.article = :valeur GROUP BY e.id';
-            $query = $pdo->prepare($sql);
-            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-            $query->execute();
-            $result1 = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
-        
-            // On sélectionne ses différents éléments
-            $sql = 'SELECT * FROM article WHERE id_article = :valeur';
-            $query = $pdo->prepare($sql);
-            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-            $query->execute();
-            $result2 = $query->fetchObject('Article');
-        
+            // Requête pour sélectionner un article
+            $elements = $sqlController->select('element', '*', 'article = ' . $id, 'id');
+            $article = $sqlController->select('article', '*', 'id_article = ' . $id);
+
             // Retourner les deux résultats sous forme de tableau
-            return ['elements' => $result1, 'article' => $result2];
+            return ['elements' => $elements, 'article' => $article];
         }
     }
 

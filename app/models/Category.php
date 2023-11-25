@@ -16,44 +16,31 @@ class Category {
 
     static function read($id = null) {
         $pdo = connexion();
+        $sqlController = new SqlController($pdo);
 
         if ($id === null) {
             // Requête pour récupérer toutes les catégories
-            $sql = 'SELECT * FROM categorie ORDER BY id_categorie';
-            $query = $pdo->prepare($sql);
-            $query->execute();
-            $category = $query->fetchAll(PDO::FETCH_ASSOC);
+            $categories = $sqlController->select('categorie', '*', null, 'id_categorie');
 
             // Retourner toutes les catégories
-            return $category;
+            return $categories;
         } else {
-            // Première requête
-            $sql = 'SELECT * FROM categorie WHERE id_categorie = :valeur';
-            $query = $pdo->prepare($sql);
-            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-            $query->execute();
-            $category = $query->fetchObject('Category');
-        
-            // Requête pour récupérer tous les articles
-            $sql = 'SELECT * FROM article WHERE id_categorie = :valeur ORDER BY id_article';
-            $query = $pdo->prepare($sql);
-            $query->bindValue(':valeur', $id, PDO::PARAM_INT);
-            $query->execute();
-            $articles = $query->fetchAll(PDO::FETCH_CLASS, 'Article');
+            // Première requête pour récupérer la catégorie spécifique
+            $category = $sqlController->select('categorie', '*', 'id_categorie = ' . $id);
+
+            // Requête pour récupérer tous les articles de cette catégorie
+            $articles = $sqlController->select('article', '*', 'id_categorie = ' . $id, 'id_article');
 
             // Pour chaque article, récupérer ses éléments
-            foreach ($articles as $article) {
-                $sql = 'SELECT e.* FROM element AS e WHERE e.article = :articleId ORDER BY e.article';
-                $query = $pdo->prepare($sql);
-                $query->execute([':articleId' => $article->id_article]);
-                $elements = $query->fetchAll(PDO::FETCH_CLASS, 'Element');
+            foreach ($articles as &$article) {
+                $elements = $sqlController->select('element', '*', 'article = ' . $article["id_article"], 'article');
 
                 // Ajouter les éléments à l'article
-                $article->elements = $elements;
+                $article['elements'] = $elements;
             }
-        
+
             // Retourner les deux résultats sous forme de tableau
-            return ['category' => $category, 'article' => $articles];
+            return ['category' => $category, 'articles' => $articles];
         }
     }
 
