@@ -1,22 +1,20 @@
 <?php
 
+// $tags = [
+//     'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div', 'a', 'img', 'ul', 'li', 'ol', 'table', 'tr', 'td', 'th', 'thead', 'tbody', 'tfoot', 'button'
+// ];
+
 class Element {
     // liste des attributs
     public $tags;
-    public $contenu;
+    public $content;
     public $alt;
-    public $src;
+    public $link;
     public $class;
+    public $id_article;
 
-    function __construct() {
-    }
-
-    function affiche() {
-        if ($this->tags == 'img') {
-            echo '<img src="'.$this->src.'" alt="'.$this->alt.'" class="'.$this->class.'">';
-        } else {
-            echo '<'.$this->tags.' class="'.$this->class.'" >'.$this->contenu.'</'.$this->balise.'>';
-        }
+    public function getAttributes() {
+        return get_object_vars($this);
     }
 
     static function read($id = null) {
@@ -40,11 +38,12 @@ class Element {
 
         // Construction du tableau de données
         $data = [
-            'balise' => $this->balise,
-            'contenu' => $this->contenu,
+            'tags' => $this->tags,
+            'content' => $this->content,
             'alt' => $this->alt,
-            'src' => $this->src,
-            'class' => $this->class
+            'link' => $this->link,
+            'class' => $this->class,
+            'id_article' => $this->id_article
         ];
 
         // Appel de la méthode insert de SqlController
@@ -54,17 +53,26 @@ class Element {
         $this->id = $pdo->lastInsertId();
     }
 
-    function modifier($tags, $contenu, $alt, $src, $class){
-        $this->balise = $balise;
-        $this->contenu = $contenu;
-        $this->alt = $alt;
-        $this->src = $src;
-        $this->class = $class;
-
-        if (empty($this->contenu)) $this->contenu = NULL;
-        if (empty($this->alt)) $this->alt = NULL;
-        if (empty($this->src)) $this->src = NULL;
-        if (empty($this->class)) $this->class = NULL;
+    function setAttributes($attributes) {
+        /**
+         * Appel de la fonction :
+         * $element->setAttributes([
+         *      'tags' => $tags,
+         *      'content' => $content,
+         *      'alt' => $alt,
+         *      'link' => $link,
+         *      'class' => $class,
+         *      'id_article' => $id_article
+         *]);
+         */
+        foreach ($attributes as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+                if (empty($this->$key)) {
+                    $this->$key = NULL;
+                }
+            }
+        }
     }
 
     static function delete($id){
@@ -75,64 +83,60 @@ class Element {
         $sqlController->delete('element', 'id = ' . $id);
     }
 
-    function update() {
+    function update($id) {
+        if ($id === null) {
+            throw new Exception('Erreur : l\'ID est null.');
+        }
+
         $pdo = connexion();
         $sqlController = new SqlController($pdo);
 
         // Construction du tableau de données
         $data = [];
-
-        if ($this->tags !== null) {
-            $data['tags'] = $this->tags;
-        }
-
-        if ($this->contenu !== null) {
-            $data['contenu'] = $this->contenu;
-        }
-
-        if ($this->alt !== null) {
-            $data['alt'] = $this->alt;
-        }
-
-        if ($this->src !== null) {
-            $data['src'] = $this->src;
-        }
-
-        if ($this->class !== null) {
-            $data['class'] = $this->class;
+        $attributes = $this->getAttributes();
+        
+        foreach ($attributes as $key => $value) {
+            if ($value !== null) {
+                $data[$key] = $value;
+            }
         }
 
         if (!empty($data)) {
             // Appel de la méthode update de SqlController
-            $sqlController->update('element', $data, 'id = ' . $this->id);
+            $sqlController->update('element', $data, 'id = ' . $id);
         }
     }
 
     function chargePOST(){
-        if (isset($_POST['balise'])) {
-            $this->balise = $_POST['balise'];
+        if (isset($_POST['tags'])) {
+            $this->tags = $_POST['tags'];
         } else {
-            $this->balise = NULL;
+            $this->tags = NULL;
         }
-        if (isset($_POST['contenu'])) {
-            $this->contenu = $_POST['contenu'];
+        if (isset($_POST['content'])) {
+            $this->content = $_POST['content'];
         } else {
-            $this->contenu = NULL;
+            $this->content = NULL;
         }
         if (isset($_POST['alt'])) {
             $this->alt = $_POST['alt'];
         } else {
             $this->alt = NULL;
         }
-        if (isset($_POST['src'])) {
-            $this->src = $_POST['src'];
+        if (isset($_POST['link'])) {
+            $this->link = $_POST['link'];
         } else {
-            $this->src = NULL;
+            $this->link = NULL;
         }
         if (isset($_POST['class'])) {
             $this->class = $_POST['class'];
         } else {
             $this->class = NULL;
+        }
+        if (isset($_POST['id_article'])) {
+            $this->id_article = $_POST['id_article'];
+        } else {
+            $this->id_article = NULL;
         }
     }
   }

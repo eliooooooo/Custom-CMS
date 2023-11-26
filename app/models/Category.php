@@ -2,16 +2,12 @@
 
 class Category {
     // liste des attributs
-    public $id;
-    public $nom;
+    public $name;
     public $description;
     public $image;
 
-    function __construct() {
-    }
-
-    function affiche() {
-        echo '<article class="'.$this->class.'" ><h1>'.$this->h1.'</h1><h2>'.$this->h2.'</h2></article>';
+    public function getAttributes() {
+        return get_object_vars($this);
     }
 
     static function read($id = null) {
@@ -49,26 +45,18 @@ class Category {
         $sqlController = new SqlController($pdo);
 
         // Construction du tableau de données
-        $data = [
-            'nom' => $this->nom,
-            'description' => $this->description,
-            'image' => $this->image
-        ];
+        $data = [];
+        foreach ($this->getAttributes() as $key => $value) {
+            if (!empty($value)) {
+                $data[$key] = $value;
+            }
+        }
 
         // Appel de la méthode insert de SqlController
         $sqlController->insert('category', $data);
 
         // Récupération de l'id
         $this->id = $pdo->lastInsertId();
-    }
-
-    function modifier($nom, $description, $image){
-        $this->nom = $nom;
-        $this->description = $description;
-        $this->image = $image;
-
-        if (empty($this->description)) $this->description = NULL;
-        if (empty($this->image)) $this->image = NULL;        
     }
 
     static function delete($id){
@@ -79,36 +67,57 @@ class Category {
         $sqlController->delete('category', 'id = ' . $id);
     }
 
-    function update() {
+    function setAttributes($attributes) {
+        /**
+         * Appel de la fonction :
+         * $element->setAttributes([
+         *      'tags' => $tags,
+         *      'content' => $content,
+         *      'alt' => $alt,
+         *      'link' => $link,
+         *      'class' => $class,
+         *      'id_article' => $id_article
+         *]);
+         */
+        foreach ($attributes as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+                if (empty($this->$key)) {
+                    $this->$key = NULL;
+                }
+            }
+        }
+    }
+
+    function update($id) {
+        if ($id === null) {
+            throw new Exception('Erreur : l\'ID est null.');
+        }
+
         $pdo = connexion();
         $sqlController = new SqlController($pdo);
 
         // Construction du tableau de données
         $data = [];
-
-        if ($this->nom !== null) {
-            $data['nom'] = $this->nom;
-        }
-
-        if ($this->description !== null) {
-            $data['description'] = $this->description;
-        }
-
-        if ($this->image !== null) {
-            $data['image'] = $this->image;
+        $attributes = $this->getAttributes();
+        
+        foreach ($attributes as $key => $value) {
+            if ($value !== null) {
+                $data[$key] = $value;
+            }
         }
 
         if (!empty($data)) {
             // Appel de la méthode update de SqlController
-            $sqlController->update('category', $data, 'id = ' . $this->id);
+            $sqlController->update('category', $data, 'id = ' . $id);
         }
     }
 
     function chargePOST(){
-        if (isset($_POST['nom'])) {
-            $this->nom = $_POST['nom'];
+        if (isset($_POST['name'])) {
+            $this->name = $_POST['name'];
         } else {
-            $this->nom = NULL;
+            $this->name = NULL;
         }
         if (isset($_POST['description'])) {
             $this->description = $_POST['description'];

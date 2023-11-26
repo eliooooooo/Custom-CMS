@@ -28,17 +28,15 @@ class SqlController {
         $statement->execute();
     }
 
-    public function update($table, $data, $conditions = "") {
-        $set = "";
+    public function update($table, $data, $where) {
+        $set = '';
         foreach ($data as $column => $value) {
-            $set .= "$column = $value, ";
+            $set .= "$column = '$value', ";
         }
-        $set = rtrim($set, ", ");
-        $query = "UPDATE $table SET $set";
-        if (!empty($conditions)) {
-            $query .= " WHERE $conditions";
-        }
-        echo $query;
+        $set = rtrim($set, ', ');
+
+        $query = "UPDATE $table SET $set WHERE $where";
+        var_dump($query);
 
         // Préparation et exécution de la requête
         $statement = $this->pdo->prepare($query);

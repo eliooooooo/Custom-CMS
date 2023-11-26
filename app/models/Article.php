@@ -4,16 +4,20 @@ include_once 'app/controllers/SqlController.php';
 
 class Article {
     // liste des attributs
-    public $h1;
-    public $h2;
-    public $auteur;
+    public $title;
+    public $subtitle;
+    public $author;
     public $class;
 
     function __construct() {
     }
 
     function affiche() {
-        echo '<article class="'.$this->class.'" ><h1>'.$this->h1.'</h1><h2>'.$this->h2.'</h2></article>';
+        echo '<article class="'.$this->class.'" ><h1>'.$this->title.'</h1><h2>'.$this->subtitle.'</h2></article>';
+    }
+
+    public function getAttributes() {
+        return get_object_vars($this);
     }
 
     static function read($id = null) {
@@ -50,9 +54,9 @@ class Article {
 
         // Construction du tableau de données
         $data = [
-            'h1' => $this->h1,
-            'h2' => $this->h2,
-            'auteur' => $this->auteur,
+            'title' => $this->title,
+            'subtitle' => $this->subtitle,
+            'author' => $this->author,
             'class' => $this->class
         ];
 
@@ -63,16 +67,26 @@ class Article {
         $this->id = $pdo->lastInsertId();
     }
 
-    function modifier($h1, $h2, $auteur, $class){
-        // Requete pour modifier les valeurs
-        $this->h1 = $h1;
-        $this->h2 = $h2;
-        $this->auteur = $auteur;
-        $this->class = $class;
-
-        if (empty($this->h2)) $this->h2 = NULL;
-        if (empty($this->auteur)) $this->auteur = NULL;
-        if (empty($this->class)) $this->class = NULL;
+    function setAttributes($attributes) {
+        /**
+         * Appel de la fonction exemple :
+         * $element->setAttributes([
+         *      'tags' => $tags,
+         *      'content' => $content,
+         *      'alt' => $alt,
+         *      'link' => $link,
+         *      'class' => $class,
+         *      'id_article' => $id_article
+         *]);
+         */
+        foreach ($attributes as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+                if (empty($this->$key)) {
+                    $this->$key = NULL;
+                }
+            }
+        }
     }
 
     static function delete($id){
@@ -83,51 +97,46 @@ class Article {
         $sqlController->delete('article', 'id = ' . $id);
     }
 
-    function update() {
+    function update($id) {
+        if ($id === null) {
+            throw new Exception('Erreur : l\'ID est null.');
+        }
+
         $pdo = connexion();
         $sqlController = new SqlController($pdo);
 
         // Construction du tableau de données
         $data = [];
-
-        if ($this->h1 !== null) {
-            $data['h1'] = $this->h1;
-        }
-
-        if ($this->h2 !== null) {
-            $data['h2'] = $this->h2;
-        }
-
-        if ($this->auteur !== null) {
-            $data['auteur'] = $this->auteur;
-        }
-
-        if ($this->class !== null) {
-            $data['class'] = $this->class;
+        $attributes = $this->getAttributes();
+        
+        foreach ($attributes as $key => $value) {
+            if ($value !== null) {
+                $data[$key] = $value;
+            }
         }
 
         if (!empty($data)) {
             // Appel de la méthode update de SqlController
-            $sqlController->update('element', $data, 'id = ' . $this->id);
+            $sqlController->update('article', $data, 'id = ' . $id);
         }
     }
 
     function chargePOST(){
         // Permet de charger le formulaire POST
-        if (isset($_POST['h1'])) {
-            $this->h1 = $_POST['h1'];
+        if (isset($_POST['title'])) {
+            $this->title = $_POST['title'];
         } else {
-            $this->h1 = NULL;
+            $this->title = NULL;
         }
-        if (isset($_POST['h2'])) {
-            $this->h2 = $_POST['h2'];
+        if (isset($_POST['subtitle'])) {
+            $this->subtitle = $_POST['subtitle'];
         } else {
-            $this->h2 = NULL;
+            $this->subtitle = NULL;
         }
-        if (isset($_POST['auteur'])) {
-            $this->auteur = $_POST['auteur'];
+        if (isset($_POST['author'])) {
+            $this->author = $_POST['author'];
         } else {
-            $this->auteur = NULL;
+            $this->author = NULL;
         }
         if (isset($_POST['class'])) {
             $this->class = $_POST['class'];
