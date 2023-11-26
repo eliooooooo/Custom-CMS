@@ -107,36 +107,15 @@ class Element {
         }
     }
 
-    function chargePOST(){
-        if (isset($_POST['tags'])) {
-            $this->tags = $_POST['tags'];
-        } else {
-            $this->tags = NULL;
-        }
-        if (isset($_POST['content'])) {
-            $this->content = $_POST['content'];
-        } else {
-            $this->content = NULL;
-        }
-        if (isset($_POST['alt'])) {
-            $this->alt = $_POST['alt'];
-        } else {
-            $this->alt = NULL;
-        }
-        if (isset($_POST['link'])) {
-            $this->link = $_POST['link'];
-        } else {
-            $this->link = NULL;
-        }
-        if (isset($_POST['class'])) {
-            $this->class = $_POST['class'];
-        } else {
-            $this->class = NULL;
-        }
-        if (isset($_POST['id_article'])) {
-            $this->id_article = $_POST['id_article'];
-        } else {
-            $this->id_article = NULL;
+    function chargePOST() {
+        $attributes = getAttributes();
+
+        foreach ($attributes as $attribute) {
+            if (isset($_POST[$attribute])) {
+                $this->$attribute = $_POST[$attribute];
+            } else {
+                $this->$attribute = NULL;
+            }
         }
     }
   }

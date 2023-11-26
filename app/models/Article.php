@@ -121,27 +121,15 @@ class Article {
         }
     }
 
-    function chargePOST(){
-        // Permet de charger le formulaire POST
-        if (isset($_POST['title'])) {
-            $this->title = $_POST['title'];
-        } else {
-            $this->title = NULL;
-        }
-        if (isset($_POST['subtitle'])) {
-            $this->subtitle = $_POST['subtitle'];
-        } else {
-            $this->subtitle = NULL;
-        }
-        if (isset($_POST['author'])) {
-            $this->author = $_POST['author'];
-        } else {
-            $this->author = NULL;
-        }
-        if (isset($_POST['class'])) {
-            $this->class = $_POST['class'];
-        } else {
-            $this->class = NULL;
+    function chargePOST() {
+        $attributes = getAttributes();
+
+        foreach ($attributes as $attribute) {
+            if (isset($_POST[$attribute])) {
+                $this->$attribute = $_POST[$attribute];
+            } else {
+                $this->$attribute = NULL;
+            }
         }
     }
   }

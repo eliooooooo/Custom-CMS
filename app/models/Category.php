@@ -113,21 +113,15 @@ class Category {
         }
     }
 
-    function chargePOST(){
-        if (isset($_POST['name'])) {
-            $this->name = $_POST['name'];
-        } else {
-            $this->name = NULL;
-        }
-        if (isset($_POST['description'])) {
-            $this->description = $_POST['description'];
-        } else {
-            $this->description = NULL;
-        }
-        if (isset($_POST['image'])) {
-            $this->image = $_POST['image'];
-        } else {
-            $this->image = NULL;
+    function chargePOST() {
+        $attributes = getAttributes();
+
+        foreach ($attributes as $attribute) {
+            if (isset($_POST[$attribute])) {
+                $this->$attribute = $_POST[$attribute];
+            } else {
+                $this->$attribute = NULL;
+            }
         }
     }
 }
