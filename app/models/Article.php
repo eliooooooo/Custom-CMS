@@ -1,6 +1,5 @@
 <?php
 
-include_once 'app/controllers/SqlController.php';
 
 class Article {
     // liste des attributs

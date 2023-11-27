@@ -49,6 +49,9 @@ error_reporting(E_ALL);
 foreach (glob('app/models/*.php') as $filename) {
     include $filename;
 }
+// Appel du controller SQL
+include_once 'app/controllers/SqlController.php';
+
 
 
 // Premier controlleur (redirige vers les controlleurs concernés)

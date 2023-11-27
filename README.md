@@ -1,3 +1,4 @@
 Installer
+Dans l'index, mettre le project path en variable
 
-Pour chaque modéles, mettre à jour la fonction update (à générer automatiquement, en fonction des variables de la class)
+Ajouter les POSTString dans tous les formulaires
