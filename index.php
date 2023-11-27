@@ -1,153 +1,136 @@
 <?php 
 session_start();
 
-include('./includes/connexion.php');
-include('./includes/element.php');
-include('./includes/article.php');
-include('./includes/categorie.php');
-
-echo '<div class="text-banner" > 🚧 Site en construction 🚧 </div>';
-
-// récupération de la variable page sur l'URL
-if (isset($_GET['page'])) $page = $_GET['page']; else $page = '';
- 
-// récupération de la variable action sur l'URL
-if (isset($_GET['action'])) $action = $_GET['action']; else $action = 'read';
- 
-// récupération de l'id s'il existe (par convention la clé 0 correspond à un id inexistant)
-if (isset($_GET['id'])) $id = intval($_GET['id']); else $id = 0;
- 
-// test des différents choix du controleur
-switch ($page) {
-    case 'element' :
-      switch ($action) {
-        case 'read' :
-            if ($id > 0) {
-                $modele = './pages/ReadOne.html.twig';
-                $data = ['element' => Element::readOne($id)];
-            }
-            else {
-                $modele = './pages/ReadAll.html.twig';
-                $data = ['element' => Element::readAll()];
-            }
-            break;
-        case 'create' :
-            $element = new Element();
-            $element->modifier($_POST['balise'], $_POST['contenu'], $_POST['alt'], $_POST['src'], $_POST['class']);
-            $element->create();
-            $modele = './pages/ReadOne.html.twig';
-            $data = ['element' => Element::readOne($element->id)];
-            break;
-        case 'delete' :
-            Element::delete($id);
-            $modele = './pages/ReadAll.html.twig';
-            $data = ['element' => Element::readAll()];
-            break;
-        case 'update' :
-            $element = Element::readOne($id);
-            $element->modifier($_POST['balise'], $_POST['contenu'], $_POST['alt'], $_POST['src'], $_POST['class']);
-            $element->update();
-            $modele = './pages/ReadOne.html.twig';
-            $data = ['element' => Element::readOne($id)];
-            break;
-      }
-      break;
-    case 'article' :
-        switch ($action) {
-            case 'read' :
-                if ($id > 0) {
-                    $modele = './pages/ReadOne.html.twig';
-                    $data = ['article' => Article::readOne($id)];
-                }
-                else {
-                    $modele = './pages/ReadAll.html.twig';
-                    $data = ['article' => Article::readAll()];
-                }
-                break;
-            case 'create' :
-                $article = new Article();
-                $article->modifier($_POST['h1'], $_POST['h2'], $_POST['auteur'], $_POST['class']);
-                $article->create();
-                $modele = './pages/ReadOne.html.twig';
-                $data = ['article' => Article::readOne($article->id)];
-                break;
-            case 'delete' :
-                Article::delete($id);
-                $modele = './pages/ReadAll.html.twig';
-                $data = ['article' => Article::readAll()];
-                break;
-            case 'update' :
-                $article = Article::readOne($id);
-                $article->modifier($_POST['h1'], $_POST['h2'], $_POST['auteur'], $_POST['class']);
-                $article->update();
-                $modele = './pages/ReadOne.html.twig';
-                $data = ['article' => Article::readOne($id)];
-                break;
-        }
-        break;   
-        case 'categorie':
-            switch ($action) {
-                case 'read' :
-                    if ($id > 0) {
-                        $modele = './pages/ReadOne.html.twig';
-                        $data = ['categorie' => Categorie::readOne($id)];
-                    }
-                    else {
-                        $modele = './pages/ReadAll.html.twig';
-                        $data = ['categorie' => Categorie::readAll()];
-                    }
-                    break;
-                case 'create' :
-                    $categorie = new Categorie();
-                    $categorie->modifier($_POST['nom']);
-                    $categorie->create();
-                    $modele = './pages/ReadOne.html.twig';
-                    $data = ['categorie' => Categorie::readOne($categorie->id)];
-                    break;
-                case 'delete' :
-                    Categorie::delete($id);
-                    $modele = './pages/ReadAll.html.twig';
-                    $data = ['categorie' => Categorie::readAll()];
-                    break;
-                case 'update' :
-                    $categorie = Categorie::readOne($id);
-                    $categorie->modifier($_POST['nom']);
-                    $categorie->update();
-                    $modele = './pages/ReadOne.html.twig';
-                    $data = ['categorie' => Categorie::readOne($id)];
-                    break;
-            }
-            break;
-        default :
-      $modele = 'frontpage.html.twig';
-      $data = [];
-  }
-
-
-// Vérifiez si l'utilisateur est connecté
-$id_user = '';
-$username = '';
-if (isset($_SESSION['id_user'])) {
-    // Afficher l'id de l'utilisateur
-    $id_user = $_SESSION['id_user'];
-}
-if (isset($_SESSION['username'])) {
-    // Afficher l'username de l'utilisateur
-    $username = $_SESSION['username'];
-}
-
-// Initialise Twig
-include('includes/twig.php');
-$twig = init_twig();
 
 // Connexion à la base de données
-// include('includes/connexion.php');
-$pdo = connexion();
+if ($_SESSION == null) {
+    include_once(__DIR__ . '/utils/connexion.php');
+    $pdo = connexion();
+}
 
-$data += [
-    'username' => $username,
-    'id_user' => $id_user,
-];
 
-// Lancement du moteur Twig avec les données
-echo $twig->render($modele, $data);
+// Fonction qui permet d'initialiser Twig en fixant le dossier des modèles
+require_once('vendor/autoload.php');
+
+
+// Gestionnaires d'erreurs et d'exceptions
+function customErrorHandler($errno, $errstr, $errfile, $errline) {
+    echo "Erreur: [$errno] $errstr - $errfile:$errline";
+    die();
+}
+
+function customExceptionHandler($exception) {
+    echo "Exception: " . $exception->getMessage();
+    die();
+}
+
+// set_error_handler("customErrorHandler");
+// set_exception_handler("customExceptionHandler");
+// // Décommenter pour afficher les erreurs
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
+
+// Appel des différents modèles
+foreach (glob('app/models/*.php') as $filename) {
+    include $filename;
+}
+// Appel du controller SQL
+include_once 'app/models/SqlGenerator.php';
+
+
+// Premier controlleur (redirige vers les controlleurs concernés)
+// Appel des différents contrôleurs
+// Obtenir l'URI demandée
+// Pour chaque URI, on récupère la route et on la découpe en paramètres (page, action, id) avec chacun leur valeur
+// Découper l'URI en deux parties (avant et après le ?)
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+
+//Initialisation des variables
+$action = 'read';
+$id = NULL;
+
+// Si il y a une partie après le ?
+if (isset($request_uri[1])) {
+    // Si il y a plusieurs paramètres
+    if (explode('&', $request_uri[1])) {
+        // Découper les paramètres
+        $route = explode('&', $request_uri[1]);
+        // var_dump($route);
+        // Pour chaque paramètre, on récupère la route et on la découpe en paramètres (page, action, id) avec chacun leur valeur
+        foreach ($route as $key) {
+            $tmp_route = explode('=', $key);
+            if ($tmp_route[0] == 'action') {
+                $action = $tmp_route[1];
+            }
+            if ($tmp_route[0] == 'id') {
+                $id = $tmp_route[1];
+            }
+        }
+    }
+}
+$request_uri = $request_uri[0];
+
+// Supprimer le chemin du projet de l'URI
+$project_path = '/~burkle/CMS';
+$request_uri = str_replace($project_path, '', $request_uri);
+// echo $request_uri;
+
+// Récupérer la partie de l'URI après le premier slash
+$path = ltrim($request_uri, '/');
+include_once 'app/controllers/ControllerBase.php';
+
+function init_twig() {
+    // Indique le répertoire ou sont placés les modèles (templates)
+    $loader = new \Twig\Loader\FilesystemLoader('app/views');
+
+    // Crée un nouveau moteur Twig
+    $twig = new \Twig\Environment($loader, ['debug' => true]);
+    $twig->addExtension(new \Twig\Extension\DebugExtension());
+
+    // Renvoie le moteur
+    return $twig;
+  }
+$twig = init_twig();
+
+// Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
+if (empty($path)) {
+    echo $twig->render('frontpage.html.twig');
+} else {
+
+    $className = ucfirst($path);
+    $controllerName = $className . 'Controller';
+    $controllerPath = './app/controllers/' . $controllerName . '.php';
+
+    if (file_exists($controllerPath)) {
+        require $controllerPath;
+
+        $controller = new $controllerName();
+
+        try {
+            $controller->$action($id);
+        } catch (Exception $e) {
+            echo $controller->twig->render('errors/404.html.twig');
+        }
+
+    } else {
+        // Si le contrôleur n'existe pas, afficher une erreur 404
+        // echo $twig->render('errors/404.html.twig');
+        header('HTTP/1.0 404 Not Found');
+    }
+
+    // // Sinon, essayer d'inclure le contrôleur correspondant
+    // $className = ucfirst($path);
+    // $controllerName = $className . 'Controller';
+    // $controllerPath = './app/controllers/' . $controllerName . '.php';
+    // // echo $controllerPath;
+
+    // if (file_exists($controllerPath)) {
+    //     require $controllerPath;
+
+    // } else {
+    //     // Si le contrôleur n'existe pas, afficher une erreur 404
+    //     echo $twig->render('errors/404.html.twig');
+    // }
+}
