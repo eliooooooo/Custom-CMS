@@ -19,22 +19,22 @@ class Element {
 
     static function read($id = null) {
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         if ($id === null) {
             // Requête pour récupérer tous les éléments
-            $elements = $sqlController->select('element');
+            $elements = $SqlGenerator->select('element');
             return $elements;
         } else {
             // Requête pour sélectionner un élément spécifique
-            $element = $sqlController->select('element', '*', 'id = ' . $id);
+            $element = $SqlGenerator->select('element', '*', 'id = ' . $id);
             return $element;
         }
     }
 
     function create(){
       $pdo = connexion();
-      $sqlController = new SqlController($pdo);
+      $SqlGenerator = new SqlGenerator($pdo);
 
       // Construction du tableau de données
       $data = [];
@@ -44,8 +44,8 @@ class Element {
           }
       }
 
-      // Appel de la méthode insert de SqlController
-      $sqlController->insert('element', $data);
+      // Appel de la méthode insert de SqlGenerator
+      $SqlGenerator->insert('element', $data);
 
       // Récupération de l'id
       $this->id = $pdo->lastInsertId();
@@ -75,10 +75,10 @@ class Element {
 
     static function delete($id){
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
-        // Appel de la méthode delete de SqlController
-        $sqlController->delete('element', 'id = ' . $id);
+        // Appel de la méthode delete de SqlGenerator
+        $SqlGenerator->delete('element', 'id = ' . $id);
     }
 
     function update($id) {
@@ -87,7 +87,7 @@ class Element {
         }
 
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         // Construction du tableau de données
         $data = [];
@@ -100,8 +100,8 @@ class Element {
         }
 
         if (!empty($data)) {
-            // Appel de la méthode update de SqlController
-            $sqlController->update('element', $data, 'id = ' . $id);
+            // Appel de la méthode update de SqlGenerator
+            $SqlGenerator->update('element', $data, 'id = ' . $id);
         }
     }
 

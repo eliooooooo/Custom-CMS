@@ -1,6 +1,6 @@
 <?php
 
-class SqlController {
+class SqlGenerator {
     private $pdo;
 
     public function __construct($pdo) {

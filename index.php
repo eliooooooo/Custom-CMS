@@ -37,7 +37,7 @@ foreach (glob('app/models/*.php') as $filename) {
     include $filename;
 }
 // Appel du controller SQL
-include_once 'app/controllers/SqlController.php';
+include_once 'app/models/SqlGenerator.php';
 
 
 // Premier controlleur (redirige vers les controlleurs concernés)
@@ -80,6 +80,19 @@ $request_uri = str_replace($project_path, '', $request_uri);
 // Récupérer la partie de l'URI après le premier slash
 $path = ltrim($request_uri, '/');
 include_once 'app/controllers/ControllerBase.php';
+
+function init_twig() {
+    // Indique le répertoire ou sont placés les modèles (templates)
+    $loader = new \Twig\Loader\FilesystemLoader('app/views');
+
+    // Crée un nouveau moteur Twig
+    $twig = new \Twig\Environment($loader, ['debug' => true]);
+    $twig->addExtension(new \Twig\Extension\DebugExtension());
+
+    // Renvoie le moteur
+    return $twig;
+  }
+$twig = init_twig();
 
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
 if (empty($path)) {

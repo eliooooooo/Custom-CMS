@@ -15,15 +15,15 @@ class Article {
 
     static function read($id = null) {
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         if ($id === null) {
             // Requête pour récupérer tous les articles
-            $articles = $sqlController->select('article');
+            $articles = $SqlGenerator->select('article');
 
             // Pour chaque article, récupérer ses éléments
             foreach ($articles as &$article) {
-                $elements = $sqlController->select('element', '*', 'id_article = ' . $article["id"]);
+                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
 
                 // Ajouter les éléments à l'article
                 $article['elements'] = $elements;
@@ -33,8 +33,8 @@ class Article {
             return $articles;
         } else {
             // Requête pour sélectionner un article
-            $elements = $sqlController->select('element', '*', 'id_article = ' . $id);
-            $article = $sqlController->select('article', '*', 'id = ' . $id);
+            $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $id);
+            $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
 
             // Retourner les deux résultats sous forme de tableau
             return ['elements' => $elements, 'article' => $article];
@@ -43,7 +43,7 @@ class Article {
 
     function create(){
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         // Construction du tableau de données
         $data = [];
@@ -53,8 +53,8 @@ class Article {
             }
         }
 
-        // Appel de la méthode insert de SqlController
-        $sqlController->insert('article', $data);
+        // Appel de la méthode insert de SqlGenerator
+        $SqlGenerator->insert('article', $data);
 
         // Récupération de l'id
         $this->id = $pdo->lastInsertId();
@@ -84,10 +84,10 @@ class Article {
 
     static function delete($id){
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
-        // Appel de la méthode delete de SqlController
-        $sqlController->delete('article', 'id = ' . $id);
+        // Appel de la méthode delete de SqlGenerator
+        $SqlGenerator->delete('article', 'id = ' . $id);
     }
 
     function update($id) {
@@ -96,7 +96,7 @@ class Article {
         }
 
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         // Construction du tableau de données
         $data = [];
@@ -109,8 +109,8 @@ class Article {
         }
 
         if (!empty($data)) {
-            // Appel de la méthode update de SqlController
-            $sqlController->update('article', $data, 'id = ' . $id);
+            // Appel de la méthode update de SqlGenerator
+            $SqlGenerator->update('article', $data, 'id = ' . $id);
         }
     }
 

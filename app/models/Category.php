@@ -12,24 +12,24 @@ class Category {
 
     static function read($id = null) {
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         if ($id === null) {
             // Requête pour récupérer toutes les catégories
-            $categories = $sqlController->select('category', '*');
+            $categories = $SqlGenerator->select('category', '*');
 
             // Retourner toutes les catégories
             return $categories;
         } else {
             // Première requête pour récupérer la catégorie spécifique
-            $category = $sqlController->select('category', '*', 'id = ' . $id);
+            $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
 
             // Requête pour récupérer tous les articles de cette catégorie
-            $articles = $sqlController->select('article', '*', 'id_category = ' . $id);
+            $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $id);
 
             // Pour chaque article, récupérer ses éléments
             foreach ($articles as &$article) {
-                $elements = $sqlController->select('element', '*', 'id_article = ' . $article["id"]);
+                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
 
                 // Ajouter les éléments à l'article
                 $article['elements'] = $elements;
@@ -42,7 +42,7 @@ class Category {
 
     function create(){
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         // Construction du tableau de données
         $data = [];
@@ -52,8 +52,8 @@ class Category {
             }
         }
 
-        // Appel de la méthode insert de SqlController
-        $sqlController->insert('category', $data);
+        // Appel de la méthode insert de SqlGenerator
+        $SqlGenerator->insert('category', $data);
 
         // Récupération de l'id
         $this->id = $pdo->lastInsertId();
@@ -61,10 +61,10 @@ class Category {
 
     static function delete($id){
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
-        // Appel de la méthode delete de SqlController
-        $sqlController->delete('category', 'id = ' . $id);
+        // Appel de la méthode delete de SqlGenerator
+        $SqlGenerator->delete('category', 'id = ' . $id);
     }
 
     function setAttributes($attributes) {
@@ -95,7 +95,7 @@ class Category {
         }
 
         $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+        $SqlGenerator = new SqlGenerator($pdo);
 
         // Construction du tableau de données
         $data = [];
@@ -108,8 +108,8 @@ class Category {
         }
 
         if (!empty($data)) {
-            // Appel de la méthode update de SqlController
-            $sqlController->update('category', $data, 'id = ' . $id);
+            // Appel de la méthode update de SqlGenerator
+            $SqlGenerator->update('category', $data, 'id = ' . $id);
         }
     }
 
