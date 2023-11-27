@@ -13,31 +13,10 @@ if ($_SESSION == null) {
 require_once('vendor/autoload.php');
 
 
-// Gestionnaires d'erreurs et d'exceptions
-function customErrorHandler($errno, $errstr, $errfile, $errline) {
-    echo "Erreur: [$errno] $errstr - $errfile:$errline";
-    die();
-}
-
-function customExceptionHandler($exception) {
-    echo "Exception: " . $exception->getMessage();
-    die();
-}
-
-// set_error_handler("customErrorHandler");
-// set_exception_handler("customExceptionHandler");
-// // Décommenter pour afficher les erreurs
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-
-
 // Appel des différents modèles
 foreach (glob('app/models/*.php') as $filename) {
     include $filename;
 }
-// Appel du controller SQL
-include_once 'app/models/SqlGenerator.php';
 
 
 // Premier controlleur (redirige vers les controlleurs concernés)
@@ -94,6 +73,10 @@ function init_twig() {
   }
 $twig = init_twig();
 
+// Import config
+include_once 'utils/config.php';
+
+
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
 if (empty($path)) {
     echo $twig->render('frontpage.html.twig');
@@ -119,18 +102,4 @@ if (empty($path)) {
         // echo $twig->render('errors/404.html.twig');
         header('HTTP/1.0 404 Not Found');
     }
-
-    // // Sinon, essayer d'inclure le contrôleur correspondant
-    // $className = ucfirst($path);
-    // $controllerName = $className . 'Controller';
-    // $controllerPath = './app/controllers/' . $controllerName . '.php';
-    // // echo $controllerPath;
-
-    // if (file_exists($controllerPath)) {
-    //     require $controllerPath;
-
-    // } else {
-    //     // Si le contrôleur n'existe pas, afficher une erreur 404
-    //     echo $twig->render('errors/404.html.twig');
-    // }
 }
