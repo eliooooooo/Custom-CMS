@@ -20,6 +20,7 @@ class ControllerBase {
       }
 
       public function render($action, $data) {
+        $data .= ['site' => Config::get('site')];
         echo $this->twig->render('pages/' . $action . '.html.twig', $data);
       }
 }
