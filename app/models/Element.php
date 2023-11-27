@@ -33,25 +33,23 @@ class Element {
     }
 
     function create(){
-        $pdo = connexion();
-        $sqlController = new SqlController($pdo);
+      $pdo = connexion();
+      $sqlController = new SqlController($pdo);
 
-        // Construction du tableau de données
-        $data = [
-            'tags' => $this->tags,
-            'content' => $this->content,
-            'alt' => $this->alt,
-            'link' => $this->link,
-            'class' => $this->class,
-            'id_article' => $this->id_article
-        ];
+      // Construction du tableau de données
+      $data = [];
+      foreach ($this->getAttributes() as $key => $value) {
+          if (!empty($value)) {
+              $data[$key] = $value;
+          }
+      }
 
-        // Appel de la méthode insert de SqlController
-        $sqlController->insert('element', $data);
+      // Appel de la méthode insert de SqlController
+      $sqlController->insert('element', $data);
 
-        // Récupération de l'id
-        $this->id = $pdo->lastInsertId();
-    }
+      // Récupération de l'id
+      $this->id = $pdo->lastInsertId();
+  }
 
     function setAttributes($attributes) {
         /**

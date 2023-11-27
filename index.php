@@ -11,19 +11,6 @@ if ($_SESSION == null) {
 
 // Fonction qui permet d'initialiser Twig en fixant le dossier des modèles
 require_once('vendor/autoload.php');
-function init_twig()
-{
-    // Indique le répertoire ou sont placés les modèles (templates)
-    $loader = new \Twig\Loader\FilesystemLoader('app/views');
-
-    // Crée un nouveau moteur Twig
-    $twig = new \Twig\Environment($loader, ['debug' => true]);
-    $twig->addExtension(new \Twig\Extension\DebugExtension());
-
-    // Renvoie le moteur
-    return $twig;
-}
-$twig = init_twig();
 
 
 // Gestionnaires d'erreurs et d'exceptions
@@ -37,12 +24,12 @@ function customExceptionHandler($exception) {
     die();
 }
 
-set_error_handler("customErrorHandler");
-set_exception_handler("customExceptionHandler");
-// Décommenter pour afficher les erreurs
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// set_error_handler("customErrorHandler");
+// set_exception_handler("customExceptionHandler");
+// // Décommenter pour afficher les erreurs
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 
 // Appel des différents modèles
@@ -51,7 +38,6 @@ foreach (glob('app/models/*.php') as $filename) {
 }
 // Appel du controller SQL
 include_once 'app/controllers/SqlController.php';
-
 
 
 // Premier controlleur (redirige vers les controlleurs concernés)
@@ -93,22 +79,45 @@ $request_uri = str_replace($project_path, '', $request_uri);
 
 // Récupérer la partie de l'URI après le premier slash
 $path = ltrim($request_uri, '/');
+include_once 'app/controllers/ControllerBase.php';
 
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
 if (empty($path)) {
     echo $twig->render('frontpage.html.twig');
 } else {
-    // Sinon, essayer d'inclure le contrôleur correspondant
+
     $className = ucfirst($path);
     $controllerName = $className . 'Controller';
     $controllerPath = './app/controllers/' . $controllerName . '.php';
-    // echo $controllerPath;
 
     if (file_exists($controllerPath)) {
         require $controllerPath;
 
+        $controller = new $controllerName();
+
+        try {
+            $controller->$action($id);
+        } catch (Exception $e) {
+            echo $controller->twig->render('errors/404.html.twig');
+        }
+
     } else {
         // Si le contrôleur n'existe pas, afficher une erreur 404
-        echo $twig->render('errors/404.html.twig');
+        // echo $twig->render('errors/404.html.twig');
+        header('HTTP/1.0 404 Not Found');
     }
+
+    // // Sinon, essayer d'inclure le contrôleur correspondant
+    // $className = ucfirst($path);
+    // $controllerName = $className . 'Controller';
+    // $controllerPath = './app/controllers/' . $controllerName . '.php';
+    // // echo $controllerPath;
+
+    // if (file_exists($controllerPath)) {
+    //     require $controllerPath;
+
+    // } else {
+    //     // Si le contrôleur n'existe pas, afficher une erreur 404
+    //     echo $twig->render('errors/404.html.twig');
+    // }
 }

@@ -8,12 +8,6 @@ class Article {
     public $author;
     public $class;
 
-    function __construct() {
-    }
-
-    function affiche() {
-        echo '<article class="'.$this->class.'" ><h1>'.$this->title.'</h1><h2>'.$this->subtitle.'</h2></article>';
-    }
 
     public function getAttributes() {
         return get_object_vars($this);
@@ -52,12 +46,12 @@ class Article {
         $sqlController = new SqlController($pdo);
 
         // Construction du tableau de données
-        $data = [
-            'title' => $this->title,
-            'subtitle' => $this->subtitle,
-            'author' => $this->author,
-            'class' => $this->class
-        ];
+        $data = [];
+        foreach ($this->getAttributes() as $key => $value) {
+            if (!empty($value)) {
+                $data[$key] = $value;
+            }
+        }
 
         // Appel de la méthode insert de SqlController
         $sqlController->insert('article', $data);
