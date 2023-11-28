@@ -1,6 +1,6 @@
 <?php 
 
-$config = [
+$configArray = [
     'database' => [
         'name' => 'burkle_bdd_CUEJ',
         'host' => 'tp2.iha.unistra.fr',
@@ -20,3 +20,5 @@ $config = [
         'author' => 'Les journalistes en herbe',
     ],
 ];
+
+Config::set($configArray);

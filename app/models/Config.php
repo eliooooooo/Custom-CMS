@@ -1,8 +1,13 @@
 <?php
 
-class Config {
+include_once 'utils/config.php';
 
+class Config {
     private static $configs = [];
+
+    public function __construct() {
+      $this->config = Config::get();
+    }
 
     /**
      * Get the config file array.
@@ -23,10 +28,9 @@ class Config {
     /**
      * Get the config value.
      * 
-     * @param string $key
-     * @return string
+     * @return array
      */
-    public static function get(string $key){
-      return self::$configs[$key];
+    public static function get(){
+      return self::$configs;
     }
 }

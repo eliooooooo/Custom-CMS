@@ -32,7 +32,8 @@ class ControllerBase {
        * @return void
        */
       public function render(string $action, array $data) {
-        $data .= ['site' => Config::get('site')];
+        $config = Config::get();
+        $data = array_merge($data, $config);
         echo $this->twig->render('pages/' . $action . '.html.twig', $data);
       }
 }

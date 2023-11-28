@@ -3,10 +3,8 @@ session_start();
 
 
 // Connexion à la base de données
-if ($_SESSION == null) {
-    include_once(__DIR__ . '/utils/connexion.php');
-    $pdo = connexion();
-}
+include_once(__DIR__ . '/utils/connexion.php');
+$pdo = connexion();
 
 
 // Fonction qui permet d'initialiser Twig en fixant le dossier des modèles
@@ -17,7 +15,6 @@ require_once('vendor/autoload.php');
 foreach (glob('app/models/*.php') as $filename) {
     include $filename;
 }
-
 
 // Premier controlleur (redirige vers les controlleurs concernés)
 // Appel des différents contrôleurs
@@ -75,6 +72,7 @@ $twig = init_twig();
 
 // Import config
 include_once 'utils/config.php';
+$config = Config::get();
 
 include_once 'app/controllers/ErrorController.php';
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
