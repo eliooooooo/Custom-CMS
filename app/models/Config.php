@@ -1,7 +1,5 @@
 <?php
 
-echo 'Config.php';
-
 class Config {
 
     private static $configs = [];
@@ -22,6 +20,12 @@ class Config {
       }
     }
 
+    /**
+     * Get the config value.
+     * 
+     * @param string $key
+     * @return string
+     */
     public static function get(string $key){
       return self::$configs[$key];
     }

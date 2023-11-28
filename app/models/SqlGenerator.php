@@ -7,6 +7,14 @@ class SqlGenerator {
         $this->pdo = $pdo;
     }
 
+    /**
+     * Permet de Générer une requête SELECT
+     *
+     * @param string $table
+     * @param string $columns
+     * @param string $conditions
+     * @return string
+     */
     public function select($table, $columns = "*", $conditions = "") {
         $query = "SELECT $columns FROM $table";
         if (!empty($conditions)) {
@@ -18,6 +26,13 @@ class SqlGenerator {
         return $result;
     }
 
+    /**
+     * Permet de Générer une requête INSERT
+     *
+     * @param string $table
+     * @param array $data
+     * @return void
+     */
     public function insert($table, $data) {
         $columns = implode(", ", array_keys($data));
         $values = implode(", ", array_map(function($value) { return "'$value'"; }, array_values($data)));
@@ -28,6 +43,14 @@ class SqlGenerator {
         $statement->execute();
     }
 
+    /**
+     * Permet de Générer une requête UPDATE
+     *
+     * @param string $table
+     * @param array $data
+     * @param string $where
+     * @return void
+     */
     public function update($table, $data, $where) {
         $set = '';
         foreach ($data as $column => $value) {
@@ -43,6 +66,13 @@ class SqlGenerator {
         $statement->execute();
     }
 
+    /**
+     * Permet de Générer une requête DELETE
+     *
+     * @param string $table
+     * @param string $conditions
+     * @return void
+     */
     public function delete($table, $conditions = "") {
         $query = "DELETE FROM $table";
         if (!empty($conditions)) {

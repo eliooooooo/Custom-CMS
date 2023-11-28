@@ -1,9 +1,11 @@
 <?php
-$host = '';
-$db   = '';
-$user = '';
-$pass = '';
-$charset = 'utf8';
+include_once 'utils/config.php';
+
+$host = Config::get('database_host');
+$db   = Config::get('database_name');
+$user = Config::get('database_user');
+$pass = Config::get('database_password');
+$charset = Config::get('database_charset');
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $opt = [

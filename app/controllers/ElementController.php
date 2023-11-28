@@ -2,22 +2,25 @@
 
 class ElementController extends ControllerBase {
 
-  public function read($id = null){
+  /**
+   * Permet de lire un ou plusieurs elements
+   *
+   * @param int $id
+   * @return void
+   */
+  public function read(int $id = null){
     $data = ['element' => Element::read($id)];
     var_dump($data);
     $this->render('read', $data);
   }
 
-  public function create($data){
-    /**$data = [
-    *  'tags' => 'test',
-    *  'content' => 'test',
-    *  'alt' => 'test',
-    *  'link' => 'test',
-    *  'class' => 'test',
-    *  'id_article' => 3
-    *];
-    */
+  /**
+   * Permet de créer un element
+   *
+   * @param array $data
+   * @return void
+   */
+  public function create(array $data){
     $element = new Element();
     $element->setAttributes($data);
     $newElementId = $element->create();
@@ -27,16 +30,14 @@ class ElementController extends ControllerBase {
     $this->render('read', $data);
   }
 
-  public function update($id){
-    /**$data = [
-    *  'tags' => 'test2',
-    *  'content' => 'test2',
-    *  'alt' => 'test2',
-    *  'link' => 'test2',
-    *  'class' => 'test2',
-    *  'id_article' => 3
-    *];
-    */
+  /**
+   * Permet de mettre à jour un element
+   *
+   * @param int $id
+   * @param array $data
+   * @return void
+   */
+  public function update(int $id, array $data){
     $element = new Element();
     $element->setAttributes($data);
     $element->update($id);
@@ -46,7 +47,13 @@ class ElementController extends ControllerBase {
     $this->render('read', $data);
   }
 
-  public function delete($id){
+  /**
+   * Permet de supprimer un element
+   *
+   * @param int $id
+   * @return void
+   */
+  public function delete(int $id){
     Element::delete($id);
     $data = ['element' => Element::read()];
     var_dump($data);

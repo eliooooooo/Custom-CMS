@@ -6,11 +6,22 @@ class Category {
     public $description;
     public $image;
 
+    /**
+     * Permet de récupérer les attributs de l'objet
+     *
+     * @return array
+     */
     public function getAttributes() {
         return get_object_vars($this);
     }
 
-    static function read($id = null) {
+    /**
+     * Permet de lire une ou plusieurs catégories
+     *
+     * @param int $id
+     * @return array
+     */
+    static function read(int $id = null) {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -40,6 +51,11 @@ class Category {
         }
     }
 
+    /**
+     * Permet de créer une catégorie
+     *
+     * @return void
+     */
     function create(){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
@@ -59,7 +75,13 @@ class Category {
         $this->id = $pdo->lastInsertId();
     }
 
-    static function delete($id){
+    /**
+     * Permet de supprimer une catégorie
+     *
+     * @param int $id
+     * @return void
+     */
+    static function delete(int $id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -67,18 +89,13 @@ class Category {
         $SqlGenerator->delete('category', 'id = ' . $id);
     }
 
-    function setAttributes($attributes) {
-        /**
-         * Appel de la fonction :
-         * $element->setAttributes([
-         *      'tags' => $tags,
-         *      'content' => $content,
-         *      'alt' => $alt,
-         *      'link' => $link,
-         *      'class' => $class,
-         *      'id_article' => $id_article
-         *]);
-         */
+    /**
+     * Permet de mettre à jour une catégorie
+     *
+     * @param array $attributes
+     * @return void
+     */
+    function setAttributes(array $attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -89,7 +106,13 @@ class Category {
         }
     }
 
-    function update($id) {
+    /**
+     * Permet de mettre à jour une catégorie
+     *
+     * @param int $id
+     * @return void
+     */
+    function update(int $id) {
         if ($id === null) {
             throw new Exception('Erreur : l\'ID est null.');
         }
@@ -113,6 +136,11 @@ class Category {
         }
     }
 
+    /**
+     * Permet de charger les attributs de l'objet avec les données du formulaire
+     *
+     * @return void
+     */
     function chargePOST() {
         $attributes = getAttributes();
 

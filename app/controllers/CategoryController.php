@@ -2,22 +2,25 @@
 
 class CategoryController extends ControllerBase {
 
-  public function read($id = null){
+  /**
+   * Permet de lire une ou plusieurs category
+   *
+   * @param int $id
+   * @return void
+   */
+  public function read(int $id = null){
     $data = ['category' => Category::read($id)];
     var_dump($data);
     $this->render('read', $data);
   }
 
-  public function create($data){
-    /**$data = [
-    *  'tags' => 'test',
-    *  'content' => 'test',
-    *  'alt' => 'test',
-    *  'link' => 'test',
-    *  'class' => 'test',
-    *  'id_article' => 3
-    *];
-    */
+  /**
+   * Permet de créer une category
+   *
+   * @param array $data
+   * @return void
+   */
+  public function create(array $data){
     $category = new Category();
     $category->setAttributes($data);
     $newcategoryId = $category->create();
@@ -27,16 +30,14 @@ class CategoryController extends ControllerBase {
     $this->render('read', $data);
   }
 
-  public function update($id){
-    /**$data = [
-    *  'tags' => 'test2',
-    *  'content' => 'test2',
-    *  'alt' => 'test2',
-    *  'link' => 'test2',
-    *  'class' => 'test2',
-    *  'id_article' => 3
-    *];
-    */
+  /**
+   * Permet de mettre à jour une category
+   *
+   * @param int $id
+   * @param array $data
+   * @return void
+   */
+  public function update(int $id, array $data){
     $category = new Category();
     $category->setAttributes($data);
     $category->update($id);
@@ -46,7 +47,13 @@ class CategoryController extends ControllerBase {
     $this->render('read', $data);
   }
 
-  public function delete($id){
+  /**
+   * Permet de supprimer une category
+   *
+   * @param int $id
+   * @return void
+   */
+  public function delete(int $id){
     Category::delete($id);
     $data = ['category' => Category::read()];
     var_dump($data);

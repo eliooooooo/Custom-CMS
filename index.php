@@ -52,7 +52,7 @@ if (isset($request_uri[1])) {
 $request_uri = $request_uri[0];
 
 // Supprimer le chemin du projet de l'URI
-$project_path = '/~burkle/CMS';
+$project_path = '/~burkle/SAE_301_CMS/';
 $request_uri = str_replace($project_path, '', $request_uri);
 // echo $request_uri;
 
@@ -76,7 +76,7 @@ $twig = init_twig();
 // Import config
 include_once 'utils/config.php';
 
-
+include_once 'app/controllers/ErrorController.php';
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
 if (empty($path)) {
     echo $twig->render('frontpage.html.twig');
@@ -98,8 +98,7 @@ if (empty($path)) {
         }
 
     } else {
-        // Si le contrôleur n'existe pas, afficher une erreur 404
-        // echo $twig->render('errors/404.html.twig');
-        header('HTTP/1.0 404 Not Found');
+        $errorController = new ErrorController();
+        $errorController->notFound();
     }
 }

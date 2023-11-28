@@ -1,6 +1,5 @@
 <?php
 
-
 class Article {
     // liste des attributs
     public $title;
@@ -9,11 +8,22 @@ class Article {
     public $class;
 
 
+    /**
+     * Permet de récupérer les attributs de l'objet
+     *
+     * @return array
+     */
     public function getAttributes() {
         return get_object_vars($this);
     }
 
-    static function read($id = null) {
+    /**
+     * Permet de lire un ou plusieurs articles
+     *
+     * @param int $id
+     * @return array
+     */
+    static function read(int $id = null) {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -41,6 +51,11 @@ class Article {
         }
     }
 
+    /**
+     * Permet de créer un article
+     *
+     * @return void
+     */
     function create(){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
@@ -60,18 +75,13 @@ class Article {
         $this->id = $pdo->lastInsertId();
     }
 
-    function setAttributes($attributes) {
-        /**
-         * Appel de la fonction exemple :
-         * $element->setAttributes([
-         *      'tags' => $tags,
-         *      'content' => $content,
-         *      'alt' => $alt,
-         *      'link' => $link,
-         *      'class' => $class,
-         *      'id_article' => $id_article
-         *]);
-         */
+    /**
+     * Permet de mettre à jour un article
+     *
+     * @param array $attributes
+     * @return void
+     */
+    function setAttributes(array $attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -82,7 +92,13 @@ class Article {
         }
     }
 
-    static function delete($id){
+    /**
+     * Permet de supprimer un article
+     *
+     * @param int $id
+     * @return void
+     */
+    static function delete(int $id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -90,6 +106,12 @@ class Article {
         $SqlGenerator->delete('article', 'id = ' . $id);
     }
 
+    /**
+     * Permet de mettre à jour un article
+     *
+     * @param int $id
+     * @return void
+     */
     function update($id) {
         if ($id === null) {
             throw new Exception('Erreur : l\'ID est null.');
@@ -114,6 +136,11 @@ class Article {
         }
     }
 
+    /**
+     * Permet de charger les attributs de l'objet avec les données du formulaire
+     *
+     * @return void
+     */
     function chargePOST() {
         $attributes = getAttributes();
 

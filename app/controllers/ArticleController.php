@@ -2,22 +2,25 @@
 
 class ArticleController extends ControllerBase {
 
-  public function read($id = null){
+  /**
+   * Permet de lire un ou plusieurs articles
+   *
+   * @param int $id
+   * @return void
+   */
+  public function read(int $id = null){
     $data = ['article' => Article::read($id)];
     var_dump($data);
     $this->render('read', $data);
   }
 
-  public function create($data){
-    /**$data = [
-    *  'tags' => 'test',
-    *  'content' => 'test',
-    *  'alt' => 'test',
-    *  'link' => 'test',
-    *  'class' => 'test',
-    *  'id_article' => 3
-    *];
-    */
+  /**
+   * Permet de créer un article
+   *
+   * @param array $data
+   * @return void
+   */
+  public function create(array $data){
     $article = new Article();
     $article->setAttributes($data);
     $newarticleId = $article->create();
@@ -27,16 +30,14 @@ class ArticleController extends ControllerBase {
     $this->render('read', $data);
   }
 
-  public function update($id){
-    /**$data = [
-    *  'tags' => 'test2',
-    *  'content' => 'test2',
-    *  'alt' => 'test2',
-    *  'link' => 'test2',
-    *  'class' => 'test2',
-    *  'id_article' => 3
-    *];
-    */
+  /**
+   * Permet de mettre à jour un article
+   *
+   * @param int $id
+   * @param array $data
+   * @return void
+   */
+  public function update(int $id, array $data){
     $article = new Article();
     $article->setAttributes($data);
     $article->update($id);
@@ -46,6 +47,12 @@ class ArticleController extends ControllerBase {
     $this->render('read', $data);
   }
 
+  /**
+   * Permet de supprimer un article
+   *
+   * @param int $id
+   * @return void
+   */
   public function delete($id){
     Article::delete($id);
     $data = ['article' => Article::read()];

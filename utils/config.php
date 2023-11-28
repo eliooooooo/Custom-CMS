@@ -6,6 +6,7 @@ $config = [
         'host' => 'tp2.iha.unistra.fr',
         'user' => 'burkle',
         'password' => 'zenbtryn',
+        'charset' => 'utf8',
     ],
     'admin' => [
         'name' => 'admin',
