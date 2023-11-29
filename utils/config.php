@@ -1,10 +1,10 @@
 <?php 
-include __DIR__ . '/../app/models/Config.php';
+include_once __DIR__ . '/../app/models/Config.php';
 
 $configArray = [
     'database' => [
-        'name' => 'burkle_coucou_dylan',
-        'host' => 'tp2.iha.unistra.fr',
+        'name' => '',
+        'host' => '',
         'user' => 'burkle',
         'password' => '',
         'charset' => 'utf8',

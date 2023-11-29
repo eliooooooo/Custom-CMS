@@ -10,11 +10,11 @@ require_once('vendor/autoload.php');
 
 // Appel des différents modèles
 foreach (glob('app/models/*.php') as $filename) {
-    include $filename;
+    include_once $filename;
 }
 
 // Import config
-include 'utils/config.php';
+include_once 'utils/config.php';
 $config = Config::get();
 $project_path = $config['site_url'];
 
