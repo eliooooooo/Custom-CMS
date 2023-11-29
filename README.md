@@ -1,1 +1,1 @@
-class error
+use form security

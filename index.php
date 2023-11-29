@@ -1,15 +1,12 @@
 <?php 
 session_start();
 
-
 // Connexion à la base de données
 include_once(__DIR__ . '/utils/connexion.php');
 $pdo = connexion();
 
-
 // Fonction qui permet d'initialiser Twig en fixant le dossier des modèles
 require_once('vendor/autoload.php');
-
 
 // Appel des différents modèles
 foreach (glob('app/models/*.php') as $filename) {

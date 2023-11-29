@@ -81,6 +81,7 @@ class SqlGenerator {
 
         // Préparation et exécution de la requête
         $statement = $this->pdo->prepare($query);
-        $statement->execute();    }
+        $statement->execute();    
+    }
 }
 

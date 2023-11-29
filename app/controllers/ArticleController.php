@@ -7,7 +7,7 @@ class ArticleController extends ControllerBase {
    *
    * @param int $id
    * @return void
-   */
+   */ 
   public function read(int $id = null){
     $data = ['article' => Article::read($id)];
     var_dump($data);
