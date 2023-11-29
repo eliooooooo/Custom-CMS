@@ -13,6 +13,11 @@ foreach (glob('app/models/*.php') as $filename) {
     include $filename;
 }
 
+// Import config
+include_once 'utils/config.php';
+$config = Config::get();
+$project_path = $config['site_url'];
+
 // Premier controlleur (redirige vers les controlleurs concernés)
 // Appel des différents contrôleurs
 // Obtenir l'URI demandée
@@ -46,7 +51,6 @@ if (isset($request_uri[1])) {
 $request_uri = $request_uri[0];
 
 // Supprimer le chemin du projet de l'URI
-$project_path = '/~burkle/SAE_301_CMS/';
 $request_uri = str_replace($project_path, '', $request_uri);
 // echo $request_uri;
 
@@ -66,10 +70,6 @@ function init_twig() {
     return $twig;
   }
 $twig = init_twig();
-
-// Import config
-include_once 'utils/config.php';
-$config = Config::get();
 
 include_once 'app/controllers/ErrorController.php';
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil

@@ -15,7 +15,7 @@ $configArray = [
     ],
     'site' => [
         'name' => 'LE CUEJ',
-        'url' => '~burkle/SAE_301_CMS/',
+        'url' => '/~burkle/SAE_301_CMS/',
         'description' => 'Trop cool ce site !',
         'author' => 'Les journalistes en herbe',
     ],
