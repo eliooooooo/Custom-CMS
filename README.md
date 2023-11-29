@@ -16,6 +16,7 @@ This module provides instructions for installing and using the CMS.
 2. Once the installation is complete, modify the file `utils/config.php` with the information of this database and the general information of the site.
 3. Open a web browser and navigate to your project.
 4. Run the `utils/DataBaseGenerator.php` in your browser.
+5. If the base has been installed successfully, `the DataBaseGenerator.php` file can be deleted
 
 # Usage instructions:
 ## Front modifications:
