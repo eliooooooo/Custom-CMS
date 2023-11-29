@@ -1,7 +1,5 @@
 # Introduction
-
-
-"""
+This CMS is a personal open-source project aimed at creating a custom, practical and functional CMS.
 This module provides instructions for installing and using the CMS.
 
 # Installation:
@@ -20,17 +18,6 @@ This module provides instructions for installing and using the CMS.
 4. Run the `utils/DataBaseGenerator.php` in your browser.
 
 # Usage instructions:
-
-This code is responsible for the installation and usage of the MCS (My Custom Software).
-
-To install MCS, follow these steps:
-1. Download the MCS installation package from the official website.
-2. Run the installation package and follow the on-screen instructions.
-3. Once the installation is complete, MCS will be ready to use.
-
-To use MCS, follow these steps:
-1. Import the MCS module into your Python script.
-2. Initialize the MCS object with the required parameters.
-3. Call the necessary methods and functions provided by the MCS module to perform desired operations.
-
-Example usage:
+## Front modifications:
+>  - The files present in the ```Core``` folders must not be modified so as not to alter basic functionalities
+>  - The ```esbuild/``` folder is used to compile the sass code. It is therefore necessary to run it on watch during changes, from the build to the creation of the project or even from the production when putting it online.
