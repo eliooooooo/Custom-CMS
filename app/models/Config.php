@@ -1,6 +1,5 @@
 <?php
-
-include_once 'utils/config.php';
+include_once __DIR__.'./../../utils/config.php';
 
 class Config {
     private static $configs = [];

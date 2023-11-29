@@ -14,7 +14,7 @@ foreach (glob('app/models/*.php') as $filename) {
 }
 
 // Import config
-include_once 'utils/config.php';
+include 'utils/config.php';
 $config = Config::get();
 $project_path = $config['site_url'];
 

@@ -1,11 +1,12 @@
 <?php 
+include __DIR__ . '/../app/models/Config.php';
 
 $configArray = [
     'database' => [
-        'name' => 'burkle_bdd_CUEJ',
+        'name' => 'burkle_coucou_dylan',
         'host' => 'tp2.iha.unistra.fr',
         'user' => 'burkle',
-        'password' => 'zenbtryn',
+        'password' => '',
         'charset' => 'utf8',
     ],
     'admin' => [
@@ -20,5 +21,6 @@ $configArray = [
         'author' => 'Les journalistes en herbe',
     ],
 ];
+
 
 Config::set($configArray);

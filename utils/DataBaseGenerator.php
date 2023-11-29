@@ -1,11 +1,12 @@
 <?php
-include_once 'utils/config.php';
+include __DIR__ . '/config.php';
+$config = Config::get();
 
-$host = Config::get('database_host');
-$db   = Config::get('database_name');
-$user = Config::get('database_user');
-$pass = Config::get('database_password');
-$charset = Config::get('database_charset');
+$host = $config['database_host'];
+$db   = $config['database_name'];
+$user = $config['database_user'];
+$pass = $config['database_password'];
+$charset = $config['database_charset'];
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $opt = [
