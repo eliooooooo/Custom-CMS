@@ -3,12 +3,12 @@ This CMS is a personal open-source project aimed at creating a custom, practical
 This module provides instructions for installing and using the CMS.
 
 # Installation:
-1. Clone the CMS package to a desired location on your system with the following command:
+1. Clone the CMS package to a desired location on your system with the following command:  
     $ git clone https://github.com/eliooooooo/CMS.git
 2. Open a terminal and navigate to the extracted directory.
-3. Run the following command to install the required dependencies:
+3. Run the following command to install the required dependencies:  
     $ npm install
-4. Compile the existing assets files with the following command:
+4. Compile the existing assets files with the following command:  
     $ npm run build
 
 # Setup the project:
