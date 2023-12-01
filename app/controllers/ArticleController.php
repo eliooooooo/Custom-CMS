@@ -10,7 +10,7 @@ class ArticleController extends ControllerBase {
    */ 
   public function read(int $id = null){
     $data = ['article' => Article::read($id)];
-    var_dump($data);
+    // var_dump($data);
     $this->render('read', $data);
   }
 

@@ -24,31 +24,34 @@ class Article {
      * @return array
      */
     static function read(int $id = null) {
-        $pdo = connexion();
-        $SqlGenerator = new SqlGenerator($pdo);
+      $pdo = connexion();
+      $SqlGenerator = new SqlGenerator($pdo);
 
-        if ($id === null) {
-            // Requête pour récupérer tous les articles
-            $articles = $SqlGenerator->select('article');
+      if ($id === null) {
+        // Requête pour récupérer tous les articles
+        $articles = $SqlGenerator->select('article');
 
-            // Pour chaque article, récupérer ses éléments
-            foreach ($articles as &$article) {
-                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
+        // Pour chaque article, récupérer ses éléments
+        foreach ($articles as &$article) {
+          $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
 
-                // Ajouter les éléments à l'article
-                $article['elements'] = $elements;
-            }
-
-            // Retourner les articles avec leurs éléments
-            return $articles;
-        } else {
-            // Requête pour sélectionner un article
-            $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $id);
-            $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
-
-            // Retourner les deux résultats sous forme de tableau
-            return ['elements' => $elements, 'article' => $article];
+          // Ajouter les éléments à l'article
+          $article['elements'] = $elements;
         }
+
+        // Retourner les articles avec leurs éléments
+        return ['articles' => $articles];
+      } else {
+        // Requête pour sélectionner un article
+        $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $id);
+        $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
+
+        // Ajouter les éléments à l'article
+        $article[0]['elements'] = $elements;
+
+        // Retourner les deux résultats sous forme de tableau
+        return ['articles' => $article];
+      }
     }
 
     /**

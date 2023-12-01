@@ -4,6 +4,7 @@ class Category {
     // liste des attributs
     public $name;
     public $description;
+    public $class;
     public $image;
 
     /**
@@ -22,33 +23,35 @@ class Category {
      * @return array
      */
     static function read(int $id = null) {
-        $pdo = connexion();
-        $SqlGenerator = new SqlGenerator($pdo);
+      $pdo = connexion();
+      $SqlGenerator = new SqlGenerator($pdo);
 
-        if ($id === null) {
-            // Requête pour récupérer toutes les catégories
-            $categories = $SqlGenerator->select('category', '*');
+      if ($id === null) {
+        // Requête pour récupérer toutes les catégories
+        $categories = $SqlGenerator->select('category', '*');
+      } else {
+        // Requête pour récupérer la catégorie spécifique
+        $categories = $SqlGenerator->select('category', '*', 'id = ' . $id);
+      }
 
-            // Retourner toutes les catégories
-            return $categories;
-        } else {
-            // Première requête pour récupérer la catégorie spécifique
-            $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+      // Pour chaque catégorie, récupérer ses articles
+      foreach ($categories as &$category) {
+        $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
 
-            // Requête pour récupérer tous les articles de cette catégorie
-            $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $id);
+        // Pour chaque article, récupérer ses éléments
+        foreach ($articles as &$article) {
+          $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
 
-            // Pour chaque article, récupérer ses éléments
-            foreach ($articles as &$article) {
-                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
-
-                // Ajouter les éléments à l'article
-                $article['elements'] = $elements;
-            }
-
-            // Retourner les deux résultats sous forme de tableau
-            return ['category' => $category, 'articles' => $articles];
+          // Ajouter les éléments à l'article
+          $article['elements'] = $elements;
         }
+
+        // Ajouter les articles à la catégorie
+        $category['articles'] = $articles;
+      }
+
+      // Retourner les catégories avec leurs articles
+      return ['category' => $categories];
     }
 
     /**

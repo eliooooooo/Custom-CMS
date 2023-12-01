@@ -1,0 +1,12 @@
+{% for category in category.category %}
+  <div class="category {{category.class}}" >
+    <h1>{{category.name}}</h1>
+    <p>{{category.description}}</p>
+    {% if category.image %}
+      <img src="{{category.image}}" alt="{{category.name}}">
+    {% endif %}
+    {% for article in category.articles %}
+      {% include "display/display_articles.html.twig" %}
+    {% endfor %}
+  </div>
+{% endfor %}

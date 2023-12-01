@@ -56,6 +56,7 @@ $request_uri = str_replace($project_path, '', $request_uri);
 
 // Récupérer la partie de l'URI après le premier slash
 $path = ltrim($request_uri, '/');
+// echo $path;
 include_once 'app/controllers/ControllerBase.php';
 
 function init_twig() {
@@ -80,6 +81,7 @@ if (empty($path)) {
     $className = ucfirst($path);
     $controllerName = $className . 'Controller';
     $controllerPath = './app/controllers/' . $controllerName . '.php';
+    // echo $controllerPath;
 
     if (file_exists($controllerPath)) {
         require $controllerPath;
@@ -87,8 +89,10 @@ if (empty($path)) {
         $controller = new $controllerName();
 
         try {
-            $controller->$action($id);
+          $controller->$action($id);
         } catch (Exception $e) {
+            echo $e->getMessage();
+            var_dump($e->getTrace());
             echo $controller->twig->render('errors/404.html.twig');
         }
 

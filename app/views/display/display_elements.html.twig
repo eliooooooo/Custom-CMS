@@ -1,35 +1,12 @@
-        <div class="element" >
-            {% if element.balise == 'img' %}
-                <img src="{{element.src}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}>
-            {% endif %}
-            <{{element.balise}} {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.contenu}} </{{element.balise}}>
-            <a href="index.php?page=element&action=delete&id={{element.id}}">Delete</a>
-            <a href="index.php?page=element&action=read&id={{element.id}}">En savoir plus</a>
-            <form method="post" class="form-update" action="index.php?page=element&action=update&id={{element.id}}">
-              <div class="group-form">
-                <label for="balise">Balise :</label>
-                <input type="text" name="balise" value="{{element.balise}}">
-              </div>
-              <div class="group-form">
-                <label for="contenu">Contenu :</label>
-                <input type="text" name="contenu" value="{{element.contenu}}">
-              </div>
-              <div class="group-form">
-                <label for="class">Class :</label>
-                <input type="text" name="class" value="{{element.class}}">
-              </div>
-              <div class="group-form-check">
-                <div class="group-check">
-                  <label for="src-checkbox">src :</label>
-                  <input type="checkbox" class="toggle-input">
-                  <input type="text" class="input-field" name="src" value="{{element.src}}" style="display: none;">
-                </div>
-                <div class="group-check">
-                  <label for="alt-checkbox">alt :</label>
-                  <input type="checkbox" class="toggle-input">
-                  <input type="text" class="input-field" name="alt" value="{{element.alt}}" style="display: none;">
-                </div>
-              </div>
-              <input type="submit" value="Update">
-            </form>
-        </div>
+<div class="element" >
+    {% if element.tags == 'img' %}
+      <img src="{{element.link}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}>
+    {% endif %}
+    {% if element.tags == 'a' %}
+      <a href="{{element.link}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.content}} </a>
+    {% else %}
+      <{{element.tags}} {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.content}} </{{element.tags}}>
+    {% endif %}
+    <a href="element?action=delete&id={{element.id}}">Delete</a>
+    <a href="element?action=read&id={{element.id}}">En savoir plus</a>
+</div>

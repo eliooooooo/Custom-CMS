@@ -6,4 +6,20 @@
 
     <h1>Read</h1>
 
+    {% if element %}
+      {% for element in element %}
+        {% include "display/display_elements.html.twig" %}
+      {% endfor %}
+    {% elseif article %}
+      {% for article in article %}
+        {% include "display/display_articles.html.twig" %}
+      {% endfor %}
+    {% elseif category %}
+      {% for category in category %}
+        {% include "display/display_category.html.twig" %}
+      {% endfor %}
+    {% else %}
+        <p>Nothing to read</p>
+    {% endif %}
+
 {% endblock %}
