@@ -25,29 +25,34 @@ class Category {
     static function read(int $id = null) {
       $pdo = connexion();
       $SqlGenerator = new SqlGenerator($pdo);
+      $categories = [];
 
       if ($id === null) {
         // Requête pour récupérer toutes les catégories
         $categories = $SqlGenerator->select('category', '*');
       } else {
         // Requête pour récupérer la catégorie spécifique
-        $categories = $SqlGenerator->select('category', '*', 'id = ' . $id);
+        $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+        if ($category && count($category) > 0) {
+          $categories[] = $category[0]; // Accéder au premier élément du tableau
+        }
       }
 
       // Pour chaque catégorie, récupérer ses articles
       foreach ($categories as &$category) {
-        $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
+        if (isset($category["id"])) {
+          $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
+          $category['articles'] = [];
 
-        // Pour chaque article, récupérer ses éléments
-        foreach ($articles as &$article) {
-          $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
-
-          // Ajouter les éléments à l'article
-          $article['elements'] = $elements;
+          // Pour chaque article, récupérer ses éléments
+          foreach ($articles as &$article) {
+            if (isset($article["id"])) {
+              $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
+              $article['elements'] = $elements ? $elements : [];
+            }
+            $category['articles'][] = $article;
+          }
         }
-
-        // Ajouter les articles à la catégorie
-        $category['articles'] = $articles;
       }
 
       // Retourner les catégories avec leurs articles
