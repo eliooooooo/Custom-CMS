@@ -4,17 +4,18 @@
 
 {% block content %}
 
-    <h1>Read</h1>
-
     {% if element %}
+      <h1>Elements</h1>
       {% for element in element %}
         {% include "display/display_elements.html.twig" %}
       {% endfor %}
     {% elseif article %}
+      <h1>Articles</h1>
       {% for article in article %}
         {% include "display/display_articles.html.twig" %}
       {% endfor %}
     {% elseif category %}
+      <h1>Categories</h1>
       {% for category in category %}
         {% include "display/display_category.html.twig" %}
       {% endfor %}
