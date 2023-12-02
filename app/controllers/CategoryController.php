@@ -10,7 +10,7 @@ class CategoryController extends ControllerBase {
    */
   public function read(int $id = null){
     $data = ['category' => Category::read($id)];
-    var_dump($data);
+    // var_dump($data);
     $this->render('read', $data);
   }
 

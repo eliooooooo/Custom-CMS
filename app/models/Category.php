@@ -4,6 +4,7 @@ class Category {
     // liste des attributs
     public $name;
     public $description;
+    public $class;
     public $image;
 
     /**
@@ -22,33 +23,40 @@ class Category {
      * @return array
      */
     static function read(int $id = null) {
-        $pdo = connexion();
-        $SqlGenerator = new SqlGenerator($pdo);
+      $pdo = connexion();
+      $SqlGenerator = new SqlGenerator($pdo);
+      $categories = [];
 
-        if ($id === null) {
-            // Requête pour récupérer toutes les catégories
-            $categories = $SqlGenerator->select('category', '*');
-
-            // Retourner toutes les catégories
-            return $categories;
-        } else {
-            // Première requête pour récupérer la catégorie spécifique
-            $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
-
-            // Requête pour récupérer tous les articles de cette catégorie
-            $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $id);
-
-            // Pour chaque article, récupérer ses éléments
-            foreach ($articles as &$article) {
-                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
-
-                // Ajouter les éléments à l'article
-                $article['elements'] = $elements;
-            }
-
-            // Retourner les deux résultats sous forme de tableau
-            return ['category' => $category, 'articles' => $articles];
+      if ($id === null) {
+        // Requête pour récupérer toutes les catégories
+        $categories = $SqlGenerator->select('category', '*');
+      } else {
+        // Requête pour récupérer la catégorie spécifique
+        $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+        if ($category && count($category) > 0) {
+          $categories[] = $category[0]; // Accéder au premier élément du tableau
         }
+      }
+
+      // Pour chaque catégorie, récupérer ses articles
+      foreach ($categories as &$category) {
+        if (isset($category["id"])) {
+          $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
+          $category['articles'] = [];
+
+          // Pour chaque article, récupérer ses éléments
+          foreach ($articles as &$article) {
+            if (isset($article["id"])) {
+              $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
+              $article['elements'] = $elements ? $elements : [];
+            }
+            $category['articles'][] = $article;
+          }
+        }
+      }
+
+      // Retourner les catégories avec leurs articles
+      return ['category' => $categories];
     }
 
     /**
