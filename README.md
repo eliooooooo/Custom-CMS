@@ -15,8 +15,8 @@ This module provides instructions for installing and using the CMS.
 # Setup the project:
 1. Create your database that will host the project.
 2. Once the installation is complete, modify the file `utils/config.php` with the information of this database and the general information of the site. The admin's account password and email must be configurated in a `.env` file in the root directory using the following template :
-   > ADMIN_PASSWORD=jfie782doy //the hashed password
-   > ADMIN_EMAIL=user@email.com // the user email
+   > ADMIN_PASSWORD=jfie782doy //the hashed password  
+   > ADMIN_EMAIL=user@email.com // the user email  
 To access to the hashed password, you can use the following instructions :
 4. Open a web browser and navigate to your project.
 5. Run the `utils/DataBaseGenerator.php` in your browser.
