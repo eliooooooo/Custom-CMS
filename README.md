@@ -4,19 +4,23 @@ This module provides instructions for installing and using the CMS.
 
 # Installation:
 1. Clone the CMS package to a desired location on your system with the following command:  
-    $ git clone https://github.com/eliooooooo/CMS.git
+    `$ git clone`  https://github.com/eliooooooo/CMS.git
 2. Open a terminal and navigate to the extracted directory.
 3. Run the following command to install the required dependencies:  
-    $ npm install
-4. Compile the existing assets files with the following command:  
-    $ npm run build
+    `$ npm install`
+    `$ composer intall`
+5. Compile the existing assets files with the following command:  
+    `$ npm run build`
 
 # Setup the project:
 1. Create your database that will host the project.
-2. Once the installation is complete, modify the file `utils/config.php` with the information of this database and the general information of the site.
-3. Open a web browser and navigate to your project.
-4. Run the `utils/DataBaseGenerator.php` in your browser.
-5. If the base has been installed successfully, the `DataBaseGenerator.php` file can be deleted
+2. Once the installation is complete, modify the file `utils/config.php` with the information of this database and the general information of the site. The admin's account password and email must be configurated in a `.env` file in the root directory using the following template :
+   > ADMIN_PASSWORD=jfie782doy //the hashed password
+   > ADMIN_EMAIL=user@email.com // the user email  
+To access to the hashed password, you can use the following instructions :
+4. Open a web browser and navigate to your project.
+5. Run the `utils/DataBaseGenerator.php` in your browser.
+6. If the base has been installed successfully, the `DataBaseGenerator.php` file can be deleted
 
 # Usage instructions:
 ## Front modifications:
