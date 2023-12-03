@@ -22,6 +22,21 @@ include_once 'utils/config.php';
 $config = Config::get();
 $project_path = $config['site_url'];
 
+// Initialisation de Twig
+require_once __DIR__ . '/vendor/autoload.php';
+function init_twig() {
+    // Indique le répertoire ou sont placés les modèles (templates)
+    $loader = new \Twig\Loader\FilesystemLoader('app/views');
+
+    // Crée un nouveau moteur Twig
+    $twig = new \Twig\Environment($loader, ['debug' => true]);
+    $twig->addExtension(new \Twig\Extension\DebugExtension());
+
+    // Renvoie le moteur
+    return $twig;
+  }
+$twig = init_twig();
+
 // Premier controlleur (redirige vers les controlleurs concernés)
 // Appel des différents contrôleurs
 // Obtenir l'URI demandée
@@ -59,28 +74,41 @@ $request_uri = str_replace($project_path, '', $request_uri);
 // echo $request_uri;
 
 // Récupérer la partie de l'URI après le premier slash
-$path = ltrim($request_uri, '/');
+// $path = ltrim($request_uri, '/');
+$path_tmp = explode('/', $request_uri, 2);
+$path = $path_tmp[0];
 // echo $path;
+
 include_once 'app/controllers/ControllerBase.php';
-
-require_once __DIR__ . '/vendor/autoload.php';
-function init_twig() {
-    // Indique le répertoire ou sont placés les modèles (templates)
-    $loader = new \Twig\Loader\FilesystemLoader('app/views');
-
-    // Crée un nouveau moteur Twig
-    $twig = new \Twig\Environment($loader, ['debug' => true]);
-    $twig->addExtension(new \Twig\Extension\DebugExtension());
-
-    // Renvoie le moteur
-    return $twig;
-  }
-$twig = init_twig();
-
 include_once 'app/controllers/ErrorController.php';
+
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
 if (empty($path)) {
     echo $twig->render('frontpage.html.twig');
+} else if ($path === 'admin') {
+    $admin_fnct = $path_tmp[1];
+    $controllerName = 'AdminController';
+    $controllerPath = './app/controllers/' . $controllerName . '.php';
+
+    if (file_exists($controllerPath)) {
+        require $controllerPath;
+
+        $controller = new $controllerName();
+
+        try {
+          $controller->$admin_fnct();
+        } catch (Exception $e) {
+            // Décommenter pour afficher les erreurs
+            // echo $e->getMessage();
+            // var_dump($e->getTrace());
+            echo $controller->twig->render('errors/404.html.twig');
+        }
+
+    } else {
+        $errorController = new ErrorController();
+        $errorController->notFound();
+    }
+
 } else {
 
     $className = ucfirst($path);
