@@ -33,8 +33,10 @@ class User {
      * @return User|null L'utilisateur si trouvé, null sinon
      */
     public static function findByEmail($email) {
-        $adminEmail = getenv('ADMIN_EMAIL');
-        $adminPassword = getenv('ADMIN_PASSWORD');
+        $admin_config = new Config();
+        $admin_config->get();
+        $adminEmail = $admin_config->getSpecific('admin_email');
+        $adminPassword = $admin_config->getSpecific('admin_password');
         
         if ($email === $adminEmail) {
             $user = new User();
@@ -44,12 +46,24 @@ class User {
             $user->password = $adminPassword;
             return $user;
         }
+    }
 
-        $configuser = new Config();
-        $configuser->get();
-        var_dump($configuser);
+    /**
+     * Récupère l'id d'un utilisateur
+     * 
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
 
-        // return null;
+    /**
+     * Récupère le nom d'un utilisateur
+     * 
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
     }
 
 }

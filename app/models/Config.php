@@ -32,4 +32,14 @@ class Config {
     public static function get(){
       return self::$configs;
     }
+
+    /**
+     * Get the specific config value.
+     * 
+     * @param string $key
+     * @return string
+     */
+    public function getSpecific(string $key){
+      return self::$configs[$key];
+    }
 }

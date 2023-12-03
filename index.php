@@ -1,14 +1,16 @@
 <?php 
 session_start();
 
+
+if (isset($_SESSION['user_id'])) {
+    $isconnected = true;
+} else {
+    $isconnected = false;
+}
+
 // Connexion à la base de données
 include_once(__DIR__ . '/utils/connexion.php');
 $pdo = connexion();
-
-// Import dotenv
-require_once __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 // Appel des différents modèles
 foreach (glob('app/models/*.php') as $filename) {
@@ -94,8 +96,9 @@ if (empty($path)) {
         try {
           $controller->$action($id);
         } catch (Exception $e) {
-            echo $e->getMessage();
-            var_dump($e->getTrace());
+            // Décommenter pour afficher les erreurs
+            // echo $e->getMessage();
+            // var_dump($e->getTrace());
             echo $controller->twig->render('errors/404.html.twig');
         }
 
@@ -104,7 +107,3 @@ if (empty($path)) {
         $errorController->notFound();
     }
 }
-
-// $adminPassword = 'admin'; // Remplacez ceci par le mot de passe réel
-// $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
-// echo $hashedPassword;
