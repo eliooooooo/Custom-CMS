@@ -5,8 +5,10 @@ session_start();
 include_once(__DIR__ . '/utils/connexion.php');
 $pdo = connexion();
 
-// Fonction qui permet d'initialiser Twig en fixant le dossier des modèles
-require_once('vendor/autoload.php');
+// Import dotenv
+require_once __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 // Appel des différents modèles
 foreach (glob('app/models/*.php') as $filename) {
@@ -59,6 +61,7 @@ $path = ltrim($request_uri, '/');
 // echo $path;
 include_once 'app/controllers/ControllerBase.php';
 
+require_once __DIR__ . '/vendor/autoload.php';
 function init_twig() {
     // Indique le répertoire ou sont placés les modèles (templates)
     $loader = new \Twig\Loader\FilesystemLoader('app/views');
@@ -101,3 +104,7 @@ if (empty($path)) {
         $errorController->notFound();
     }
 }
+
+// $adminPassword = 'admin'; // Remplacez ceci par le mot de passe réel
+// $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+// echo $hashedPassword;
