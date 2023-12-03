@@ -23,3 +23,5 @@ This module provides instructions for installing and using the CMS.
 >  - The files present in the `Core` folders must not be modified so as not to alter basic functionalities
 >  - The `esbuild/` folder is used to compile the sass code. It is therefore necessary to run it on watch during changes, from the build to the creation of the project or even from the production when putting it online.
 >  - The compilation destination folders can be modified. In this case, the `html.html.twig` template requires modification in order to update the link to the **.css** and **.js** files.
+
+add composer, env config
