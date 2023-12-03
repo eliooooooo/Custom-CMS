@@ -8,6 +8,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+main {
+    width: 100%;
+    min-height: calc(100vh - 100px);
+}
+
 img {
     max-width: 100%;
 }
