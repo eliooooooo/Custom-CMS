@@ -19,9 +19,9 @@ This module provides instructions for installing and using the CMS.
    > ADMIN_PASSWORD=jfie782doy //the hashed password  
    > ADMIN_EMAIL=user@email.com // the user email  
 - To access to the hashed password, you can use the following instructions and copy the hashed password:
-   > $adminPassword = 'admin'; // Remplacez ceci par le mot de passe réel
-   > $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
-   > echo $hashedPassword;
+   > $adminPassword = 'admin'; // Remplacez ceci par le mot de passe réel  
+   > $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);  
+   > echo $hashedPassword;  
 4. Open a web browser and navigate to your project.
 5. Run the `utils/DataBaseGenerator.php` in your browser.
 6. If the base has been installed successfully, the `DataBaseGenerator.php` file can be deleted
