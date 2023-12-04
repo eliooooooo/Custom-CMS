@@ -7,6 +7,7 @@
 @import "./components/article/article--full.scss";
 @import "./components/form/form-update.scss";
 @import "./components/wrapper.scss";
+@import "./components/notification.scss";
 
 .element {
   background-color: bisque;
