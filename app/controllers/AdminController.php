@@ -3,15 +3,15 @@
 Class AdminController extends ControllerBase {
 
     function create() {
-        $this->render('create', []);
+        $this->render('admin/create', []);
     }
 
     function update() {
-        $this->render('update', []);
+        $this->render('admin/update', []);
     }
 
     function delete() {
-        $this->render('delete', []);
+        $this->render('admin/delete', []);
     }
 
 }

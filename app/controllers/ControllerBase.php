@@ -44,6 +44,12 @@ class ControllerBase {
           echo $this->twig->render($action, $data);
         } else if (strpos($action, 'errors/') === 0) {
           echo $this->twig->render($action, $data);
+        } else if (strpos($action, 'admin/') === 0) {
+          if ($is_connected) {
+            echo $this->twig->render($action . '.html.twig' , $data);
+          } else {
+            header('Location: ' . $config['site_url'] . '/login');
+          }
         } else {
         echo $this->twig->render('pages/' . $action . '.html.twig', $data);
         };
