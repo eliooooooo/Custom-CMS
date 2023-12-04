@@ -42,6 +42,8 @@ class ControllerBase {
         $data = array_merge($data, $config, ['is_connected' => $is_connected]);
         if ($action === 'frontpage.html.twig') {
           echo $this->twig->render($action, $data);
+        } else if (strpos($action, 'errors/') === 0) {
+          echo $this->twig->render($action, $data);
         } else {
         echo $this->twig->render('pages/' . $action . '.html.twig', $data);
         };

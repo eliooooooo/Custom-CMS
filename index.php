@@ -102,7 +102,8 @@ if (empty($path)) {
             // Décommenter pour afficher les erreurs
             // echo $e->getMessage();
             // var_dump($e->getTrace());
-            echo $controller->twig->render('errors/404.html.twig');
+            $errorController = new ErrorController();
+            $errorController->notFound();
         }
 
     } else {
@@ -128,7 +129,8 @@ if (empty($path)) {
             // Décommenter pour afficher les erreurs
             // echo $e->getMessage();
             // var_dump($e->getTrace());
-            echo $controller->twig->render('errors/404.html.twig');
+            $errorController = new ErrorController();
+            $errorController->notFound();
         }
 
     } else {
