@@ -23,10 +23,11 @@ class LoginController extends ControllerBase {
         if ($user && $user->verifyPassword($password)) {
             $_SESSION['user_id'] = $user->getId();
             $_SESSION['user'] = $user->getName();
-            echo 'Connecté en tant que ' . $_SESSION['user'] . ' !';
+            echo '<p class="notification--green notification">Connecté en tant que ' . $_SESSION['user'] . ' !</p>';
             $this->render('frontpage.html.twig', []);
         } else {
-            echo 'Mauvais identifiants';
+            echo '<p class="notification--red notification">Mauvais identifiants</p>';
+            $this->render('login', []);
         }
     }
 
@@ -38,6 +39,7 @@ class LoginController extends ControllerBase {
     public function logout() {
         session_destroy();
         $is_connected = false;
+        echo '<p class="notification--red notification">Vous avez été déconnecté</p>';
         $this->render('frontpage.html.twig', []);
     }
 }
