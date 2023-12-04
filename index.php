@@ -84,7 +84,8 @@ include_once 'app/controllers/ErrorController.php';
 
 // Si l'URI est vide (c'est-à-dire que nous sommes à la racine), afficher la page d'accueil
 if (empty($path)) {
-    echo $twig->render('frontpage.html.twig');
+    $controller = new ControllerBase();
+    echo $controller->render('frontpage.html.twig', []);
 } else if ($path === 'admin') {
     $admin_fnct = $path_tmp[1];
     $controllerName = 'AdminController';
