@@ -5,5 +5,50 @@
 {% block content %}
 
     <h1>Create</h1>
+    <details>
+        <summary>Elements</summary>
+        <form method="POST" action="{{site_url}}element/create">
+            <div class="group-form">
+                <label for="tags">Balise :</label>
+                <input type="text" id="tags" name="tags" placeholder="h1">
+            </div>
+            <div class="group-form">
+                <label for="content">Contenu :</label>
+                <input type="text" id="content" name="content" placeholder="Lorem ips...">
+            </div>
+            <div class="group-form">
+                <label for="class">Classes :</label>
+                <input type="text" id="class" name="class" placeholder="class">
+            </div>
+            <div class="group-form">
+                <label for="id_article">Article :</label>
+                <select name="id_article" id="id_article">
+                    <option value="1">Article 1</option>
+                    <option value="2">Article 2</option>
+                    <option value="3">Article 3</option>
+                </select>
+            </div>
+            <div class="group-form">
+                <label for="id_page">Page :</label>
+                <select name="id_page" id="id_page">
+                    <option value="1">Page 1</option>
+                    <option value="2">Page 2</option>
+                    <option value="3">Page 3</option>
+                </select>
+            </div>
+            <div class="group-form-check">
+                <div class="group-form">
+                    <label for="link-checkbox">Lien :</label>
+                    <input type="checkbox" id="link-checkbox" name="link-checkbox" class="toggle-input">
+                    <input type="text" id="link" name="link" placeholder="Lien de l'élément" style="display: none;">
+                </div>
+                <div class="group-form">
+                    <label for="alt-checkbox">Alt :</label>
+                    <input type="checkbox" id="alt-checkbox" name="alt-checkbox" class="toggle-input">
+                    <input type="text" id="alt" name="alt" placeholder="Alt" style="display: none;">
+                </div>
+            </div>
+            <input type="submit" value="Créer">
+    </details>
 
 {% endblock %}
