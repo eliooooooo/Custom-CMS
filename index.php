@@ -110,9 +110,7 @@ if (empty($path)) {
         $errorController = new ErrorController();
         $errorController->notFound();
     }
-
 } else {
-
     $className = ucfirst($path);
     $controllerName = $className . 'Controller';
     $controllerPath = './app/controllers/' . $controllerName . '.php';
@@ -120,7 +118,6 @@ if (empty($path)) {
 
     if (file_exists($controllerPath)) {
         require $controllerPath;
-
         $controller = new $controllerName();
 
         try {

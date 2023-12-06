@@ -23,6 +23,8 @@ class ElementController extends ControllerBase {
   public function create(){
     $element = new Element();
     $element->setAttributes($_POST);
+    var_dump($_POST);
+    var_dump($element);
     $newElementId = $element->create();
 
     $data = ['element' => Element::read($newElementId)];
