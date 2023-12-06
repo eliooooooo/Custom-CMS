@@ -1,0 +1,16 @@
+.notification {
+    width: 100%;
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+
+    &--green {
+        background-color: green;
+        color: white;
+    }
+
+    &--red {
+        background-color: red;
+        color: white;
+    }
+}

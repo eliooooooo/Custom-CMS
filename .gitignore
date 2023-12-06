@@ -1,5 +1,7 @@
 connexion.php
 node_modules
+vendor
 package-lock.json
 .editorconfig
 dist
+composer.lock

@@ -1,0 +1,102 @@
+{% extends "page.html.twig" %}
+
+{% block title %}Admin - Create{% endblock %}
+
+{% block content %}
+
+    <h1>Create</h1>
+    {# Création des éléments #}
+    <details>
+        <summary>Elements</summary>
+        <form method="POST" action="{{site_url}}element?action=create">
+            <div class="group-form">
+                <label for="tags">Balise :</label>
+                <input type="text" id="tags" name="tags" placeholder="h1" required>
+            </div>
+            <div class="group-form">
+                <label for="content">Contenu :</label>
+                <input type="text" id="content" name="content" placeholder="Lorem ips...">
+            </div>
+            <div class="group-form">
+                <label for="class">Classes :</label>
+                <input type="text" id="class" name="class" placeholder="class">
+            </div>
+            <div class="group-form">
+                <label for="id_article">Article :</label>
+                <select name="id_article" id="id_article" required>
+                    <option value="1">Article 1</option>
+                    <option value="2">Article 2</option>
+                    <option value="3">Article 3</option>
+                </select>
+            </div>
+            <div class="group-form-check">
+                <div class="group-form">
+                    <label for="link-checkbox">Lien :</label>
+                    <input type="checkbox" id="link-checkbox" name="link-checkbox" class="toggle-input">
+                    <input type="text" id="link" name="link" placeholder="Lien de l'élément" style="display: none;">
+                </div>
+                <div class="group-form">
+                    <label for="alt-checkbox">Alt :</label>
+                    <input type="checkbox" id="alt-checkbox" name="alt-checkbox" class="toggle-input">
+                    <input type="text" id="alt" name="alt" placeholder="Alt" style="display: none;">
+                </div>
+            </div>
+            <input type="submit" value="Créer">
+        </form>
+    </details>
+    {# Création des articles #}
+    <details>
+        <summary>Article</summary>
+        <form method="POST" action="{{site_url}}article?action=create">
+            <div class="group-form">
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" placeholder="Titre de l'article" required>
+            </div>
+            <div class="group-form">
+                <label for="subtitle">Sous-titre :</label>
+                <input type="text" id="subtitle" name="subtitle" placeholder="Lorem ips...">
+            </div>
+            <div class="group-form">
+                <label for="author">Auteur :</label>
+                <input type="text" id="author" name="author" placeholder="author">
+            </div>
+            <div class="group-form">
+                <label for="class">Classe :</label>
+                <input type="text" id="class" name="class" placeholder="class">
+            </div>
+            <div class="group-form">
+                <label for="id_category">Category :</label>
+                <select name="id_category" id="id_category" required>
+                    <option value="1">Category 1</option>
+                    <option value="2">Category 2</option>
+                    <option value="3">Category 3</option>
+                </select>
+            </div>
+            <input type="submit" value="Créer">
+        </form>
+    </details>
+    {# Création des catégories #}
+    <details>
+        <summary>Category</summary>
+        <form method="POST" action="{{site_url}}category?action=create">
+            <div class="group-form">
+                <label for="name">Nom de la categorie :</label>
+                <input type="text" id="name" name="name" placeholder="Nom de la catégorie" required>
+            </div>
+            <div class="group-form">
+                <label for="description">Description :</label>
+                <input type="textarea" id="description" name="description" placeholder="Lorem ips...">
+            </div>
+            <div class="group-form">
+                <label for="image">Image :</label>
+                <input type="text" id="image" name="image" placeholder="Image">
+            </div>
+            <div class="group-form">
+                <label for="class">Classe :</label>
+                <input type="text" id="class" name="class" placeholder="class">
+            </div>
+            <input type="submit" value="Créer">
+        </form>
+    </details>
+
+{% endblock %}

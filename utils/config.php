@@ -10,9 +10,10 @@ $configArray = [
         'charset' => 'utf8', // Database charset ex: utf8
     ],
     'admin' => [
+        'id' => 1, // Admin id
         'name' => 'admin', // Admin name
         'email' => 'eliott.burkle@gmail.com', // Admin email
-        'password' => 'admin', // Admin password
+        'password' => password_hash('admin', PASSWORD_DEFAULT), // Admin password
     ],
     'site' => [
         'name' => 'LE CUEJ', // Site name

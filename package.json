@@ -10,7 +10,7 @@
     "lint:style": "stylelint \"**/*.scss\" --ignore-path .gitignore"
   },
   "devDependencies": {
-    "esbuild": "^0.15.13",
+    "esbuild": "^0.15.18",
     "postcss": "^8.4.16"
   },
   "dependencies": {

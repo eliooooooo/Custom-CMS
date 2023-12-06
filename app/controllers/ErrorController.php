@@ -8,7 +8,7 @@ class ErrorController extends ControllerBase {
        * @return void
        */
       public function notFound() {
-          echo $this->twig->render('errors/404.html.twig');
+          echo $this->render('errors/404.html.twig', []);
       }
 
 }
