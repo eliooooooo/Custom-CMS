@@ -20,13 +20,12 @@ class CategoryController extends ControllerBase {
    * @param array $data
    * @return void
    */
-  public function create(array $data){
+  public function create(){
     $category = new Category();
-    $category->setAttributes($data);
-    $newcategoryId = $category->create();
+    $category->setAttributes($_POST);
+    $newCategoryId = $category->create();
 
-    $data = ['category' => Category::read($newcategoryId)];
-    var_dump($data);
+    $data = ['category' => Category::read($newCategoryId)];
     $this->render('read', $data);
   }
 

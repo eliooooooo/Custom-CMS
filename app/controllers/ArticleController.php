@@ -17,16 +17,14 @@ class ArticleController extends ControllerBase {
   /**
    * Permet de créer un article
    *
-   * @param array $data
    * @return void
    */
-  public function create(array $data){
+  public function create(){
     $article = new Article();
-    $article->setAttributes($data);
-    $newarticleId = $article->create();
+    $article->setAttributes($_POST);
+    $newArticleId = $article->create();
 
-    $data = ['article' => Article::read($newarticleId)];
-    var_dump($data);
+    $data = ['article' => Article::read($newArticleId)];
     $this->render('read', $data);
   }
 
