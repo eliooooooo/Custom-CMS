@@ -32,16 +32,14 @@ class ArticleController extends ControllerBase {
    * Permet de mettre à jour un article
    *
    * @param int $id
-   * @param array $data
    * @return void
    */
-  public function update(int $id, array $data){
+  public function update(int $id){
     $article = new Article();
-    $article->setAttributes($data);
+    $article->setAttributes($_POST);
     $article->update($id);
 
     $data = ['article' => Article::read($id)];
-    var_dump($data);
     $this->render('read', $data);
   }
 
