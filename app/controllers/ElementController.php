@@ -53,7 +53,7 @@ class ElementController extends ControllerBase {
   public function delete(int $id){
     Element::delete($id);
     $data = ['element' => Element::read()];
-    var_dump($data);
+
     $this->render('read', $data);
   }
 }
