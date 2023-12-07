@@ -8,7 +8,7 @@
 
     {# Affichage des éléments #}
     <details>
-        <summary>Element</summary>
+        <summary>Elements - {{ element|length }} </summary>
         {% for element in element %}
             <form method="POST" action="{{site_url}}element?action=update&id={{element.id}}" >
                 <div class="group-form">
@@ -50,7 +50,7 @@
     </details>
     {# Affichage des articles #}
     <details>
-        <summary>Article</summary>
+        <summary>Article - {{ article.articles|length }} </summary>
         {% for article in article.articles %}
             <form method="POST" action="{{site_url}}article?action=update&id={{article.id}}">
             <div class="group-form">
@@ -87,7 +87,7 @@
     </details>
     {# Affichage des catégories #}
     <details>
-        <summary>Category</summary>
+        <summary>Category - {{ category.category|length }} </summary>
         {% for category in category.category %}
         <form method="POST" action="{{site_url}}category?action=update&id={{category.id}}">
             <div class="group-form">
