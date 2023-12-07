@@ -26,10 +26,10 @@
                 <div class="group-form">
                     <label for="id_article">Article :</label>
                     <select name="id_article" id="id_article" required>
-                        {% set id_article = element.id_article %}
-                        <option value="1" {% if id_article == 1 %} selected {% endif %}>Article 1</option>
-                        <option value="2" {% if id_article == 2 %} selected {% endif %}>Article 2</option>
-                        <option value="3" {% if id_article == 3 %} selected {% endif %}>Article 3</option>
+                        {% set elmt_id_article = element.id_article %}
+                        {% for article in article.articles %}
+                            <option value="{{article.id}}" {% if elmt_id_article == article.id %} selected {% endif %}>{{ article.title }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="group-form-check">
@@ -72,10 +72,13 @@
             <div class="group-form">
                 <label for="id_category">Category :</label>
                 <select name="id_category" id="id_category" required>
-                    {% set id_category = article.id_category %}
-                    <option value="1" {% if id_category == 1 %} selected {% endif %}>Category 1</option>
+                    {% set article_id_category = article.id_category %}
+                    {% for category in category.category %}
+                        <option value="{{category.id}}" {% if article_id_category == category.id %} selected {% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                    {# <option value="1" {% if id_category == 1 %} selected {% endif %}>Category 1</option>
                     <option value="2" {% if id_category == 2 %} selected {% endif %}>Category 2</option>
-                    <option value="3" {% if id_category == 3 %} selected {% endif %}>Category 3</option>
+                    <option value="3" {% if id_category == 3 %} selected {% endif %}>Category 3</option> #}
                 </select>
             </div>
             <input type="submit" value="Update">
