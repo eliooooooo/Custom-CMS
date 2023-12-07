@@ -19,7 +19,7 @@ Class AdminController extends ControllerBase {
 
     function create() {
         $data = $this->getall();
-        $this->render('admin/create', []);
+        $this->render('admin/create', $data);
     }
 
     function delete() {
@@ -41,10 +41,8 @@ Class AdminController extends ControllerBase {
         if(isset($_POST["submit"])) {
           $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
           if($check !== false) {
-            echo "<p class='notification notification--green'>File is an image - " . $check["mime"] . ".</p>";
             $uploadOk = 1;
           } else {
-            echo "<p class='notification notification--red'>File is not an image.</p>";
             $uploadOk = 0;
             $this->render('admin/create', []);
           }
@@ -52,14 +50,14 @@ Class AdminController extends ControllerBase {
 
         // Check if file already exists
         if (file_exists($target_file)) {
-            echo "<p class='notification notification--red'>Sorry, file already exists.</p>";
+            echo "<p class='notification notification--red'>Désolé, le fichier existe déjà.</p>";
             $uploadOk = 0;
             $this->render('admin/create', []);
         }
 
         // Check file size in KB
         if ($_FILES["fileToUpload"]["size"] > 500000) {
-            echo "<p class='notification notification--red' >Sorry, your file is too large.</p>";
+            echo "<p class='notification notification--red' >Désolé, le fichier est trop volumineux.</p>";
             $uploadOk = 0;
             $this->render('admin/create', []);
         }
@@ -67,22 +65,22 @@ Class AdminController extends ControllerBase {
         // Allow certain file formats
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
-          echo "<p class='notification notification--red'>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>";
+          echo "<p class='notification notification--red'>Désolé, l'extension du fichier n'est pas prise en charge.</p>";
           $uploadOk = 0;
           $this->render('admin/create', []);
         }
 
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-            echo "<p class='notification notification--red'>Sorry, your file was not uploaded.</p>";
+            echo "<p class='notification notification--red'>Désolé, le fichier n'a pas pu être téléchargé.</p>";
             $this->render('admin/create', []);
             // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-              echo "<p class='notification notification--green'>The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.</p>";
+              echo "<p class='notification notification--green'>Le fichier ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " à bien été téléchargé.</p>";
               $this->render('admin/create', []);
             } else {
-              echo "<p class='notification notification--red'>Sorry, there was an error uploading your file.</p>";
+              echo "<p class='notification notification--red'>Désolé, il y a eu une erreur lors du téléchargement du fichier</p>";
               $this->render('admin/create', []);
             }
         }

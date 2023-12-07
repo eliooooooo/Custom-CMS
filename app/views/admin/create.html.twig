@@ -24,9 +24,10 @@
             <div class="group-form">
                 <label for="id_article">Article :</label>
                 <select name="id_article" id="id_article" required>
-                    <option value="1">Article 1</option>
-                    <option value="2">Article 2</option>
-                    <option value="3">Article 3</option>
+                        {% set elmt_id_article = element.id_article %}
+                        {% for article in article.articles %}
+                            <option value="{{article.id}}" {% if elmt_id_article == article.id %} selected {% endif %}>{{ article.title }}</option>
+                        {% endfor %}
                 </select>
             </div>
             <div class="group-form-check">
@@ -34,6 +35,12 @@
                     <label for="link-checkbox">Lien :</label>
                     <input type="checkbox" id="link-checkbox" name="link-checkbox" class="toggle-input">
                     <input type="text" id="link" name="link" placeholder="Lien de l'élément" style="display: none;">
+                    <select name="link" id="link" required>
+                        <option value="">pas d'images internes</option>
+                    {% for files in files %}
+                        <option value="{{files}}">{{ files }}</option>
+                    {% endfor %}
+                    </select>
                 </div>
                 <div class="group-form">
                     <label for="alt-checkbox">Alt :</label>
@@ -71,9 +78,10 @@
             <div class="group-form">
                 <label for="id_category">Category :</label>
                 <select name="id_category" id="id_category" required>
-                    <option value="1">Category 1</option>
-                    <option value="2">Category 2</option>
-                    <option value="3">Category 3</option>
+                    {% set article_id_category = article.id_category %}
+                    {% for category in category.category %}
+                        <option value="{{category.id}}" {% if article_id_category == category.id %} selected {% endif %}>{{ category.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <input type="submit" value="Créer">

@@ -1,6 +1,6 @@
-<div class="element" >
+<div class="element">
     {% if element.tags == 'img' %}
-      <img src="{{element.link}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}>
+      <img src="public/img/uploads/{{element.link}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}>
     {% endif %}
     {% if element.tags == 'a' %}
       <a href="{{element.link}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.content}} </a>
