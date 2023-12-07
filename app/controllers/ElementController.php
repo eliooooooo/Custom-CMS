@@ -33,16 +33,14 @@ class ElementController extends ControllerBase {
    * Permet de mettre à jour un element
    *
    * @param int $id
-   * @param array $data
    * @return void
    */
-  public function update(int $id, array $data){
+  public function update(int $id){
     $element = new Element();
-    $element->setAttributes($data);
+    $element->setAttributes($_POST);
     $element->update($id);
 
     $data = ['element' => Element::read($id)];
-    var_dump($data);
     $this->render('read', $data);
   }
 
@@ -55,7 +53,7 @@ class ElementController extends ControllerBase {
   public function delete(int $id){
     Element::delete($id);
     $data = ['element' => Element::read()];
-    var_dump($data);
+
     $this->render('read', $data);
   }
 }

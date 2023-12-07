@@ -1,9 +1,111 @@
 {% extends "page.html.twig" %}
 
-{% block title %}Update{% endblock %}
+{% block title %}Admin - Update{% endblock %}
 
 {% block content %}
 
     <h1>Update</h1>
+
+    {# Affichage des éléments #}
+    <details>
+        <summary>Element</summary>
+        {% for element in element %}
+            <form method="POST" action="{{site_url}}element?action=update&id={{element.id}}" >
+                <div class="group-form">
+                    <label for="tags">Balise :</label>
+                    <input type="text" id="tags" name="tags" value="{{element.tags}}" required>
+                </div>
+                <div class="group-form">
+                    <label for="content">Contenu :</label>
+                    <input type="text" id="content" name="content" value="{{element.content}}">
+                </div>
+                <div class="group-form">
+                    <label for="class">Classes :</label>
+                    <input type="text" id="class" name="class" value="{{element.class}}">
+                </div>
+                <div class="group-form">
+                    <label for="id_article">Article :</label>
+                    <select name="id_article" id="id_article" required>
+                        {% set id_article = element.id_article %}
+                        <option value="1" {% if id_article == 1 %} selected {% endif %}>Article 1</option>
+                        <option value="2" {% if id_article == 2 %} selected {% endif %}>Article 2</option>
+                        <option value="3" {% if id_article == 3 %} selected {% endif %}>Article 3</option>
+                    </select>
+                </div>
+                <div class="group-form-check">
+                    <div class="group-form">
+                        <label for="link-checkbox">Lien :</label>
+                        <input type="checkbox" id="link-checkbox" name="link-checkbox" class="toggle-input" {% if element.link != "" %}checked{% endif %}>
+                        <input type="text" id="link" name="link" value="{{element.link}}" {% if element.link != "" %}{% else %}style="display: none;"{% endif %}>
+                    </div>
+                    <div class="group-form">
+                        <label for="alt-checkbox">Alt :</label>
+                        <input type="checkbox" id="alt-checkbox" name="alt-checkbox" class="toggle-input" {% if element.alt != "" %}checked{% endif %}>
+                        <input type="text" id="alt" name="alt" value="{{element.alt}}" {% if element.alt != "" %}{% else %}style="display: none;"{% endif %}>
+                    </div>
+                </div>
+                <input type="submit" value="Update">
+            </form>
+        {% endfor %}    
+    </details>
+    {# Affichage des articles #}
+    <details>
+        <summary>Article</summary>
+        {% for article in article.articles %}
+            <form method="POST" action="{{site_url}}article?action=update&id={{article.id}}">
+            <div class="group-form">
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" value="{{article.title}}" required>
+            </div>
+            <div class="group-form">
+                <label for="subtitle">Sous-titre :</label>
+                <input type="text" id="subtitle" name="subtitle" value="{{article.subtitle}}">
+            </div>
+            <div class="group-form">
+                <label for="author">Auteur :</label>
+                <input type="text" id="author" name="author" value="{{article.author}}">
+            </div>
+            <div class="group-form">
+                <label for="class">Classe :</label>
+                <input type="text" id="class" name="class" value="{{article.class}}">
+            </div>
+            <div class="group-form">
+                <label for="id_category">Category :</label>
+                <select name="id_category" id="id_category" required>
+                    {% set id_category = article.id_category %}
+                    <option value="1" {% if id_category == 1 %} selected {% endif %}>Category 1</option>
+                    <option value="2" {% if id_category == 2 %} selected {% endif %}>Category 2</option>
+                    <option value="3" {% if id_category == 3 %} selected {% endif %}>Category 3</option>
+                </select>
+            </div>
+            <input type="submit" value="Update">
+        </form>
+        {% endfor %}    
+    </details>
+    {# Affichage des catégories #}
+    <details>
+        <summary>Category</summary>
+        {% for category in category.category %}
+        <form method="POST" action="{{site_url}}category?action=update&id={{category.id}}">
+            <div class="group-form">
+                <label for="name">Nom de la categorie :</label>
+                <input type="text" id="name" name="name" value="{{category.name}}" required>
+            </div>
+            <div class="group-form">
+                <label for="description">Description :</label>
+                <input type="textarea" id="description" name="description" value="{{category.description}}">
+            </div>
+            <div class="group-form">
+                <label for="image">Image :</label>
+                <input type="text" id="image" name="image" value="{{category.image}} ">
+            </div>
+            <div class="group-form">
+                <label for="class">Classe :</label>
+                <input type="text" id="class" name="class" value="{{category.class}}">
+            </div>
+            <input type="submit" value="Update">
+        </form>
+        {% endfor %}    
+    </details>
 
 {% endblock %}
