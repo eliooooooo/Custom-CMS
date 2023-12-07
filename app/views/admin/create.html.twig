@@ -8,7 +8,7 @@
     {# Création des éléments #}
     <details>
         <summary>Elements</summary>
-        <form method="POST" action="{{site_url}}element?action=create">
+        <form method="POST" action="{{site_url}}element?action=create" enctype="multipart/form-data">
             <div class="group-form">
                 <label for="tags">Balise :</label>
                 <input type="text" id="tags" name="tags" placeholder="h1" required>
@@ -41,6 +41,10 @@
                     <input type="text" id="alt" name="alt" placeholder="Alt" style="display: none;">
                 </div>
             </div>
+            {# <div class="group-form">
+                <label for="image">Image :</label>
+                <input type="file" id="image" name="image" placeholder="Image">
+            </div>             #}
             <input type="submit" value="Créer">
         </form>
     </details>
@@ -95,6 +99,16 @@
                 <label for="class">Classe :</label>
                 <input type="text" id="class" name="class" placeholder="class">
             </div>
+            <input type="submit" value="Créer">
+        </form>
+    </details>
+
+    <h1>Upload</h1>
+    <details>
+        <summary>Image</summary>
+        <form method="POST" action="upload" enctype="multipart/form-data" >
+            <label for="fileToUpload">Image :</label>
+            <input type="file" id="fileToUpload" name="fileToUpload" placeholder="fileToUpload">
             <input type="submit" value="Créer">
         </form>
     </details>
