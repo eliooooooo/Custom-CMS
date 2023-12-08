@@ -19,6 +19,11 @@
       {% for category in category %}
         {% include "display/display_category.html.twig" %}
       {% endfor %}
+    {% elseif blocks %}
+      <h1>Blocks</h1>
+      {% for blocks in blocks %}
+        {% include "display/display_blocks.html.twig" %}
+      {% endfor %}
     {% else %}
         <p>Nothing to read</p>
     {% endif %}

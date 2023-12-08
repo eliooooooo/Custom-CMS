@@ -9,7 +9,7 @@ class BlockController extends ControllerBase {
    * @return void
    */ 
   public function read(int $id = null){
-    $data = ['block' => Block::read($id)];
+    $data = ['blocks' => Block::read($id)];
     // var_dump($data);
     $this->render('read', $data);
   }
@@ -24,7 +24,7 @@ class BlockController extends ControllerBase {
     $block->setAttributes($_POST);
     $newBlockId = $block->create();
 
-    $data = ['block' => Block::read($newBlockId)];
+    $data = ['blocks' => Block::read($newBlockId)];
     $this->render('read', $data);
   }
 
@@ -39,7 +39,7 @@ class BlockController extends ControllerBase {
     $block->setAttributes($_POST);
     $block->update($id);
 
-    $data = ['block' => Block::read($id)];
+    $data = ['blocks' => Block::read($id)];
     $this->render('read', $data);
   }
 
@@ -51,7 +51,7 @@ class BlockController extends ControllerBase {
    */
   public function delete($id){
     Block::delete($id);
-    $data = ['block' => Block::read()];
+    $data = ['blocks' => Block::read()];
     var_dump($data);
     $this->render('read', $data);
   }

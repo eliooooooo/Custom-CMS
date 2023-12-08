@@ -50,7 +50,7 @@ class Block {
         $block[0]['elements'] = $elements;
 
         // Retourner les deux résultats sous forme de tableau
-        return ['block' => $block];
+        return ['blocks' => $block];
       }
     }
 
