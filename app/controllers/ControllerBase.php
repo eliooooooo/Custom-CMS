@@ -38,7 +38,6 @@ class ControllerBase {
         } else {
           $is_connected = false;
         }
-        // var_dump($config);
         $data = array_merge($data, $config, ['is_connected' => $is_connected]);
         if ($action === 'frontpage.html.twig') {
           echo $this->twig->render($action, $data);
@@ -48,7 +47,7 @@ class ControllerBase {
           if ($is_connected) {
             echo $this->twig->render($action . '.html.twig' , $data);
           } else {
-            header('Location: ' . $config['site_url'] . '/login');
+            header('Location: ' . $config['site_url'] . 'login');
           }
         } else {
         echo $this->twig->render('pages/' . $action . '.html.twig', $data);

@@ -3,7 +3,7 @@
 {% block title %}Admin - Update{% endblock %}
 
 {% block content %}
-
+<div class="admin-panel">
     <h1>Update</h1>
 
     {# Affichage des éléments #}
@@ -37,10 +37,14 @@
                         <label for="link-checkbox">Lien :</label>
                         <input type="checkbox" id="link-checkbox" name="link-checkbox" class="toggle-input" {% if element.link != "" %}checked{% endif %}>
                         <input type="text" id="link" name="link" value="{{element.link}}" {% if element.link != "" %}{% else %}style="display: none;"{% endif %}>
-                        <select name="link" id="link">
-                            <option value="">Pas d'images internes</option>
+                    </div>
+                    <div class="group-form">
+                        <label for="file-checkbox">Uploaded file :</label>
+                        <input type="checkbox" id="file-checkbox" name="file-checkbox" class="toggle-input" {% if element.file != "" %}checked{% endif %}>
+                        <select name="file" id="file" {% if element.file != "" %}{% else %}style="display: none;"{% endif %}>
+                            <option value="">--Choisir un fichier--</option>
                         {% for files in files %}
-                            <option value="{{files}}" {% if element.link == link %} selected {% endif %} >{{ files }}</option>
+                            <option value="{{files}}" {% if element.file == files %} selected {% endif %} >{{ files }}</option>
                         {% endfor %}
                         </select>
                     </div>
@@ -113,5 +117,5 @@
         </form>
         {% endfor %}    
     </details>
-
+</div>
 {% endblock %}

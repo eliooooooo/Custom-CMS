@@ -3,7 +3,7 @@
 {% block title %}Admin - Create{% endblock %}
 
 {% block content %}
-
+<div class="admin-panel">
     <h1>Create</h1>
     {# Création des éléments #}
     <details>
@@ -34,14 +34,18 @@
                 <div class="group-form">
                     <label for="link-checkbox">Lien :</label>
                     <input type="checkbox" id="link-checkbox" name="link-checkbox" class="toggle-input">
-                    <input type="text" id="link" name="link" placeholder="Lien de l'élément" style="display: none;">
-                    <select name="link" id="link" required>
-                        <option value="">pas d'images internes</option>
+                    <input type="text" id="link" name="link" style="display: none;">
+                </div>
+                <div class="group-form">
+                    <label for="file-checkbox">Uploaded file :</label>
+                    <input type="checkbox" id="file-checkbox" name="file-checkbox" class="toggle-input" {% if element.file != "" %}checked{% endif %}>
+                    <select name="file" id="file" style="display: none;">
+                        <option value="">--Choisir un fichier--</option>
                     {% for files in files %}
-                        <option value="{{files}}">{{ files }}</option>
+                        <option value="{{files}}" >{{ files }}</option>
                     {% endfor %}
                     </select>
-                </div>
+                    </div>
                 <div class="group-form">
                     <label for="alt-checkbox">Alt :</label>
                     <input type="checkbox" id="alt-checkbox" name="alt-checkbox" class="toggle-input">
@@ -120,5 +124,6 @@
             <input type="submit" value="Créer">
         </form>
     </details>
+</div>
 
 {% endblock %}

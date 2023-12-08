@@ -10,6 +10,7 @@ class Element {
     public $content;
     public $alt;
     public $link;
+    public $file;
     public $class;
     public $id_article;
 

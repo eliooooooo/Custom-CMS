@@ -8,6 +8,7 @@
 @import "./components/form/form-update.scss";
 @import "./components/wrapper.scss";
 @import "./components/notification.scss";
+@import "./admin/admin-panel.scss";
 
 .element {
   background-color: bisque;
