@@ -6,3 +6,4 @@ package-lock.json
 dist
 composer.lock
 uploads/
+.vscode
