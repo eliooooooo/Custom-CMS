@@ -1,4 +1,5 @@
 const sassPlugin = require('esbuild-sass-plugin').default;
+const postcss = require('esbuild-plugin-postcss');
 
 require("esbuild")
     .build({
@@ -7,7 +8,12 @@ require("esbuild")
         bundle: true,
         outdir: './dist',
         minify: false,
-        plugins: [sassPlugin({ absWorkingDir: process.cwd() })],
+        plugins: [sassPlugin({ absWorkingDir: process.cwd() }), postcss.default({
+            plugins: [
+                require('tailwindcss'),
+                require('autoprefixer'),
+            ],
+        })],
         watch: {
             onRebuild(error, result) {
                 if (error) console.error('Watch build failed:', error);

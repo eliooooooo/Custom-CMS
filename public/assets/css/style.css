@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 @import "./base/base.scss";
 @import "./base/header.scss";
 @import "./base/footer.scss";
@@ -9,6 +13,7 @@
 @import "./components/wrapper.scss";
 @import "./components/notification.scss";
 @import "./admin/admin-panel.scss";
+@import "./components/blocks/2-columns.scss";
 
 .element {
   background-color: bisque;

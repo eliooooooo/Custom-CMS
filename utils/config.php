@@ -23,4 +23,5 @@ $configArray = [
     ],
 ];
 
+
 Config::set($configArray);

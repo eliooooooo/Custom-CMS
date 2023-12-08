@@ -11,11 +11,17 @@
   },
   "devDependencies": {
     "esbuild": "^0.15.18",
-    "postcss": "^8.4.16"
+    "esbuild-plugin-postcss": "^0.2.1",
+    "esbuild-sass-plugin": "^2.16.0"
   },
   "dependencies": {
-    "esbuild-sass-plugin": "^2.16.0",
-    "postcss-scss": "^4.0.5",
-    "sass": "^1.54.9"
+    "autoprefixer": "^9.8.8",
+    "postcss": "^7.0.39",
+    "postcss-cli": "^7.1.2",
+    "postcss-import": "^15.1.0",
+    "postcss-sass": "^0.5.0",
+    "postcss-scss": "^2.1.1",
+    "sass": "^1.54.9",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
 }

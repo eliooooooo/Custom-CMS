@@ -1,4 +1,5 @@
 const sassPlugin = require('esbuild-sass-plugin').default;
+const postcss = require('esbuild-plugin-postcss');
 
 require("esbuild")
     .build({
@@ -7,7 +8,12 @@ require("esbuild")
         bundle: true,
         outdir: './dist',
         minify: false,
-        plugins: [sassPlugin()],
-})
-    .then(result => { console.log('Js & css *NON* minifiés !!') })
+        plugins: [sassPlugin(), postcss.default({
+            plugins: [
+                require('tailwindcss'),
+                require('autoprefixer'),
+            ],
+        })],
+    })
+    .then(result => { console.log('Js & css minifiés !!') })
     .catch(() => process.exit(1))

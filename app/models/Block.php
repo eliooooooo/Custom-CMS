@@ -1,11 +1,11 @@
 <?php
 
-class Article {
+class Block {
     // liste des attributs
-    public $title;
-    public $subtitle;
-    public $author;
+    public $name;
     public $class;
+    public $order_elmt;
+    public $id_article;
 
 
     /**
@@ -18,60 +18,44 @@ class Article {
     }
 
     /**
-     * Permet de lire un ou plusieurs articles
+     * Permet de lire un ou plusieurs block
      *
      * @param int $id
      * @return array
      */
     static function read(int $id = null) {
-        $pdo = connexion();
-        $SqlGenerator = new SqlGenerator($pdo);
+      $pdo = connexion();
+      $SqlGenerator = new SqlGenerator($pdo);
 
-        if ($id === null) {
-            // Requête pour récupérer tous les articles
-            $articles = $SqlGenerator->select('article');
+      if ($id === null) {
+        // Requête pour récupérer tous les block
+        $block = $SqlGenerator->select('block');
 
-            // Pour chaque article, récupérer ses éléments et ses blocks
-            foreach ($articles as &$article) {
-                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
-                $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+        // Pour chaque block, récupérer ses éléments
+        foreach ($block as &$block) {
+          $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
 
-                // Pour chaque block, récupérer ses éléments
-                foreach ($blocks as &$block) {
-                    $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                    $block['elements'] = $blockElements;
-                }
-
-                // Ajouter les éléments et les blocks à l'article
-                $article['elements'] = $elements;
-                $article['blocks'] = $blocks;
-            }
-
-            // Retourner les articles avec leurs éléments et leurs blocks
-            return ['articles' => $articles];
-        } else {
-            // Requête pour sélectionner un article
-            $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $id);
-            $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $id);
-            $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
-
-            // Pour chaque block, récupérer ses éléments
-            foreach ($blocks as &$block) {
-                $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                $block['elements'] = $blockElements;
-            }
-
-            // Ajouter les éléments et les blocks à l'article
-            $article[0]['elements'] = $elements;
-            $article[0]['blocks'] = $blocks;
-
-            // Retourner les deux résultats sous forme de tableau
-            return ['articles' => $article];
+          // Ajouter les éléments au block
+          $block['elements'] = $elements;
         }
+
+        // Retourner les blocks avec leurs éléments
+        return ['block' => $block];
+      } else {
+        // Requête pour sélectionner un block
+        $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $id);
+        $block = $SqlGenerator->select('block', '*', 'id = ' . $id);
+
+        // Ajouter les éléments à l'block
+        $block[0]['elements'] = $elements;
+
+        // Retourner les deux résultats sous forme de tableau
+        return ['blocks' => $block];
+      }
     }
 
     /**
-     * Permet de créer un article
+     * Permet de créer un block
      *
      * @return void
      */
@@ -88,14 +72,14 @@ class Article {
         }
 
         // Appel de la méthode insert de SqlGenerator
-        $SqlGenerator->insert('article', $data);
+        $SqlGenerator->insert('block', $data);
 
         // Récupération de l'id
         $this->id = $pdo->lastInsertId();
     }
 
     /**
-     * Permet de mettre à jour un article
+     * Permet de mettre à jour un block
      *
      * @param array $attributes
      * @return void
@@ -112,7 +96,7 @@ class Article {
     }
 
     /**
-     * Permet de supprimer un article
+     * Permet de supprimer un block
      *
      * @param int $id
      * @return void
@@ -122,11 +106,11 @@ class Article {
         $SqlGenerator = new SqlGenerator($pdo);
 
         // Appel de la méthode delete de SqlGenerator
-        $SqlGenerator->delete('article', 'id = ' . $id);
+        $SqlGenerator->delete('block', 'id = ' . $id);
     }
 
     /**
-     * Permet de mettre à jour un article
+     * Permet de mettre à jour un block
      *
      * @param int $id
      * @return void
@@ -151,7 +135,7 @@ class Article {
 
         if (!empty($data)) {
             // Appel de la méthode update de SqlGenerator
-            $SqlGenerator->update('article', $data, 'id = ' . $id);
+            $SqlGenerator->update('block', $data, 'id = ' . $id);
         }
     }
 

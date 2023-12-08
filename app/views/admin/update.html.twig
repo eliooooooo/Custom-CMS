@@ -53,6 +53,17 @@
                         <input type="checkbox" id="alt-checkbox" name="alt-checkbox" class="toggle-input" {% if element.alt != "" %}checked{% endif %}>
                         <input type="text" id="alt" name="alt" value="{{element.alt}}" {% if element.alt != "" %}{% else %}style="display: none;"{% endif %}>
                     </div>
+                    <div class="group-form">
+                        <label for="block-checkbox">Block :</label>
+                        <input type="checkbox" id="block-checkbox" name="block-checkbox" class="toggle-input" {% if element.id_block != "" %}checked{% endif %}>
+                        <select name="block" id="block" {% if element.id_block != "" %}{% else %}style="display: none;"{% endif %}>
+                            <option value="">--Choisir un fichier--</option>
+                            {{ dump(blocks) }}
+                            {% for blocks in blocks %}
+                                <option value="{{blocks}}" {% if element.id_block == blocks.id %} selected {% endif %} >{{ blocks.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 <input type="submit" value="Update">
             </form>
