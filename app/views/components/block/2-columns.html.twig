@@ -1,0 +1,8 @@
+<div class="block {{blocks.name}} {{blocks.class}} bg-black">
+{% for element in blocks.elements %}
+    <div class="block ">
+        <h2>{{ element.title }}</h2>
+        <p>{{ element.content }}</p>
+    </div>
+{% endfor %}
+</div>

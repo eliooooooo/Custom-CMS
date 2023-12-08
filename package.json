@@ -11,11 +11,15 @@
   },
   "devDependencies": {
     "esbuild": "^0.15.18",
-    "postcss": "^8.4.16"
+    "esbuild-plugin-postcss": "^0.2.1",
+    "esbuild-sass-plugin": "^2.16.0",
+    "postcss": "^8.4.32"
   },
   "dependencies": {
-    "esbuild-sass-plugin": "^2.16.0",
+    "autoprefixer": "^10.4.16",
+    "postcss-import": "^15.1.0",
     "postcss-scss": "^4.0.5",
-    "sass": "^1.54.9"
+    "sass": "^1.54.9",
+    "tailwindcss": "^2.0"
   }
 }

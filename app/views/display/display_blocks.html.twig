@@ -1,8 +1,5 @@
 {{dump(blocks)}}
-<div class="block {{blocks.name}}" >
+<div class="block {{blocks.name}} {{blocks.class}}" >
   <h1>{{blocks.name}}</h1>
-  <h2>{{article.subtitle}}</h2>
-  {% for element in article.elements %}
-    {% include "display/display_elements.html.twig" %}
-  {% endfor %}
+  {% include 'components/block/' ~ blocks.name ~ '.html.twig' %}
 </div>
