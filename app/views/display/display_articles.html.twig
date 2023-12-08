@@ -1,9 +1,15 @@
 {% for article in article %}
+<pre>
+  </pre>
   <div class="article {{article.class}}" >
     <h1>{{article.title}}</h1>
     <h2>{{article.subtitle}}</h2>
     {% for element in article.elements %}
       {% include "display/display_elements.html.twig" %}
+    {% endfor %}
+    {% for blocks in article.blocks %}
+      <p>blocks</p>
+      {% include "display/display_blocks.html.twig" %}
     {% endfor %}
   </div>
 {% endfor %}

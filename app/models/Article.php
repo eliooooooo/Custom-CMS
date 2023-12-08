@@ -24,34 +24,50 @@ class Article {
      * @return array
      */
     static function read(int $id = null) {
-      $pdo = connexion();
-      $SqlGenerator = new SqlGenerator($pdo);
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
 
-      if ($id === null) {
-        // Requête pour récupérer tous les articles
-        $articles = $SqlGenerator->select('article');
+        if ($id === null) {
+            // Requête pour récupérer tous les articles
+            $articles = $SqlGenerator->select('article');
 
-        // Pour chaque article, récupérer ses éléments
-        foreach ($articles as &$article) {
-          $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
+            // Pour chaque article, récupérer ses éléments et ses blocks
+            foreach ($articles as &$article) {
+                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
+                $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
 
-          // Ajouter les éléments à l'article
-          $article['elements'] = $elements;
+                // Pour chaque block, récupérer ses éléments
+                foreach ($blocks as &$block) {
+                    $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+                    $block['elements'] = $blockElements;
+                }
+
+                // Ajouter les éléments et les blocks à l'article
+                $article['elements'] = $elements;
+                $article['blocks'] = $blocks;
+            }
+
+            // Retourner les articles avec leurs éléments et leurs blocks
+            return ['articles' => $articles];
+        } else {
+            // Requête pour sélectionner un article
+            $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $id);
+            $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $id);
+            $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
+
+            // Pour chaque block, récupérer ses éléments
+            foreach ($blocks as &$block) {
+                $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+                $block['elements'] = $blockElements;
+            }
+
+            // Ajouter les éléments et les blocks à l'article
+            $article[0]['elements'] = $elements;
+            $article[0]['blocks'] = $blocks;
+
+            // Retourner les deux résultats sous forme de tableau
+            return ['articles' => $article];
         }
-
-        // Retourner les articles avec leurs éléments
-        return ['articles' => $articles];
-      } else {
-        // Requête pour sélectionner un article
-        $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $id);
-        $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
-
-        // Ajouter les éléments à l'article
-        $article[0]['elements'] = $elements;
-
-        // Retourner les deux résultats sous forme de tableau
-        return ['articles' => $article];
-      }
     }
 
     /**
