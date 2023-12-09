@@ -38,6 +38,7 @@ try {
         subtitle VARCHAR(255) NULL,
         author VARCHAR(255) NULL,
         class TEXT NULL,
+        ordre_article INT NULL,
         id_category INT,
         FOREIGN KEY (id_category) REFERENCES category(id)
     );
@@ -66,7 +67,7 @@ try {
     );
 
     INSERT INTO category (name, description, image) VALUES ('Generated Category', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://picsum.photos/200/300');
-    INSERT INTO article (title, subtitle, author, id_category) VALUES ('Generated Article', 'Generated Subtitle', 'elioooo', 1);
+    INSERT INTO article (title, subtitle, author, id_category) VALUES ('Generated Article', 'Generated Subtitle', 'elioooo', NULL, 1, 1);
     INSERT INTO element (tags, content, alt, link, files, class, id_article) VALUES ('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, NULL, NULL, NULL, 1);
     INSERT INTO element (tags, content, alt, link, files, class, id_article) VALUES ('a', 'External Link', NULL, 'https://github.com/eliooooooo/CMS', NULL, NULL, 1);
     INSERT INTO element (tags, content, alt, link, files, class, id_article) VALUES ('img', NULL, NULL, NULL, 'GettyImages-671702530-d9032ee.jpg', NULL, 1);

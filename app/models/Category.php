@@ -42,16 +42,44 @@ class Category {
       foreach ($categories as &$category) {
         if (isset($category["id"])) {
           $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
-          $category['articles'] = [];
+          
+        usort($articles, function($a, $b) {
+            return $a['ordre_article'] - $b['ordre_article'];
+        });
+          
+        $category['articles'] = [];
 
-          // Pour chaque article, récupérer ses éléments
-          foreach ($articles as &$article) {
-            if (isset($article["id"])) {
-              $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
-              $article['elements'] = $elements ? $elements : [];
+            // Pour chaque article, récupérer ses éléments et ses blocks
+            foreach ($articles as &$article) {
+                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
+                $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+                $items = array();
+
+                // Pour chaque block, récupérer ses éléments
+                foreach ($blocks as &$block) {
+                    $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+                    $block['elements'] = $blockElements;
+                    $blockItem = array();
+                    $blockItem['block'] = $block;
+                    array_push($items, $blockItem);
+                }
+
+                foreach ($elements as &$element) {
+                    $elementItem = array();
+                    $elementItem['element'] = $element;
+                    array_push($items, $elementItem);
+                }
+
+                usort($items, function($a, $b) {
+                    $orderA = isset($a['block']) ? $a['block']['order_elmt'] : $a['element']['order_elmt'];
+                    $orderB = isset($b['block']) ? $b['block']['order_elmt'] : $b['element']['order_elmt'];
+                    return $orderA - $orderB;
+                });
+
+                // Ajouter les éléments et les blocks à l'article
+                $article['items'] = $items;
+                array_push($category['articles'], $article);
             }
-            $category['articles'][] = $article;
-          }
         }
       }
 

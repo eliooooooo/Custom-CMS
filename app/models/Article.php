@@ -6,6 +6,7 @@ class Article {
     public $subtitle;
     public $author;
     public $class;
+    public $ordre_article;
 
 
     /**
