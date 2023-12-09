@@ -27,7 +27,7 @@
                     <td class='image'><div class='line-clamp'>{{category.image}}</div></td>
                     <td class='link ' >
                         <a href="#">Modifier</a>
-                        <a href="#">Supprimer</a>
+                        <a href="{{site_url}}category?action=delete&id={{category.id}}">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

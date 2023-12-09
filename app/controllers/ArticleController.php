@@ -25,7 +25,7 @@ class ArticleController extends ControllerBase {
     $newArticleId = $article->create();
 
     $data = ['article' => Article::read($newArticleId)];
-    $this->render('read', $data);
+    $this->render('admin/article', $data);
   }
 
   /**
@@ -40,7 +40,7 @@ class ArticleController extends ControllerBase {
     $article->update($id);
 
     $data = ['article' => Article::read($id)];
-    $this->render('read', $data);
+    $this->render('admin/article', $data);
   }
 
   /**
@@ -52,7 +52,6 @@ class ArticleController extends ControllerBase {
   public function delete($id){
     Article::delete($id);
     $data = ['article' => Article::read()];
-    var_dump($data);
-    $this->render('read', $data);
+    $this->render('admin/article', $data);
   }
 }

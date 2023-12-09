@@ -31,6 +31,14 @@ Class AdminController extends ControllerBase {
     }
 
     /**
+     * Affiche la page delete de l'administration
+     */
+    function delete() {
+        $data = $this->getall();
+        $this->render('admin/delete', $data);
+    }
+
+    /**
      * Affiche la page update de l'administration
      */
     function update() {
@@ -44,6 +52,14 @@ Class AdminController extends ControllerBase {
     function files() {
         $data = $this->getall();
         $this->render('admin/files', $data);
+    }
+
+    /**
+     * Affiche la page element de l'administration
+     */
+    function element() {
+        $data = $this->getall();
+        $this->render('admin/element', $data);
     }
 
     /**
@@ -125,7 +141,7 @@ Class AdminController extends ControllerBase {
     /**
      * Permet de supprimer un upload
      */
-    function delete(){
+    function deletefile(){
         $data = $this->getall();
         $target_dir = "public/img/uploads/";
         $target_file = $target_dir . basename($_POST["file"]);
