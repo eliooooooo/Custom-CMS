@@ -18,18 +18,32 @@
                 </tr>
             </thead>
             <tbody>
+            {% set i = 0 %}
             {% for category in category.category %}
-                <tr>
+                {% set i = i + 1 %}
+                <tr id="row-{{i}}">
                     <td class='id'><a href='{{site_url}}article?id={{category.id}}'>{{category.id}}</a></td>
                     <td class='title'><div class='line-clamp'>{{category.name}}</div></td>
                     <td class='subtitle'><div class='line-clamp'>{{category.description}}</div></td>
                     <td class='class'><div class='line-clamp'>{{category.class}}</div></td>
                     <td class='image'><div class='line-clamp'>{{category.image}}</div></td>
                     <td class='link ' >
-                        <a href="#">Modifier</a>
+                        <a href="#" class='update'>Modifier</a>
                         <a href="{{site_url}}category?action=delete&id={{category.id}}">Supprimer</a>
                     </td>
                 </tr>
+                <tr id="form-{{i}}" style="display: none;">
+                    <form method="POST" action="{{site_url}}category?action=update&id={{category.id}}">
+                        <td class='id'>/</td>
+                        <td class='title'><div class='line-clamp'><input type="text" id="name" name="name" value="{{category.name}}" required></div></td>
+                        <td class='subtitle'><div class='line-clamp'><input type="textarea" id="description" name="description" value="{{category.description}}"></div></td>
+                        <td class='class'><div class='line-clamp'><input type="text" id="class" name="class" value="{{category.class}}"></div></td>
+                        <td class='image'><div class='line-clamp'><input type="text" id="image" name="image" value="{{category.image}}"></div></td>
+                        <td class='link ' >
+                            <input type="submit" value="Modifier">
+                        </td>
+                    </form>
+                </tr>                        
             {% endfor %}
                 <tr>
                     <form method="POST" action="{{site_url}}category?action=create">

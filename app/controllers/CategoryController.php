@@ -38,7 +38,7 @@ class CategoryController extends ControllerBase {
     $category->setAttributes($_POST);
     $category->update($id);
 
-    $data = ['category' => Category::read($id)];
+    $data = ['category' => Category::read()];
     $this->render('admin/category', $data);
   }
 

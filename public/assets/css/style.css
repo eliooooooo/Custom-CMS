@@ -15,14 +15,6 @@
 @import "./admin/admin-panel.scss";
 @import "./components/blocks/2-columns.scss";
 
-.element {
-  margin: 10px 0;
-}
-
-.text-banner {
-  background-color: rgb(255, 81, 0);
-  color: white;
-  width: 100%;
-  padding: 5px 0;
-  text-align: center;
+.hidden {
+    display: none;
 }
