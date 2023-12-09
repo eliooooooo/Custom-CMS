@@ -16,7 +16,6 @@
 @import "./components/blocks/2-columns.scss";
 
 .element {
-  background-color: bisque;
   margin: 10px 0;
 }
 
