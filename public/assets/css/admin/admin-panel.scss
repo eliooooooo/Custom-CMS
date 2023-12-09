@@ -19,4 +19,45 @@
             padding: 10px;
         }
     }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #000;
+        margin: 10px 0;
+        background-color: transparent;
+
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+
+        td:nth-child(1) {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        thead {
+            background-color: rgb(191, 193, 194);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgb(224, 224, 224);
+        }
+
+        .author,
+        .class,
+        .order,
+        .category,
+        .link {
+            text-align: center;
+        }
+
+        // Permet de limiter le nombre de ligne dans la cellule
+        .line-clamp {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    }
 }

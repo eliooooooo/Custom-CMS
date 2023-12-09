@@ -2,6 +2,9 @@
 
 Class AdminController extends ControllerBase {
 
+    /**
+     * Récupère toutes les données de la base de données
+     */
     function getall() {
         $element = new Element();
         $element = ['element' => $element->read()];
@@ -19,20 +22,48 @@ Class AdminController extends ControllerBase {
         return $data;
     }
 
+    /**
+     * Affiche la page create de l'administration
+     */
     function create() {
         $data = $this->getall();
         $this->render('admin/create', $data);
     }
 
+    /**
+     * Affiche la page delete de l'administration
+     */
     function delete() {
         $this->render('admin/delete', []);
     }
 
+    /**
+     * Affiche la page update de l'administration
+     */
     function update() {
         $data = $this->getall();
         $this->render('admin/update', $data);
     }
 
+    /**
+     * Affiche la page article de l'administration
+     */
+    function article() {
+        $data = $this->getall();
+        $this->render('admin/article', $data);
+    }
+
+    /**
+     * Affiche la page block de l'administration
+     */
+    function category() {
+        $data = $this->getall();
+        $this->render('admin/category', $data);
+    }
+
+    /**
+     * Permet d'upload un fichier sur le server
+     */
     function upload(){
         $target_dir = "public/img/uploads/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);

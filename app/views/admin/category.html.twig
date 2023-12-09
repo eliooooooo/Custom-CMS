@@ -1,0 +1,37 @@
+{% extends "page.html.twig" %}
+
+{% block title %}Admin - Category{% endblock %}
+
+{% block content %}
+    <h1>Toutes les catégories ({{ category.category|length }})</h1>
+
+    <div class="admin-panel" >
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Class</th>
+                    <th>Image</th>
+                    <th>Edition</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in category.category %}
+                <tr>
+                    <td class='id'><a href='{{site_url}}article?id={{category.id}}'>{{category.id}}</a></td>
+                    <td class='title'><div class='line-clamp'>{{category.name}}</div></td>
+                    <td class='subtitle'><div class='line-clamp'>{{category.description}}</div></td>
+                    <td class='class'><div class='line-clamp'>{{category.class}}</div></td>
+                    <td class='image'><div class='line-clamp'>{{category.image}}</div></td>
+                    <td class='link' >
+                        <a href="#">Modifier</a>
+                        <a href="#">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

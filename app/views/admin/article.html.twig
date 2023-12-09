@@ -1,0 +1,41 @@
+{% extends "page.html.twig" %}
+
+{% block title %}Admin - Article{% endblock %}
+
+{% block content %}
+    <h1>Tous les articles ({{ article.articles|length }})</h1>
+
+    <div class="admin-panel" >
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Sous-titre</th>
+                    <th>Auteur</th>
+                    <th>Class</th>
+                    <th>Ordre</th>
+                    <th>Catégorie</th>
+                    <th>Edition</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for article in article.articles %}
+                <tr>
+                    <td class='id'><a href='{{site_url}}article?id={{article.id}}'>{{article.id}}</a></td>
+                    <td class='title'><div class='line-clamp'>{{article.title}}</div></td>
+                    <td class='subtitle'><div class='line-clamp'>{{article.subtitle}}</div></td>
+                    <td class='author'><div class='line-clamp'>{{article.author}}</div></td>
+                    <td class='class'><div class='line-clamp'>{{article.class}}</div></td>
+                    <td class='order'><div class='line-clamp'>{{article.ordre_article}}</div></td>
+                    <td class='category'><div class='line-clamp'><a href='{{site_url}}category?id={{article.id_category}}'>{{article.id_category}}</a></div></td>
+                    <td class='link' >
+                        <a href="#">Modifier</a>
+                        <a href="#">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
