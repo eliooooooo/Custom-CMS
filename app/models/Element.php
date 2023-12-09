@@ -9,6 +9,8 @@ class Element {
     public $link;
     public $file;
     public $class;
+    public $order_elmt;
+    public $id_block;
     public $id_article;
 
     /**

@@ -54,7 +54,8 @@ class SqlGenerator {
     public function update($table, $data, $where) {
         $set = '';
         foreach ($data as $column => $value) {
-            $set .= "$column = '$value', ";
+            $value = $this->pdo->quote($value);
+            $set .= "$column = $value, ";
         }
         $set = rtrim($set, ', ');
 

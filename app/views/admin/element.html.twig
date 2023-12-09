@@ -23,8 +23,10 @@
                 </tr>
             </thead>
             <tbody>
+            {% set i = 0 %}
             {% for element in element %}
-                <tr>
+                {% set i = i + 1 %}
+                <tr id="row-{{i}}">
                     <td class='id'><a href='{{site_url}}element?id={{element.id}}'>{{element.id}}</a></td>
                     <td class='balise'><div class='line-clamp'>{{element.tags}}</div></td>
                     <td class='content'><div class='line-clamp'>{{element.content}}</div></td>
@@ -36,9 +38,50 @@
                     <td class='block'><div class='line-clamp'><a href='{{site_url}}block?id={{element.id_block}}'>{{element.id_block}}</a></div></td>
                     <td class='article'><div class='line-clamp'><a href='{{site_url}}article?id={{element.id_article}}'>{{element.id_article}}</a></div></td>
                     <td class='link' >
-                        <a href="#">Modifier</a>
+                        <a href="#" class='update'>Modifier</a>
                         <a href="{{site_url}}element?action=delete&id={{element.id}}">Supprimer</a>
                     </td>
+                </tr>
+                <tr id="form-{{i}}" style="display: none;">
+                    <form method="POST" action="{{site_url}}element?action=update&id={{element.id}}">
+                        <td class='id'>/</td>
+                        <td class='balise'><div class='line-clamp'><input type="text" id="tags" name="tags" value="{{element.tags}}" required></div></td>
+                        <td class='content'><div class='line-clamp'><input type="text" id="content" name="content" value="{{element.content}}"></div></td>
+                        <td class='alt'><div class='line-clamp'><input type="text" id="alt" name="alt" value="{{element.alt}}"></div></td>
+                        <td class='link'><div class='line-clamp'><input type="text" id="link" name="link" value="{{element.link}}"></div></td>
+                        <td class='files'><div class='line-clamp'>                                
+                            <select name="file" id="file">
+                                <option value="" disabled selected>Fichier</option>
+                            {% for files in files %}
+                                <option value="{{files}}" >{{ files }}</option>
+                            {% endfor %}
+                            </select>
+                            </div>
+                        </td>
+                        <td class='class'><div class='line-clamp'><input type="text" id="class" name="class" value="{{element.class}}"></div></td>
+                        <td class='order'><div class='line-clamp'><input type="number" min="0" max="100" id="order_elmt" name="order_elmt" value="{{element.order_elmt}}"></div></td>
+                        <td class='block'><div class='line-clamp'>
+                            <select name="id_block" id="id_block">
+                                <option value="" disabled selected>Block</option>
+                            {% for blocks in blocks %}
+                                <option value="{{blocks.id}}" >{{ blocks.name }}</option>
+                            {% endfor %}
+                            </select>
+                            </div>
+                        </td>
+                        <td class='article'><div class='line-clamp'>
+                            <select name="id_article" id="id_article">
+                                <option value="" disabled selected>Article</option>
+                            {% for article in article.articles %}
+                                <option value="{{article.id}}" >{{ article.title }}</option>
+                            {% endfor %}
+                            </select>
+                            </div>
+                        </td>
+                        <td class='link' >
+                            <input type="submit" value="Modifier">
+                        </td>
+                    </form>
                 </tr>
             {% endfor %}
                 <tr>
@@ -72,7 +115,6 @@
                                     <option value="{{files}}" >{{ files }}</option>
                                 {% endfor %}
                                 </select>
-                                </div>
                             </div>
                         </td>
                         <td>

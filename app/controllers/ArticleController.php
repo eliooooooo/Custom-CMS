@@ -39,7 +39,7 @@ class ArticleController extends ControllerBase {
     $article->setAttributes($_POST);
     $article->update($id);
 
-    $data = ['article' => Article::read($id)];
+    $data = ['article' => Article::read()];
     $this->render('admin/article', $data);
   }
 

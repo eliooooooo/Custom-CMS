@@ -40,7 +40,7 @@ class ElementController extends ControllerBase {
     $element->setAttributes($_POST);
     $element->update($id);
 
-    $data = ['element' => Element::read($id)];
+    $data = ['element' => Element::read()];
     $this->render('admin/element', $data);
   }
 
