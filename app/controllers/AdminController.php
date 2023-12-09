@@ -31,18 +31,19 @@ Class AdminController extends ControllerBase {
     }
 
     /**
-     * Affiche la page delete de l'administration
-     */
-    function delete() {
-        $this->render('admin/delete', []);
-    }
-
-    /**
      * Affiche la page update de l'administration
      */
     function update() {
         $data = $this->getall();
         $this->render('admin/update', $data);
+    }
+
+    /**
+     * Affiche la page files de l'administration
+     */
+    function files() {
+        $data = $this->getall();
+        $this->render('admin/files', $data);
     }
 
     /**
@@ -65,6 +66,7 @@ Class AdminController extends ControllerBase {
      * Permet d'upload un fichier sur le server
      */
     function upload(){
+        $data = $this->getall();
         $target_dir = "public/img/uploads/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
@@ -77,7 +79,7 @@ Class AdminController extends ControllerBase {
             $uploadOk = 1;
           } else {
             $uploadOk = 0;
-            $this->render('admin/create', []);
+            $this->render('admin/files', $data);
           }
         }
 
@@ -85,14 +87,14 @@ Class AdminController extends ControllerBase {
         if (file_exists($target_file)) {
             echo "<p class='notification notification--red'>Désolé, le fichier existe déjà.</p>";
             $uploadOk = 0;
-            $this->render('admin/create', []);
+            $this->render('admin/files', $data);
         }
 
         // Check file size in KB
         if ($_FILES["fileToUpload"]["size"] > 500000) {
             echo "<p class='notification notification--red' >Désolé, le fichier est trop volumineux.</p>";
             $uploadOk = 0;
-            $this->render('admin/create', []);
+            $this->render('admin/files', $data);
         }
 
         // Allow certain file formats
@@ -100,21 +102,56 @@ Class AdminController extends ControllerBase {
         && $imageFileType != "gif" ) {
           echo "<p class='notification notification--red'>Désolé, l'extension du fichier n'est pas prise en charge.</p>";
           $uploadOk = 0;
-          $this->render('admin/create', []);
+          $this->render('admin/files', $data);
         }
 
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
             echo "<p class='notification notification--red'>Désolé, le fichier n'a pas pu être téléchargé.</p>";
-            $this->render('admin/create', []);
+            $this->render('admin/files', $data);
             // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+              $data = $this->getall();
               echo "<p class='notification notification--green'>Le fichier ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " à bien été téléchargé.</p>";
-              $this->render('admin/create', []);
+              $this->render('admin/files', $data);
             } else {
               echo "<p class='notification notification--red'>Désolé, il y a eu une erreur lors du téléchargement du fichier</p>";
-              $this->render('admin/create', []);
+              $this->render('admin/files', $data);
+            }
+        }
+    }
+
+    /**
+     * Permet de supprimer un upload
+     */
+    function delete(){
+        $data = $this->getall();
+        $target_dir = "public/img/uploads/";
+        $target_file = $target_dir . basename($_POST["file"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+        // Check if file already exists
+        if (!file_exists($target_file)) {
+            echo "<p class='notification notification--red'>Désolé, le fichier n'existe pas.</p>";
+            $uploadOk = 0;
+            $this->render('admin/files', $data);
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "<p class='notification notification--red'>Désolé, le fichier n'a pas pu être supprimé.</p>";
+            $this->render('admin/files', $data);
+            // if everything is ok, try to upload file
+        } else {
+            if (unlink($target_file)) {
+              $data = $this->getall();
+              echo "<p class='notification notification--green'>Le fichier ". htmlspecialchars( basename( $_POST["file"])). " à bien été supprimé.</p>";
+              $this->render('admin/files', $data);
+            } else {
+              echo "<p class='notification notification--red'>Désolé, il y a eu une erreur lors de la suppression du fichier</p>";
+              $this->render('admin/files', $data);
             }
         }
     }

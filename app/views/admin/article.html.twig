@@ -35,6 +35,50 @@
                     </td>
                 </tr>
             {% endfor %}
+                <tr>
+                    <form method="POST" action="{{site_url}}article?action=create">
+                        <td class='id'>ID</td>
+                        <td class='title'>
+                            <div class="group-form">
+                                <input type="text" id="title" name="title" placeholder="Titre" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="subtitle" name="subtitle" placeholder="Sous-titre">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="author" name="author" placeholder="Auteur">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="class" name="class" placeholder="Class">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="ordre_article" name="ordre_article" placeholder="Ordre">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <select name="id_category" id="id_category" required>
+                                    <option value="" disabled selected>Catégorie</option>
+                                    {% set article_id_category = article.id_category %}
+                                    {% for category in category.category %}
+                                        <option value="{{category.id}}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="submit" value="Créer">
+                        </td>
+                    </form>
+                </tr>
             </tbody>
         </table>
     </div>
