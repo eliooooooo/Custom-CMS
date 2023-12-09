@@ -36,16 +36,31 @@ class Article {
             foreach ($articles as &$article) {
                 $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
                 $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+                $items = array();
 
                 // Pour chaque block, récupérer ses éléments
                 foreach ($blocks as &$block) {
                     $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
                     $block['elements'] = $blockElements;
+                    $blockItem = array();
+                    $blockItem['block'] = $block;
+                    array_push($items, $blockItem);
                 }
 
+                foreach ($elements as &$element) {
+                    $elementItem = array();
+                    $elementItem['element'] = $element;
+                    array_push($items, $elementItem);
+                }
+
+                usort($items, function($a, $b) {
+                    $orderA = isset($a['block']) ? $a['block']['order_elmt'] : $a['element']['order_elmt'];
+                    $orderB = isset($b['block']) ? $b['block']['order_elmt'] : $b['element']['order_elmt'];
+                    return $orderA - $orderB;
+                });
+
                 // Ajouter les éléments et les blocks à l'article
-                $article['elements'] = $elements;
-                $article['blocks'] = $blocks;
+                $article['items'] = $items;
             }
 
             // Retourner les articles avec leurs éléments et leurs blocks
