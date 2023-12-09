@@ -63,6 +63,14 @@ Class AdminController extends ControllerBase {
     }
 
     /**
+     * Affiche la page block de l'administration
+     */
+    function block() {
+        $data = $this->getall();
+        $this->render('admin/block', $data);
+    }
+
+    /**
      * Affiche la page article de l'administration
      */
     function article() {

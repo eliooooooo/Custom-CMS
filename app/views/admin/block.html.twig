@@ -1,0 +1,49 @@
+{% extends "page.html.twig" %}
+
+{% block title %}Admin - Blocks{% endblock %}
+
+{% block content %}
+    <h1>Blocks</h1>
+    <div class="admin-panel" >
+        <div class="blocks-container">
+            <table class='uploads'>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Preview</th>
+                        <th>Nom</th>
+                        <th>Elements</th>
+                        <th>Ordre</th>
+                        <th>Article</th>
+                        <th>Edition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for blocks in blocks %}
+                    <tr>
+                        <td class='id'>{{ blocks.id }}</td>
+                        <td class='image'><img src="{{site_url}}public/img/block/{{blocks.name}}" alt="{{ blocks.name }}"></td>
+                        <td class='title'><div class='line-clamp'>{{ blocks.name }}</div></td>
+                        <td class='element'><div class='line-clamp'>
+                            {% for elements in blocks.elements %}
+                                <a href='{{site_url}}element?id={{elements.id}}' >{{ elements.id }}</a><br>
+                            {% endfor %}</div>
+                        </td>
+                        <td class='order'><div class='line-clamp'>{{ blocks.order_elmt }}</div></td>
+                        <td class='article'><div class='line-clamp'><a href='{{site_url}}article?id={{blocks.id_article}}' >{{ blocks.id_article }}</a></div></td>
+                        <td class='link'>
+                            <a href='#' >Modifier</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class='blocks-info'>
+                <p><b>Nombre de blocks :</b> {{ blocks|length }}</p>
+                <p>De nouveaux blocs ne peuvent pas être crées depuis cette page. Pour tout besoin, référez vous aux devs <b>le plus tôt</b> possible !</p>
+                <p>Pour pouvoir visualiser le block dans la preview, chaque block existant doit avoir une image de preview dans le dossier <i>public/img/block</i> avec le même nom que le block.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 .admin-panel {
 
-    .files-container {
+    .files-container,
+    .blocks-container {
         display: flex;
         flex-direction: row;
         gap: 20px;
@@ -9,8 +10,13 @@
             width: 50%;
         }
 
-        .files-info {
+        .files-info,
+        .blocks-info {
             width: 50%;
+        }
+
+        .image {
+            width: 75%;
         }
     }
 
@@ -65,7 +71,15 @@
         .class,
         .order,
         .category,
-        .link {
+        .link,
+        .image,
+        .balise,
+        .alt,
+        .files,
+        .order,
+        .block,
+        .article,
+        .element {
             text-align: center;
         }
 
