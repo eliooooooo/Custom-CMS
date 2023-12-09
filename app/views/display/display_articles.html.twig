@@ -1,5 +1,6 @@
-{% for article in article %}
+{# {% for article in article %}
 <pre>
+{{dump(article.items)}}
   </pre>
   <div class="article {{article.class}}" >
     <h1>{{article.title}}</h1>
@@ -11,5 +12,22 @@
       <p>blocks</p>
       {% include "display/display_blocks.html.twig" %}
     {% endfor %}
+  </div>
+{% endfor %} #}
+
+{% for article in article %}
+  <div class="article {{article.class}}" >
+  <h1>{{article.title}}</h1>
+  <h2>{{article.subtitle}}</h2>
+  {% for item in article.items %}
+    {% if item.element %}
+      {% set element = item.element %}
+      {% include "display/display_elements.html.twig" %}
+    {% endif %}
+    {% if item.block %}
+      {% set blocks = item.block %}
+      {% include "display/display_blocks.html.twig" %}
+    {% endif %}
+  {% endfor %}
   </div>
 {% endfor %}
