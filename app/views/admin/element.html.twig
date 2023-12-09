@@ -10,47 +10,69 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Titre</th>
-                    <th>Sous-titre</th>
-                    <th>Auteur</th>
+                    <th>Balise</th>
+                    <th>Contenu</th>
+                    <th>Text-Alternatif</th>
+                    <th>Lien</th>
+                    <th>Fichier</th>
                     <th>Class</th>
                     <th>Ordre</th>
-                    <th>Catégorie</th>
+                    <th>Block</th>
+                    <th>Article</th>
                     <th>Edition</th>
                 </tr>
             </thead>
             <tbody>
-            {% for article in article.articles %}
+            {% for element in element %}
                 <tr>
-                    <td class='id'><a href='{{site_url}}article?id={{article.id}}'>{{article.id}}</a></td>
-                    <td class='title'><div class='line-clamp'>{{article.title}}</div></td>
-                    <td class='subtitle'><div class='line-clamp'>{{article.subtitle}}</div></td>
-                    <td class='author'><div class='line-clamp'>{{article.author}}</div></td>
-                    <td class='class'><div class='line-clamp'>{{article.class}}</div></td>
-                    <td class='order'><div class='line-clamp'>{{article.ordre_article}}</div></td>
-                    <td class='category'><div class='line-clamp'><a href='{{site_url}}category?id={{article.id_category}}'>{{article.id_category}}</a></div></td>
+                    <td class='id'><a href='{{site_url}}element?id={{element.id}}'>{{element.id}}</a></td>
+                    <td class='balise'><div class='line-clamp'>{{element.tags}}</div></td>
+                    <td class='content'><div class='line-clamp'>{{element.content}}</div></td>
+                    <td class='alt'><div class='line-clamp'>{{element.alt}}</div></td>
+                    <td class='link'><div class='line-clamp'>{{element.link}}</div></td>
+                    <td class='files'><div class='line-clamp'>{{element.files}}</div></td>
+                    <td class='class'><div class='line-clamp'>{{element.class}}</div></td>
+                    <td class='order'><div class='line-clamp'>{{element.order_elmt}}</div></td>
+                    <td class='block'><div class='line-clamp'><a href='{{site_url}}block?id={{element.id_block}}'>{{element.id_block}}</a></div></td>
+                    <td class='article'><div class='line-clamp'><a href='{{site_url}}article?id={{element.id_article}}'>{{element.id_article}}</a></div></td>
                     <td class='link' >
                         <a href="#">Modifier</a>
-                        <a href="{{site_url}}article?action=delete&id={{article.id}}">Supprimer</a>
+                        <a href="{{site_url}}element?action=delete&id={{element.id}}">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}
                 <tr>
-                    <form method="POST" action="{{site_url}}article?action=create">
-                        <td class='id'>ID</td>
-                        <td class='title'>
+                    <form method="POST" action="{{site_url}}element?action=create">
+                        <td>ID</td>
+                        <td>
                             <div class="group-form">
-                                <input type="text" id="title" name="title" placeholder="Titre" required>
+                                <input type="text" id="tags" name="tags" placeholder="Balise" required>
                             </div>
                         </td>
                         <td>
                             <div class="group-form">
-                                <input type="text" id="subtitle" name="subtitle" placeholder="Sous-titre">
+                                <input type="text" id="content" name="content" placeholder="Contenu">
                             </div>
                         </td>
                         <td>
                             <div class="group-form">
-                                <input type="text" id="author" name="author" placeholder="Auteur">
+                                <input type="text" id="alt" name="alt" placeholder="Texte-Alternatif">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="link" name="link" placeholder="Lien">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <select name="file" id="file">
+                                    <option value="" disabled selected>Fichier</option>
+                                {% for files in files %}
+                                    <option value="{{files}}" >{{ files }}</option>
+                                {% endfor %}
+                                </select>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -60,18 +82,29 @@
                         </td>
                         <td>
                             <div class="group-form">
-                                <input type="text" id="ordre_article" name="ordre_article" placeholder="Ordre">
+                                <input type="number" min="0" max="100" id="order_elmt" name="order_elmt" placeholder="Ordre">
                             </div>
                         </td>
                         <td>
                             <div class="group-form">
-                                <select name="id_category" id="id_category" required>
-                                    <option value="" disabled selected>Catégorie</option>
-                                    {% set article_id_category = article.id_category %}
-                                    {% for category in category.category %}
-                                        <option value="{{category.id}}">{{ category.name }}</option>
-                                    {% endfor %}
+                                <select name="id_block" id="id_block">
+                                    <option value="" disabled selected>Block</option>
+                                {% for blocks in blocks %}
+                                    <option value="{{blocks.id}}" >{{ blocks.name }}</option>
+                                {% endfor %}
                                 </select>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <select name="id_article" id="id_article">
+                                    <option value="" disabled selected>Article</option>
+                                {% for article in article.articles %}
+                                    <option value="{{article.id}}" >{{ article.title }}</option>
+                                {% endfor %}
+                                </select>
+                                </div>
                             </div>
                         </td>
                         <td>

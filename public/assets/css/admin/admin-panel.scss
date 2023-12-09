@@ -69,6 +69,11 @@
             text-align: center;
         }
 
+        input,
+        select {
+            width: -webkit-fill-available;
+        }
+
         // Permet de limiter le nombre de ligne dans la cellule
         .line-clamp {
             display: -webkit-box;
