@@ -8,7 +8,7 @@ class ElementController extends ControllerBase {
    * @param int $id
    * @return void
    */
-  public function read(int $id = null){
+  public function read($id = null){
     $data = ['element' => Element::read($id)];
     // var_dump($data);
     $this->render('read', $data);
@@ -26,7 +26,7 @@ class ElementController extends ControllerBase {
     $newElementId = $element->create();
 
     $data = ['element' => Element::read($newElementId)];
-    $this->render('read', $data);
+    $this->render('admin/element', $data);
   }
 
   /**
@@ -41,7 +41,7 @@ class ElementController extends ControllerBase {
     $element->update($id);
 
     $data = ['element' => Element::read($id)];
-    $this->render('read', $data);
+    $this->render('admin/element', $data);
   }
 
   /**
@@ -50,10 +50,10 @@ class ElementController extends ControllerBase {
    * @param int $id
    * @return void
    */
-  public function delete(int $id){
+  public function delete($id){
     Element::delete($id);
     $data = ['element' => Element::read()];
 
-    $this->render('read', $data);
+    $this->render('admin/element', $data);
   }
 }

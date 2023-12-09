@@ -7,6 +7,7 @@ class Article {
     public $author;
     public $class;
     public $ordre_article;
+    public $id_category;
 
 
     /**

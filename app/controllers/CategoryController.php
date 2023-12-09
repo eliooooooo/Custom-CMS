@@ -23,8 +23,8 @@ class CategoryController extends ControllerBase {
     $category = new Category();
     $category->setAttributes($_POST);
     $newCategoryId = $category->create();
-    $data = ['category' => Categorie::read($newCategoryId)];
-    $this->render('read', $data);
+    $data = ['category' => Category::read($newCategoryId)];
+    $this->render('admin/category', $data);
   }
 
   /**
@@ -39,7 +39,7 @@ class CategoryController extends ControllerBase {
     $category->update($id);
 
     $data = ['category' => Category::read($id)];
-    $this->render('read', $data);
+    $this->render('admin/category', $data);
   }
 
   /**
@@ -51,6 +51,6 @@ class CategoryController extends ControllerBase {
   public function delete(int $id){
     Category::delete($id);
     $data = ['category' => Category::read()];
-    $this->render('read', $data);
+    $this->render('admin/category', $data);
   }
 }

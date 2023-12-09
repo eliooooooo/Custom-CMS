@@ -25,12 +25,40 @@
                     <td class='subtitle'><div class='line-clamp'>{{category.description}}</div></td>
                     <td class='class'><div class='line-clamp'>{{category.class}}</div></td>
                     <td class='image'><div class='line-clamp'>{{category.image}}</div></td>
-                    <td class='link' >
+                    <td class='link ' >
                         <a href="#">Modifier</a>
-                        <a href="#">Supprimer</a>
+                        <a href="{{site_url}}category?action=delete&id={{category.id}}">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}
+                <tr>
+                    <form method="POST" action="{{site_url}}category?action=create">
+                        <td class='id'>ID</td>
+                        <td class='title'>
+                            <div class="group-form">
+                                <input type="text" id="name" name="name" placeholder="Nom" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="textarea" id="description" name="description" placeholder="Description">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="class" name="class" placeholder="Class">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="image" name="image" placeholder="Image">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="submit" value="Créer">
+                        </td>
+                    </form>
+                </tr>
             </tbody>
         </table>
     </div>
