@@ -1,0 +1,14 @@
+<div class='container-card' >
+{% for category in category %}
+  <div class="category card {{category.class}}" >
+    {% if category.image %}
+      <img src="{{category.image}}" alt="{{category.name}}">
+    {% endif %}
+    <div class="content">
+        <h1>{{category.name}} - {{ category.articles|length }}</h1>
+        <p class="line-clamp">{{category.description}}</p>
+        <a href="{{site_url}}category?id={{category.id}}">Découvrir la catégorie</a>
+    </div>
+  </div>
+{% endfor %}
+</div>

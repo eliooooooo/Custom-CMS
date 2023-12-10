@@ -4,15 +4,25 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    min-height: 100vh;
     font-family: 'Roboto', sans-serif;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
     width: 100%;
-    min-height: calc(100vh - 100px);
 }
 
 img {
     max-width: 100%;
+}
+
+// Permet de limiter le nombre de ligne dans la cellule
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
 }

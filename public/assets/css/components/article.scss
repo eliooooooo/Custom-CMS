@@ -1,0 +1,68 @@
+@import "./../variables/color.scss";
+
+.article {
+    &.card {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        max-width: 450px;
+        border-radius: 10px;
+        overflow: hidden;
+
+        .content {
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            p, h2 {
+                color : $color2;
+            }
+
+            a {
+                color: $color2;
+                background-color: $color1;
+                width: fit-content;
+                padding: 15px 45px;
+                font-weight: bold;
+
+                &:hover {
+                    color: $color1;
+                    background-color: $color2;
+                }
+            }
+        }
+    }
+
+    &.full {
+        background-color: $color1;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        .article-info {
+            background-color: $color2;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    }
+
+    a {
+        display: inline-block;
+        color: $color2;
+        background-color: $color1;
+        width: fit-content;
+        padding: 15px 45px;
+        font-weight: bold;
+
+        &:hover {
+            color: $color1;
+            background-color: $color2;
+        }
+    }
+}

@@ -1,24 +1,27 @@
 {% extends "page.html.twig" %}
 
-{% block title %}Read{% endblock %}
+{% block title %}Découvrez !{% endblock %}
 
 {% block content %}
 
     {% if element %}
-      <h1>Elements</h1>
       {% for element in element %}
         {% include "display/display_elements.html.twig" %}
       {% endfor %}
     {% elseif article %}
-      <h1>Articles</h1>
       {% for article in article %}
         {% include "display/display_articles.html.twig" %}
       {% endfor %}
     {% elseif category %}
-      <h1>Categories</h1>
-      {% for category in category %}
-        {% include "display/display_category.html.twig" %}
-      {% endfor %}
+      {% if category.category|length > 1 %}
+        {% for category in category %}
+          {% include "display/card/card_category.html.twig" %}
+        {% endfor %}
+      {% else %}
+        {% for category in category %}
+            {% include "display/display_category.html.twig" %}
+        {% endfor %}
+      {% endif %}
     {% elseif blocks %}
       <h1>Blocks</h1>
       {% for blocks in blocks %}

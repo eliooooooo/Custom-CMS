@@ -1,0 +1,13 @@
+<div class="container-card">
+{% set i = 0 %}
+{% for article in article %}
+    {% set i = i + 1 %}
+    <div class="article card {{article.class}}" >
+        <div class="content">
+            <h2 class="line-clamp">Article {{i}} : {{article.title}}</h2>
+            <p class="line-clamp">{{article.subtitle}}</p>
+            <a href="{{site_url}}article?id={{article.id}}">Lire l'article</a>
+        </div>
+    </div>
+{% endfor %}
+</div>

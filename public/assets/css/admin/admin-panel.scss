@@ -87,13 +87,5 @@
         select {
             width: -webkit-fill-available;
         }
-
-        // Permet de limiter le nombre de ligne dans la cellule
-        .line-clamp {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;  
-            overflow: hidden;
-        }
     }
 }

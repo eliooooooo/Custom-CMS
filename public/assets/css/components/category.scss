@@ -1,0 +1,51 @@
+@import "./../variables/color.scss";
+
+.category {
+    background-color: $color1;
+
+    &.card {
+        background-color: $color3;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        max-width: 450px;
+        border-radius: 10px;
+        overflow: hidden;
+
+        .content {
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            a {
+                color: $color2;
+                background-color: $color1;
+                width: fit-content;
+                padding: 15px 45px;
+                font-weight: bold;
+
+                &:hover {
+                    color: $color1;
+                    background-color: $color2;
+                }
+            }
+        }
+    }
+
+    &.full {
+        background-color: $color1;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+
+        .cat-info {
+            background-color: $color2;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    }
+}

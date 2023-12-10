@@ -1,11 +1,13 @@
 @import "./../variables/color.scss";
 
 footer {
+    margin-top: auto;
     position: relative;
     bottom: 0;
+    padding: 0;
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: rgb(6, 6, 26);
+    background-color: $color2;
     color: white;
 }
