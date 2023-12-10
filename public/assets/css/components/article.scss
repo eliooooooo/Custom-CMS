@@ -55,16 +55,33 @@
 
         a {
             display: inline-block;
-            color: $color2;
-            background-color: $color1;
+            color: $color1;
+            background-color: $color2;
             width: fit-content;
             padding: 15px 45px;
             font-weight: bold;
     
             &:hover {
-                color: $color1;
-                background-color: $color2;
+                color: $color2;
+                background-color: $color1;
             }
+        }
+
+        figure {
+            display: block;
+            max-width: 60%;
+            margin: auto;
+            
+            figcaption {
+                background-color: $color2;
+                color: white;
+                width: calc(100% - 20px);
+                padding: 10px;
+            }
+        }
+
+        img {
+            margin: auto;
         }
     }
 
