@@ -9,9 +9,15 @@
         {% include "display/display_elements.html.twig" %}
       {% endfor %}
     {% elseif article %}
-      {% for article in article %}
-        {% include "display/display_articles.html.twig" %}
-      {% endfor %}
+      {% if article.articles|length > 1 %}
+        {% for article in article %}
+          {% include "display/card/card_article.html.twig" %}
+        {% endfor %}
+      {% else %}
+        {% for article in article %}
+            {% include "display/display_articles.html.twig" %}
+        {% endfor %}
+      {% endif %}
     {% elseif category %}
       {% if category.category|length > 1 %}
         {% for category in category %}
