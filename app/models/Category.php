@@ -5,7 +5,7 @@ class Category {
     public $name;
     public $description;
     public $class;
-    public $image;
+    public $files;
 
     /**
      * Permet de récupérer les attributs de l'objet

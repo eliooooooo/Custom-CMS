@@ -29,7 +29,7 @@ try {
         name VARCHAR(255) NOT NULL,
         description TEXT NULL,
         class TEXT NULL,
-        image TEXT NULL
+        files TEXT NULL
     );
 
     CREATE TABLE IF NOT EXISTS article (

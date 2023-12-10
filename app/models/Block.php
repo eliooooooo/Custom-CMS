@@ -32,11 +32,11 @@ class Block {
         $block = $SqlGenerator->select('block');
 
         // Pour chaque block, récupérer ses éléments
-        foreach ($block as &$block) {
-          $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+        foreach ($block as &$singleBlock) {
+            $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
 
-          // Ajouter les éléments au block
-          $block['elements'] = $elements;
+            // Ajouter les éléments au block
+            $singleBlock['elements'] = $elements;
         }
 
         // Retourner les blocks avec leurs éléments

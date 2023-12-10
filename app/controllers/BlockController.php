@@ -11,7 +11,6 @@ class BlockController extends ControllerBase {
    */ 
   public function read(int $id = null){
     $data = ['blocks' => Block::read($id)];
-    // var_dump($data);
     $this->render('read', $data);
   }
 
@@ -52,6 +51,7 @@ class BlockController extends ControllerBase {
    */
   public function delete($id){
     Block::delete($id);
+    
     $data = AdminController::getall();
     $this->render('admin/block', $data);
   }

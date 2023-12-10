@@ -1,12 +1,18 @@
 {% for category in category %}
-  <div class="category {{category.class}}" >
-    <h1>{{category.name}} - {{ category.articles|length }}</h1>
-    <p>{{category.description}}</p>
-    {% if category.image %}
-      <img src="{{category.image}}" alt="{{category.name}}">
+  <div class="category full {{category.class}}" >
+    <div class="cat-info">
+      <h1>{{category.name}} - {{ category.articles|length }}</h1>
+      <p>{{category.description}}</p>
+    </div>
+    {% if category.files %}
+      {# <img src="{{site_url}}public/img/uploads/{{category.files}}" alt="{{category.files}}"> #}
     {% endif %}
     {% for article in category %}
-      {% include "display/display_articles.html.twig" %}
+      {% if article[0]|length > 1 %}
+        {% include "display/card/card_article.html.twig" %}
+      {% else %}
+        {% include "display/display_articles.html.twig" %}
+      {% endif %}
     {% endfor %}
   </div>
 {% endfor %}
