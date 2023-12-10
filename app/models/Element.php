@@ -7,7 +7,7 @@ class Element {
     public $content;
     public $alt;
     public $link;
-    public $file;
+    public $files;
     public $class;
     public $order_elmt;
     public $id_block;
@@ -125,23 +125,6 @@ class Element {
         if (!empty($data)) {
             // Appel de la méthode update de SqlGenerator
             $SqlGenerator->update('element', $data, 'id = ' . $id);
-        }
-    }
-
-    /**
-     * Permet de charger les attributs de l'objet avec les données du formulaire
-     *
-     * @return void
-     */
-    function chargePOST() {
-        $attributes = getAttributes();
-
-        foreach ($attributes as $attribute) {
-            if (isset($_POST[$attribute])) {
-                $this->$attribute = $_POST[$attribute];
-            } else {
-                $this->$attribute = NULL;
-            }
         }
     }
   }

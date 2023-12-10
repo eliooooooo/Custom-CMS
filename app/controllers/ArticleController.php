@@ -1,4 +1,5 @@
 <?php
+require_once 'app/controllers/AdminController.php';
 
 class ArticleController extends ControllerBase {
 
@@ -24,7 +25,7 @@ class ArticleController extends ControllerBase {
     $article->setAttributes($_POST);
     $newArticleId = $article->create();
 
-    $data = ['article' => Article::read($newArticleId)];
+    $data = AdminController::getall();
     $this->render('admin/article', $data);
   }
 
@@ -39,7 +40,7 @@ class ArticleController extends ControllerBase {
     $article->setAttributes($_POST);
     $article->update($id);
 
-    $data = ['article' => Article::read()];
+    $data = AdminController::getall();
     $this->render('admin/article', $data);
   }
 
@@ -51,7 +52,7 @@ class ArticleController extends ControllerBase {
    */
   public function delete($id){
     Article::delete($id);
-    $data = ['article' => Article::read()];
+    $data = AdminController::getall();
     $this->render('admin/article', $data);
   }
 }

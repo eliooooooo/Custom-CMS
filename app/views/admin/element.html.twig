@@ -50,7 +50,7 @@
                         <td class='alt'><div class='line-clamp'><input type="text" id="alt" name="alt" value="{{element.alt}}"></div></td>
                         <td class='link'><div class='line-clamp'><input type="text" id="link" name="link" value="{{element.link}}"></div></td>
                         <td class='files'><div class='line-clamp'>                                
-                            <select name="file" id="file">
+                            <select name="files" id="files">
                                 <option value="" disabled selected>Fichier</option>
                             {% for files in files %}
                                 <option value="{{files}}" >{{ files }}</option>
@@ -109,7 +109,7 @@
                         </td>
                         <td>
                             <div class="group-form">
-                                <select name="file" id="file">
+                                <select name="files" id="files">
                                     <option value="" disabled selected>Fichier</option>
                                 {% for files in files %}
                                     <option value="{{files}}" >{{ files }}</option>

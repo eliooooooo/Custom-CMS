@@ -1,4 +1,5 @@
 <?php
+require_once 'app/controllers/AdminController.php';
 
 class CategoryController extends ControllerBase {
 
@@ -23,7 +24,7 @@ class CategoryController extends ControllerBase {
     $category = new Category();
     $category->setAttributes($_POST);
     $newCategoryId = $category->create();
-    $data = ['category' => Category::read($newCategoryId)];
+    $data = AdminController::getall();
     $this->render('admin/category', $data);
   }
 
@@ -38,7 +39,7 @@ class CategoryController extends ControllerBase {
     $category->setAttributes($_POST);
     $category->update($id);
 
-    $data = ['category' => Category::read()];
+    $data = AdminController::getall();
     $this->render('admin/category', $data);
   }
 
@@ -50,7 +51,7 @@ class CategoryController extends ControllerBase {
    */
   public function delete(int $id){
     Category::delete($id);
-    $data = ['category' => Category::read()];
+    $data = AdminController::getall();
     $this->render('admin/category', $data);
   }
 }

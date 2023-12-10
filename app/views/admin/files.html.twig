@@ -19,7 +19,7 @@
                 {% for file in files %}
                     {% set ext = file|split('.')|last %}
                     <tr>
-                        {% if ext == 'jpg' or ext == 'jpeg' or ext == 'png' or ext == 'gif' %}
+                        {% if ext == 'jpg' or ext == 'jpeg' or ext == 'png' or ext == 'gif' or ext == 'svg' or ext == 'webp' %}
                             <td><div class='line-clamp'><img src="{{site_url}}public/img/uploads/{{ file }}" alt="{{ file }}" /></div></td>
                         {% else %}
                             <td><div class='line-clamp'><img src="{{site_url}}public/img/file.png" alt="{{ file }}" /></div></td>
@@ -37,7 +37,7 @@
             </table>
             <div class='files-info'>
                 <p><b>Nombre de fichiers :</b> {{ files|length }}</p>
-                <p><b>Taille Maximale :</b> 500KB <br> (se référer à un dev si demande particulière)</p>
+                <p><b>Taille Maximale :</b> 2MB <br> (se référer à un dev si demande particulière)</p>
                 <p>Il est conseillé de renommer le fichier avec un nom explicite, sans caractère spéciaux (hors - et _) et sans espaces avant de l'upload.</p>
                 <form method="POST" action="upload" enctype="multipart/form-data" >
                     <label for="fileToUpload">Nouvel upload :</label>

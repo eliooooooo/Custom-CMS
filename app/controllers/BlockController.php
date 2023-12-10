@@ -1,4 +1,5 @@
 <?php
+require_once 'app/controllers/AdminController.php';
 
 class BlockController extends ControllerBase {
 
@@ -24,7 +25,7 @@ class BlockController extends ControllerBase {
     $block->setAttributes($_POST);
     $newBlockId = $block->create();
 
-    $data = ['blocks' => Block::read($newBlockId)];
+    $data = AdminController::getall();
     $this->render('admin/block', $data);
   }
 
@@ -39,7 +40,7 @@ class BlockController extends ControllerBase {
     $block->setAttributes($_POST);
     $block->update($id);
 
-    $data = ['blocks' => Block::read()];
+    $data = AdminController::getall();
     $this->render('admin/block', $data);
   }
 
@@ -51,7 +52,7 @@ class BlockController extends ControllerBase {
    */
   public function delete($id){
     Block::delete($id);
-    $data = ['blocks' => Block::read()];
+    $data = AdminController::getall();
     $this->render('admin/block', $data);
   }
 }

@@ -4,6 +4,6 @@
 		<li><a href="{{site_url}}element">Element</a></li>
 		<li><a href="{{site_url}}article">Article</a></li>
 		<li><a href="{{site_url}}category">Category</a></li>
-		<li><a href="{% if is_connected %}login?action=logout{% else %}login{% endif %}">{% if is_connected %}{{admin_name}}{% else %}Login{% endif %}</a></li>
+		<li><a href="{{site_url}}{% if is_connected %}login?action=logout{% else %}login{% endif %}">{% if is_connected %}{{admin_name}}{% else %}Login{% endif %}</a></li>
 	</ul>
 </nav>

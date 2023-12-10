@@ -138,21 +138,4 @@ class Block {
             $SqlGenerator->update('block', $data, 'id = ' . $id);
         }
     }
-
-    /**
-     * Permet de charger les attributs de l'objet avec les données du formulaire
-     *
-     * @return void
-     */
-    function chargePOST() {
-        $attributes = getAttributes();
-
-        foreach ($attributes as $attribute) {
-            if (isset($_POST[$attribute])) {
-                $this->$attribute = $_POST[$attribute];
-            } else {
-                $this->$attribute = NULL;
-            }
-        }
-    }
   }

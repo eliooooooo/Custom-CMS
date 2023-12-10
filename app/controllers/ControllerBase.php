@@ -1,5 +1,7 @@
 <?php
 
+require_once 'utils/form_security.php';
+
 class ControllerBase {
       public $twig = null;
 

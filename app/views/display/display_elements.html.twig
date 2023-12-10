@@ -2,6 +2,11 @@
     {% if element.tags == 'img' %}
       <img src="public/img/uploads/{{element.files}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}>
     {% endif %}
+    {% if element.tags == 'audio' %}
+      <audio controls>
+        <source src="public/img/uploads/{{element.files}}" type="audio/ogg">
+      </audio>
+    {% endif %}
     {% if element.tags == 'a' %}
       <a href="{{element.link}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.content}} </a>
     {% else %}

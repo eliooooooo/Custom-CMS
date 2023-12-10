@@ -1,4 +1,5 @@
 <?php
+require_once 'app/controllers/AdminController.php';
 
 class ElementController extends ControllerBase {
 
@@ -25,7 +26,7 @@ class ElementController extends ControllerBase {
     $element->setAttributes($_POST);
     $newElementId = $element->create();
 
-    $data = ['element' => Element::read($newElementId)];
+    $data = AdminController::getall();
     $this->render('admin/element', $data);
   }
 
@@ -40,7 +41,7 @@ class ElementController extends ControllerBase {
     $element->setAttributes($_POST);
     $element->update($id);
 
-    $data = ['element' => Element::read()];
+    $data = AdminController::getall();
     $this->render('admin/element', $data);
   }
 
@@ -52,7 +53,7 @@ class ElementController extends ControllerBase {
    */
   public function delete($id){
     Element::delete($id);
-    $data = ['element' => Element::read()];
+    $data = AdminController::getall();
 
     $this->render('admin/element', $data);
   }
