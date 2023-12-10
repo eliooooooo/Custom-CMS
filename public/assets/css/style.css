@@ -3,6 +3,7 @@
 @import "./base/footer.scss";
 @import "./base/login.scss";
 @import "./base/admintoolbar.scss";
+@import "./base/frontpage.scss";
 @import "./base/container.scss";
 @import "./variables/color.scss";
 @import "./components/form/form-update.scss";
