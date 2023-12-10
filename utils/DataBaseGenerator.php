@@ -1,5 +1,5 @@
 <?php
-// Make sure tge database exists and the utils/config.php file has been completed before running the script DatabaseGenerator.php
+// Make sure the database exists and the utils/config.php file has been completed before running the script DatabaseGenerator.php
 include __DIR__ . '/config.php';
 $config = Config::get();
 
