@@ -45,7 +45,14 @@
                 <tr id="form-{{i}}" style="display: none;">
                     <form method="POST" action="{{site_url}}element?action=update&id={{element.id}}">
                         <td class='id'>/</td>
-                        <td class='balise'><div class='line-clamp'><input type="text" id="tags" name="tags" value="{{element.tags}}" required></div></td>
+                        <td class='balise'><div class='line-clamp'>
+                            <select name="tags" id="tags">
+                                <option value="" disabled selected>Balise</option>
+                                {% for tags in tags %}
+                                    <option value="{{tags}}" {% if element.tags == tags %} selected {% endif %} >{{ tags }}</option>
+                                {% endfor %}
+                            </select>
+                        </div></td>
                         <td class='content'><div class='line-clamp'><input type="text" id="content" name="content" value="{{element.content}}"></div></td>
                         <td class='alt'><div class='line-clamp'><input type="text" id="alt" name="alt" value="{{element.alt}}"></div></td>
                         <td class='link'><div class='line-clamp'><input type="text" id="link" name="link" value="{{element.link}}"></div></td>
@@ -89,7 +96,12 @@
                         <td>ID</td>
                         <td>
                             <div class="group-form">
-                                <input type="text" id="tags" name="tags" placeholder="Balise" required>
+                                <select name="tags" id="tags">
+                                    <option value="" disabled selected>Balise</option>
+                                    {% for tags in tags %}
+                                        <option value="{{tags}}" {% if element.tags == tags %} selected {% endif %} >{{ tags }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </td>
                         <td>

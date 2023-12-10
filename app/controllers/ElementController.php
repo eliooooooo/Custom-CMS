@@ -11,7 +11,10 @@ class ElementController extends ControllerBase {
    */
   public function read($id = null){
     $data = ['element' => Element::read($id)];
-    // var_dump($data);
+    
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('read', $data);
   }
 
@@ -27,6 +30,9 @@ class ElementController extends ControllerBase {
     $newElementId = $element->create();
 
     $data = AdminController::getall();
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('admin/element', $data);
   }
 
@@ -42,6 +48,9 @@ class ElementController extends ControllerBase {
     $element->update($id);
 
     $data = AdminController::getall();
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('admin/element', $data);
   }
 
@@ -53,8 +62,11 @@ class ElementController extends ControllerBase {
    */
   public function delete($id){
     Element::delete($id);
-    $data = AdminController::getall();
 
+    $data = AdminController::getall();
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('admin/element', $data);
   }
 }

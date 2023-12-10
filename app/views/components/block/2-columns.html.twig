@@ -1,7 +1,7 @@
 <div class="block deux-columns {{blocks.name}} {{blocks.class}}">
 {% for element in blocks.elements %}
     <div class="block ">
-        <p>{{ element.content }}</p>
+        {% include "display/display_elements.html.twig" %}
     </div>
 {% endfor %}
 </div>

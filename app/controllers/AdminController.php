@@ -8,6 +8,8 @@ Class AdminController extends ControllerBase {
     public static function getall() {
         $element = new Element();
         $element = ['element' => $element->read()];
+        $tags = new Element();
+        $tags = ['tags' => $tags->gettags()];
         $block = new Block();
         $block = ['blocks' => $block->read()];
         $article = new Article();
@@ -18,7 +20,7 @@ Class AdminController extends ControllerBase {
         $files = scandir('public/img/uploads');
         $files = array_diff($files, array('.', '..'));
         $files = ['files' => $files];
-        $data = array_merge($element, $block, $article, $category, $files);
+        $data = array_merge($element, $block, $article, $category, $files, $tags);
         return $data;
     }
 
