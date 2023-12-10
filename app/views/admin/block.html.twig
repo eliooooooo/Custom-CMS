@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                 {% set i = 0 %}
-                {% for blocks in blocks %}
+                {% for blocks in blocks.block %}
                     {% set i = i + 1 %}
                     <tr id="row-{{i}}">
                         <td class='id'><a href="{{site_url}}block?id={{blocks.id}}">{{ blocks.id }}</a></td>

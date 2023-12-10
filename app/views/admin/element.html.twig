@@ -4,7 +4,6 @@
 
 {% block content %}
     <h1>Tous les éléments ({{ element|length }})</h1>
-
     <div class="admin-panel" >
         <table>
             <thead>
@@ -70,7 +69,7 @@
                         <td class='block'><div class='line-clamp'>
                             <select name="id_block" id="id_block">
                                 <option value="" disabled selected>Block</option>
-                            {% for blocks in blocks %}
+                            {% for blocks in blocks.block %}
                                 <option value="{{blocks.id}}" >{{ blocks.name }}</option>
                             {% endfor %}
                             </select>
@@ -143,7 +142,7 @@
                             <div class="group-form">
                                 <select name="id_block" id="id_block">
                                     <option value="" disabled selected>Block</option>
-                                {% for blocks in blocks %}
+                                {% for blocks in blocks.block %}
                                     <option value="{{blocks.id}}" >{{ blocks.name }}</option>
                                 {% endfor %}
                                 </select>

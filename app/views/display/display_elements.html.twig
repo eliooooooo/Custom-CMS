@@ -1,11 +1,11 @@
 <div class="element">
     {% if element.tags == 'figure' %}
       <figure>
-        <img src="public/img/uploads/{{element.files}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
+        <img src="public/img/uploads/{{element.files}}" alt="{{element.files}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
         <figcaption>{{element.content}}</figcaption>
       </figure>
     {% elseif element.tags == 'img' %}
-      <img src="public/img/uploads/{{element.files}}" alt="{{element.alt}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
+      <img src="public/img/uploads/{{element.files}}" alt="{{element.files}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
     {% elseif element.tags == 'video' %}
       <video controls>
         <source src="public/img/uploads/{{element.files}}" type="video/mp4">
