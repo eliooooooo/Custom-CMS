@@ -8,6 +8,7 @@
         max-width: 450px;
         border-radius: 10px;
         overflow: hidden;
+        margin-bottom: 20px;
 
         .content {
             height: 100%;
@@ -50,19 +51,21 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
-    }
 
-    a {
-        display: inline-block;
-        color: $color2;
-        background-color: $color1;
-        width: fit-content;
-        padding: 15px 45px;
-        font-weight: bold;
-
-        &:hover {
-            color: $color1;
-            background-color: $color2;
+        a {
+            display: inline-block;
+            color: $color2;
+            background-color: $color1;
+            width: fit-content;
+            padding: 15px 45px;
+            font-weight: bold;
+    
+            &:hover {
+                color: $color1;
+                background-color: $color2;
+            }
         }
     }
+
+
 }

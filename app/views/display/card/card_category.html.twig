@@ -1,8 +1,8 @@
 <div class='container-card' >
 {% for category in category %}
   <div class="category card {{category.class}}" >
-    {% if category.image %}
-      <img src="{{category.image}}" alt="{{category.name}}">
+    {% if category.files %}
+      <img src="{{site_url}}public/img/uploads/{{category.files}}" alt="{{category.files}}">
     {% endif %}
     <div class="content">
         <h1>{{category.name}} - {{ category.articles|length }}</h1>

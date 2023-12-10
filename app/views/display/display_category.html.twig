@@ -4,8 +4,8 @@
       <h1>{{category.name}} - {{ category.articles|length }}</h1>
       <p>{{category.description}}</p>
     </div>
-    {% if category.image %}
-      {# <img src="{{category.image}}" alt="{{category.name}}"> #}
+    {% if category.files %}
+      {# <img src="{{site_url}}public/img/uploads/{{category.files}}" alt="{{category.files}}"> #}
     {% endif %}
     {% for article in category %}
       {% if article[0]|length > 1 %}
