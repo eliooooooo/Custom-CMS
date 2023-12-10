@@ -23,6 +23,16 @@ class Element {
     }
 
     /**
+     * Permet de récupérer les tags
+     * 
+     * @return array
+     */
+    public static function gettags() {
+        $tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'img', 'figure', 'audio', 'video'];
+        return $tags;
+      }
+
+    /**
      * Permet de lire un ou plusieurs éléments
      *
      * @param int $id

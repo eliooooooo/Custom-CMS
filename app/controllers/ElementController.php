@@ -3,10 +3,6 @@ require_once 'app/controllers/AdminController.php';
 
 class ElementController extends ControllerBase {
 
-  function gettags() {
-    $tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'img', 'figure', 'audio', 'video'];
-  }
-
   /**
    * Permet de lire un ou plusieurs elements
    *
@@ -15,7 +11,10 @@ class ElementController extends ControllerBase {
    */
   public function read($id = null){
     $data = ['element' => Element::read($id)];
-    // var_dump($data);
+    
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('read', $data);
   }
 
@@ -31,7 +30,9 @@ class ElementController extends ControllerBase {
     $newElementId = $element->create();
 
     $data = AdminController::getall();
-    $data['tags'] = $this->gettags();
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('admin/element', $data);
   }
 
@@ -47,7 +48,9 @@ class ElementController extends ControllerBase {
     $element->update($id);
 
     $data = AdminController::getall();
-    $data['tags'] = $this->gettags();
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('admin/element', $data);
   }
 
@@ -61,7 +64,9 @@ class ElementController extends ControllerBase {
     Element::delete($id);
 
     $data = AdminController::getall();
-    $data['tags'] = $this->gettags();
+    $tags = Element::gettags();
+    $datatags = ['tags' => $tags];
+    $data = array_merge($data, $datatags);
     $this->render('admin/element', $data);
   }
 }
