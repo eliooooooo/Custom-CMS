@@ -6,6 +6,7 @@ class Category {
     public $description;
     public $class;
     public $files;
+    public $order_cat;
 
     /**
      * Permet de récupérer les attributs de l'objet
@@ -30,20 +31,26 @@ class Category {
       if ($id === null) {
         // Requête pour récupérer toutes les catégories
         $categories = $SqlGenerator->select('category', '*');
-      } else {
-        // Requête pour récupérer la catégorie spécifique
-        $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
-        if ($category && count($category) > 0) {
-          $categories[] = $category[0]; // Accéder au premier élément du tableau
+
+        // Trier les catégories par ordre_cat
+        usort($categories, function($a, $b) {
+            return $a['order_cat'] - $b['order_cat'];
+        });
+
+        } else {
+            // Requête pour récupérer la catégorie spécifique
+            $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+            if ($category && count($category) > 0) {
+                $categories[] = $category[0]; // Accéder au premier élément du tableau
+            }
         }
-      }
 
       // Pour chaque catégorie, récupérer ses articles
       foreach ($categories as &$category) {
         if (isset($category["id"])) {
           $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
           
-        usort($articles, function($a, $b) {
+          usort($articles, function($a, $b) {
             return $a['ordre_article'] - $b['ordre_article'];
         });
           
@@ -69,12 +76,6 @@ class Category {
                     $elementItem['element'] = $element;
                     array_push($items, $elementItem);
                 }
-
-                usort($items, function($a, $b) {
-                    $orderA = isset($a['block']) ? $a['block']['order_elmt'] : $a['element']['order_elmt'];
-                    $orderB = isset($b['block']) ? $b['block']['order_elmt'] : $b['element']['order_elmt'];
-                    return $orderA - $orderB;
-                });
 
                 // Ajouter les éléments et les blocks à l'article
                 $article['items'] = $items;
