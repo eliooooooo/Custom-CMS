@@ -1,6 +1,6 @@
 connexion.php
 node_modules
-vendor
+vendor/
 package-lock.json
 .editorconfig
 dist

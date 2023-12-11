@@ -24,22 +24,6 @@ Class AdminController extends ControllerBase {
         return $data;
     }
 
-    // /**
-    //  * Affiche la page create de l'administration
-    //  */
-    // function create() {
-    //     $data = $this->getall();
-    //     $this->render('admin/create', $data);
-    // }
-
-    // /**
-    //  * Affiche la page update de l'administration
-    //  */
-    // function update() {
-    //     $data = $this->getall();
-    //     $this->render('admin/update', $data);
-    // }
-
     /**
      * Affiche la page files de l'administration
      */

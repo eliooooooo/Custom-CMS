@@ -3,7 +3,6 @@
 {% block title %}Découvrez !{% endblock %}
 
 {% block content %}
-
     {% if element %}
       {% for element in element %}
         {% include "display/display_elements.html.twig" %}
@@ -29,12 +28,10 @@
         {% endfor %}
       {% endif %}
     {% elseif blocks %}
-      <h1>Blocks</h1>
       {% for blocks in blocks %}
         {% include "display/display_blocks.html.twig" %}
       {% endfor %}
     {% else %}
         <p>Nothing to read</p>
     {% endif %}
-
 {% endblock %}
