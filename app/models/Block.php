@@ -17,6 +17,11 @@ class Block {
         return get_object_vars($this);
     }
 
+    public static function getclass() {
+        $class = ['full', '2-colonnes', '3-colonnes'];
+        return $class;
+    }
+
     /**
      * Permet de lire un ou plusieurs block
      *
