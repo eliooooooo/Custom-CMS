@@ -4,15 +4,9 @@
       <h2>{{article.title}}</h2>
       <h4>{{article.subtitle}}</h4>
     </div>
-    {% for item in article.items %}
-      {% if item.element %}
-        {% set element = item.element %}
-        {% include "display/display_elements.html.twig" %}
-      {% endif %}
-      {% if item.block %}
-        {% set blocks = item.block %}
-        {% include "display/display_blocks.html.twig" %}
-      {% endif %}
+    {{dump(article)}}
+    {% for blocks in article.blocks %}
+      {% include "display/display_blocks.html.twig" %}
     {% endfor %}
   </div>
 {% endfor %}
