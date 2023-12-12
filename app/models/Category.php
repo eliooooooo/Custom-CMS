@@ -58,28 +58,17 @@ class Category {
 
             // Pour chaque article, récupérer ses éléments et ses blocks
             foreach ($articles as &$article) {
-                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
                 $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
-                $items = array();
 
                 // Pour chaque block, récupérer ses éléments
                 foreach ($blocks as &$block) {
-                    $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                    $block['elements'] = $blockElements;
-                    $blockItem = array();
-                    $blockItem['block'] = $block;
-                    array_push($items, $blockItem);
-                }
-
-                foreach ($elements as &$element) {
-                    $elementItem = array();
-                    $elementItem['element'] = $element;
-                    array_push($items, $elementItem);
+                    $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+                    $block['elements'] = $elements;
                 }
 
                 // Ajouter les éléments et les blocks à l'article
-                $article['items'] = $items;
-                array_push($category['articles'], $article);
+                $article['blocks'] = $blocks;
+                $category['articles'][] = $article;            
             }
         }
       }

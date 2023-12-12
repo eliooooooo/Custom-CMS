@@ -11,7 +11,6 @@ class Element {
     public $class;
     public $order_elmt;
     public $id_block;
-    public $id_article;
 
     /**
      * permet de récupérer les attributs de l'objet
