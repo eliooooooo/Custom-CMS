@@ -4,7 +4,6 @@
       <h2>{{article.title}}</h2>
       <h4>{{article.subtitle}}</h4>
     </div>
-    {{dump(article)}}
     {% for blocks in article.blocks %}
       {% include "display/display_blocks.html.twig" %}
     {% endfor %}

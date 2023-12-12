@@ -57,7 +57,6 @@ class Article {
         } else {
             // Requête pour récupérer l'article spécifique
             $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
-            var_dump($article);
 
             // Vérifier si l'article existe
             if (count($article) > 0) {
@@ -65,10 +64,11 @@ class Article {
 
                 // Pour chaque block, récupérer ses éléments
                 foreach ($blocks as &$block) {
-                    $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                    $blocks['elements'] = $elements;
+                    if (isset($block["id"])) {
+                        $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+                        $block['elements'] = $elements;
+                    }
                 }
-                var_dump($blocks); 
 
                 // Trier les blocs par order_elmt
                 usort($blocks, function($a, $b) {
