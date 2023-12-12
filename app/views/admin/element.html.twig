@@ -67,6 +67,7 @@
                         <td class='block'><div class='line-clamp'>
                             <select name="id_block" id="id_block">
                                 <option value="" disabled selected>Block</option>
+                                <option value="0" >Aucun</option>
                             {% for blocks in blocks.block %}
                                 <option value="{{blocks.id}}" >{{ blocks.name }}</option>
                             {% endfor %}
@@ -131,6 +132,7 @@
                             <div class="group-form">
                                 <select name="id_block" id="id_block">
                                     <option value="" disabled selected>Block</option>
+                                    <option value="0" >Aucun</option>
                                 {% for blocks in blocks.block %}
                                     <option value="{{blocks.id}}" >{{ blocks.name }}</option>
                                 {% endfor %}

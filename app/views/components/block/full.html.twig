@@ -1,1 +1,9 @@
-Voici la template de Block-test ! 
+<div class="block full {{blocks.name}} {{blocks.class}}">
+{% for element in blocks.elements %}
+    {% if loop.index < 2 %}
+        <div class="block ">
+            {% include "display/display_elements.html.twig" %}
+        </div>
+    {% endif %}
+{% endfor %}
+</div>

@@ -1,15 +1,15 @@
-<div class="block {{blocks.name}} {{blocks.class}}">
 {% set i = 0 %}
 {% for element in blocks.elements %}
-    {% set i = i + 1 %}
-    {% if loop.index == 2 %}
-        <div class="alignement">
-    {% endif %}
-            <div class="block gallerie-{{i}} ">
-                {% include "display/display_elements.html.twig" %}
+    {% if loop.index < 4 %}
+        {% set i = i + 1 %}
+        {% if loop.index == 2 %}
+            <div class="alignement">
+        {% endif %}
+                <div class="block gallerie-{{i}} ">
+                    {% include "display/display_elements.html.twig" %}
+                </div>
+        {% if loop.index == 3 %}
             </div>
-    {% if loop.index == 3 %}
-        </div>
+        {% endif %}
     {% endif %}
 {% endfor %}
-</div>  
