@@ -1,24 +1,22 @@
-<div class="element">
-    {% if element.tags == 'figure' %}
-      <figure>
-        <img src="public/img/uploads/{{element.files}}" alt="{{element.files}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
-        <figcaption>{{element.content}}</figcaption>
-      </figure>
-    {% elseif element.tags == 'img' %}
-      <img src="public/img/uploads/{{element.files}}" alt="{{element.files}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
-    {% elseif element.tags == 'video' %}
-      <video controls>
-        <source src="public/img/uploads/{{element.files}}" type="video/mp4">
-      </video>
-    {% elseif element.tags == 'audio' %}
-      <audio controls>
-        <source src="public/img/uploads/{{element.files}}" type="audio/ogg">
-      </audio>
-    {% elseif element.tags == 'a' %}
-      <a href="{{element.link}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.content}} </a>
-    {% else %}
-      <{{element.tags}} {% if element.class != '' %} class="{{element.class}}" {% endif %}> {{element.content}} </{{element.tags}}>
-    {% endif %}
-    {# <a href="element?action=delete&id={{element.id}}">Delete</a>
-    <a href="element?action=read&id={{element.id}}">En savoir plus</a> #}
-</div>
+{% if element.tags == 'figure' %}
+  <figure class="element {{element.class}}">
+    <img src="public/img/uploads/{{element.files}}" alt="{{element.files}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
+    <figcaption>{{element.content}}</figcaption>
+  </figure>
+{% elseif element.tags == 'img' %}
+  <img src="public/img/uploads/{{element.files}}" alt="{{element.files}}" class="element {{element.class}}"/>
+{% elseif element.tags == 'video' %}
+  <video class="element {{element.class}}" controls>
+    <source src="public/img/uploads/{{element.files}}" type="video/mp4">
+  </video>
+{% elseif element.tags == 'audio' %}
+  <audio class="element {{element.class}}" controls>
+    <source src="public/img/uploads/{{element.files}}" type="audio/ogg">
+  </audio>
+{% elseif element.tags == 'a' %}
+  <a href="{{element.link}}" class="element {{element.class}}"> {{element.content}} </a>
+{% else %}
+  <{{element.tags}} class="element {{element.class}}" > {{element.content}} </{{element.tags}}>
+{% endif %}
+{# <a href="element?action=delete&id={{element.id}}">Delete</a>
+<a href="element?action=read&id={{element.id}}">En savoir plus</a> #}

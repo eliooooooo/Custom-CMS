@@ -1,5 +1,5 @@
 {% for element in blocks.elements %}
-    {# {% if loop.index < 2 %} #}
+    {% if loop.index < 3 %}
         {% include "display/display_elements.html.twig" %}
-    {# {% endif %} #}
+    {% endif %}
 {% endfor %}

@@ -40,6 +40,12 @@ class Article {
                 // Pour chaque block, récupérer ses éléments
                 foreach ($blocks as &$block) {
                     $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+
+                    // Trier les éléments par ordre_elmt
+                    usort($elements, function($a, $b) {
+                        return $a['order_elmt'] <=> $b['order_elmt'];
+                    });
+
                     $block['elements'] = $elements;
                 }
 
@@ -66,6 +72,12 @@ class Article {
                 foreach ($blocks as &$block) {
                     if (isset($block["id"])) {
                         $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+
+                        // Trier les éléments par ordre_elmt
+                        usort($elements, function($a, $b) {
+                            return $a['order_elmt'] - $b['order_elmt'];
+                        });
+
                         $block['elements'] = $elements;
                     }
                 }
