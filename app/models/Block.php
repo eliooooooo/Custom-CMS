@@ -19,7 +19,7 @@ class Block {
     }
 
     public static function gettype() {
-        $type = ['full', '2-columns', '3-columns', 'galerie-image'];
+        $type = ['full', '2-columns', '3-columns', 'galerie-image', 'swiper1'];
         return $type;
     }
 

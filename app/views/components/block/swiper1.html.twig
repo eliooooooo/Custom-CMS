@@ -1,0 +1,12 @@
+<!-- Slider main container -->
+<div class="swiper swiper1-js">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {% for element in blocks.elements %}
+        <div class="swiper-slide">
+            {% include "display/display_elements.html.twig" %}
+        </div>
+    {% endfor %}
+  </div>
+</div>
