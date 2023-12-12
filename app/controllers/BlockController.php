@@ -12,8 +12,6 @@ class BlockController extends ControllerBase {
   public function read(int $id = null){
     $data = ['blocks' => Block::read($id)];
 
-    $classes = Block::getclass();
-    $dataclass = ['classes' => $classes];
     $this->render('read', $data);
   }
 

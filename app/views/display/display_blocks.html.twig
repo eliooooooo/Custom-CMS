@@ -1,9 +1,5 @@
-<div class="block {{blocks.name}} {{blocks.class}}" >
-  {% if blocks.name %}
-    {% include 'components/block/' ~ blocks.name ~ '.html.twig' %}
-  {% else %}
-    {% for blocks in blocks %}
-      {% include 'components/block/' ~ blocks.name ~ '.html.twig' %}
-    {% endfor %}
+<div class="block {{blocks.type}} {{blocks.class}}" >
+  {% if blocks.type %}
+    {% include 'components/block/' ~ blocks.type ~ '.html.twig' %}
   {% endif %}
 </div>

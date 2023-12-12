@@ -3,6 +3,7 @@
 class Block {
     // liste des attributs
     public $name;
+    public $type;
     public $class;
     public $order_elmt;
     public $id_article;
@@ -17,9 +18,9 @@ class Block {
         return get_object_vars($this);
     }
 
-    public static function getclass() {
-        $class = ['full', '2-colonnes', '3-colonnes'];
-        return $class;
+    public static function gettype() {
+        $type = ['full', '2-columns', '3-columns', 'galerie-image'];
+        return $type;
     }
 
     /**

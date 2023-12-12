@@ -14,6 +14,7 @@
                         <th>Preview</th>
                         <th>Nom</th>
                         <th>Elements</th>
+                        <th>Type</th>
                         <th>Class</th>
                         <th>Ordre</th>
                         <th>Article</th>
@@ -26,13 +27,14 @@
                     {% set i = i + 1 %}
                     <tr id="row-{{i}}">
                         <td class='id'><a href="{{site_url}}block?id={{blocks.id}}">{{ blocks.id }}</a></td>
-                        <td class='image'><img src="{{site_url}}public/img/block/{{blocks.name}}" alt="{{ blocks.name }}"></td>
+                        <td class='image'><img src="{{site_url}}public/img/block/{{blocks.type}}" alt="{{ blocks.type }}"></td>
                         <td class='title'><div class='line-clamp'>{{ blocks.name }}</div></td>
                         <td class='element'><div class='line-clamp'>
                             {% for elements in blocks.elements %}
                                 <a href='{{site_url}}element?id={{elements.id}}' >{{ elements.id }}</a><br>
                             {% endfor %}</div>
                         </td>
+                        <td class='class'><div class='line-clamp'>{{ blocks.type }}</div></td>
                         <td class='class'><div class='line-clamp'>{{ blocks.class }}</div></td>
                         <td class='order'><div class='line-clamp'>{{ blocks.order_elmt }}</div></td>
                         <td class='article'><div class='line-clamp'><a href='{{site_url}}article?id={{blocks.id_article}}' >{{ blocks.id_article }}</a></div></td>
@@ -48,13 +50,13 @@
                             <td class='title'>Non modifiable</td>
                             <td class='element'>Non modifiable</td>
                             <td class='class'>
-                                <select name="class">
-                                    {% for classes in classes %}
-                                        <p>oui</p>
-                                        <option value="{{classes}}" {% if classes == block.class %}selected{% endif %}>{{classes}}</option>
+                                <select name="type">
+                                    {% for type in type %}
+                                        <option value="{{type}}" {% if type == block.type %}selected{% endif %}>{{type}}</option>
                                     {% endfor %}
                                 </select>
                             </td>
+                            <td class='class'><input type="text" name="class" value="{{block.class}}"></td>
                             <td class='order'><input type="number" min="0" max="100" name="order_elmt" value="{{ blocks.order_elmt }}"></td>
                             <td class='article'>
                                 <select name="id_article">
@@ -79,12 +81,12 @@
                             <td class='element'>/</td>
                             <td class='class'>
                                 <select name="class">
-                                    {% for classes in classes %}
-                                        <p>oui</p>
-                                        <option value="{{classes}}" {% if classes == block.class %}selected{% endif %}>{{classes}}</option>
+                                    {% for type in type %}
+                                        <option value="{{type}}" {% if type == block.type %}selected{% endif %}>{{type}}</option>
                                     {% endfor %}
                                 </select>
                             </td>
+                            <td class='class'><input type="text" name="class" placeholder="Class du block"></td>
                             <td class='order'><input type="number" min="0" max="100" name="order_elmt"></td>
                             <td class='article'>
                                 <select name="id_article">

@@ -12,7 +12,7 @@ Class AdminController extends ControllerBase {
         $tags = ['tags' => $tags->gettags()];
         $block = new Block();
         $block = ['blocks' => $block->read()];
-        $classes = ['classes' => Block::getclass()];
+        $type = ['type' => Block::gettype()];
         $article = new Article();
         $article = ['article' => $article->read()];
         $category = new Category();
@@ -21,7 +21,7 @@ Class AdminController extends ControllerBase {
         $files = scandir('public/img/uploads');
         $files = array_diff($files, array('.', '..'));
         $files = ['files' => $files];
-        $data = array_merge($element, $block, $article, $category, $files, $tags, $classes);
+        $data = array_merge($element, $block, $article, $category, $files, $tags, $type);
         return $data;
     }
 
