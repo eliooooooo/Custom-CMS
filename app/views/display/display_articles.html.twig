@@ -1,11 +1,13 @@
-{% for article in article %}
-  <div class="article full {{article.class}}" >
-    <div class="article-info">
-      <h2>{{article.title}}</h2>
-      <h4>{{article.subtitle}}</h4>
+<div class="wrapper">
+  {% for article in article %}
+    <div class="article full {{article.class}}" >
+      <div class="article-info">
+        <h2>{{article.title}}</h2>
+        <h4>{{article.subtitle}}</h4>
+      </div>
+      {% for blocks in article.blocks %}
+        {% include "display/display_blocks.html.twig" %}
+      {% endfor %}
     </div>
-    {% for blocks in article.blocks %}
-      {% include "display/display_blocks.html.twig" %}
-    {% endfor %}
-  </div>
-{% endfor %}
+  {% endfor %}
+</div>

@@ -5,9 +5,7 @@
 {% block page %}
     {% include './components/header.html.twig' %}
     <main>
-        <div class="wrapper">
-            {% block content %}{% endblock %}
-        </div>
+        {% block content %}{% endblock %}
     </main>
     {% include './components/footer.html.twig' %}
 {% endblock %}

@@ -1,18 +1,24 @@
-{% for category in category %}
-  <div class="category full {{category.class}}" >
-    <div class="cat-info">
-      <h1>{{category.name}} - {{ category.articles|length }}</h1>
-      <p>{{category.description}}</p>
-    </div>
-    {% if category.files %}
-      {# <img src="{{site_url}}public/img/uploads/{{category.files}}" alt="{{category.files}}"> #}
-    {% endif %}
-    {% for article in category %}
-      {% if article[0]|length > 1 %}
-        {% include "display/card/card_article.html.twig" %}
-      {% else %}
-        {% include "display/display_articles.html.twig" %}
-      {% endif %}
-    {% endfor %}
+{% if category.category|length > 1 %}
+  <div id="button">
+      <button id="forward">Avancer</button>
+      <button id="backward">Revenir</button>
   </div>
+{% endif %}
+<div class="titles">
+{% set i = 0 %}
+{% for element in category.category %}
+  {% set i = i + 1 %}
+  {% if category.category|length > 1 %}
+    <div class="titre titre{{i}} {% if i == 1 %}block{% else %}hidden{% endif %}">
+      <h1>{{element.name}}</h1>
+      <a href="{{site_url}}category?id={{element.id}}" style="padding: 5px 20px; background-color: white; text-decoration: none; color: blue;">Voir
+          acticles</a>
+    </div>
+    <div class="paralax">
+      <div class="paralax-item p-item{{i}} {{element.name}}" style="background: url('{{site_url}}public/img/uploads/{{element.files}}')"></div>
+    </div>
+  {% else %}
+    <p>Affichage pour les articles en particulier</p>
+  {% endif %}
 {% endfor %}
+</div>    
