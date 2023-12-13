@@ -4,9 +4,11 @@
   <div class="swiper-wrapper">
     <!-- Slides -->
     {% for element in blocks.elements %}
+      {% if element.tags == 'img' %}
         <div class="swiper-slide">
             {% include "display/display_elements.html.twig" %}
         </div>
+      {% endif %}
     {% endfor %}
   </div>
 </div>
