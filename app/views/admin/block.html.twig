@@ -80,9 +80,9 @@
                             </td>
                             <td class='element'>/</td>
                             <td class='class'>
-                                <select name="class">
+                                <select name="type">
                                     {% for type in type %}
-                                        <option value="{{type}}" {% if type == block.type %}selected{% endif %} required>{{type}}</option>
+                                        <option value="{{type}}" required>{{type}}</option>
                                     {% endfor %}
                                 </select>
                             </td>

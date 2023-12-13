@@ -2,6 +2,8 @@
 
 class Article {
     // liste des attributs
+    public $name;
+    public $catchphrase;
     public $title;
     public $subtitle;
     public $author;
