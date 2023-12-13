@@ -43,38 +43,38 @@ class Category {
             if ($category && count($category) > 0) {
                 $categories[] = $category[0]; // Accéder au premier élément du tableau
             }
-        }
-
-      // Pour chaque catégorie, récupérer ses articles
-      foreach ($categories as &$category) {
-        if (isset($category["id"])) {
-          $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
-          
-          usort($articles, function($a, $b) {
-            return $a['ordre_article'] - $b['ordre_article'];
-        });
-          
-        $category['articles'] = [];
-
-            // Pour chaque article, récupérer ses éléments et ses blocks
-            foreach ($articles as &$article) {
-                $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
-
-                // Pour chaque block, récupérer ses éléments
-                foreach ($blocks as &$block) {
-                    $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                    $block['elements'] = $elements;
-                }
-
-                // Ajouter les éléments et les blocks à l'article
-                $article['blocks'] = $blocks;
-                $category['articles'][] = $article;            
+            // Pour chaque catégorie, récupérer ses articles
+            foreach ($categories as &$category) {
+              if (isset($category["id"])) {
+                $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
+                
+                usort($articles, function($a, $b) {
+                  return $a['ordre_article'] - $b['ordre_article'];
+              });
+                
+              $category['articles'] = [];
+      
+                  // Pour chaque article, récupérer ses éléments et ses blocks
+                  foreach ($articles as &$article) {
+                    $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+      
+                    // Pour chaque block, récupérer ses éléments
+                    //   foreach ($blocks as &$block) {
+                    //       $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+                    //       $block['elements'] = $elements;
+                    //   }
+      
+                    // Ajouter les éléments et les blocks à l'article
+                    //   $article['blocks'] = $blocks;
+                    $category['articles'][] = $article;            
+                  }
+              }
             }
+      
         }
-      }
+        // Retourner les catégories avec leurs articles
+        return ['category' => $categories];
 
-      // Retourner les catégories avec leurs articles
-      return ['category' => $categories];
     }
 
     /**
