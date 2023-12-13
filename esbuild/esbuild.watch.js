@@ -10,7 +10,6 @@ require("esbuild")
         minify: false,
         plugins: [sassPlugin({ absWorkingDir: process.cwd() }), postcss.default({
             plugins: [
-                require('tailwindcss'),
                 require('autoprefixer'),
             ],
         })],

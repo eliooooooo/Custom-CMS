@@ -11,7 +11,6 @@ class Element {
     public $class;
     public $order_elmt;
     public $id_block;
-    public $id_article;
 
     /**
      * permet de récupérer les attributs de l'objet
@@ -28,7 +27,7 @@ class Element {
      * @return array
      */
     public static function gettags() {
-        $tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'img', 'figure', 'audio', 'video'];
+        $tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'img', 'figure', 'audio', 'video', 'q'];
         return $tags;
       }
 
@@ -137,5 +136,5 @@ class Element {
             $SqlGenerator->update('element', $data, 'id = ' . $id);
         }
     }
-  }
+}
   

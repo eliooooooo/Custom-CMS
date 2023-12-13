@@ -47,6 +47,7 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         class TEXT NULL,
+        type VARCHAR(255) NULL,
         order_elmt INT NULL,
         id_article INT,
         FOREIGN KEY (id_article) REFERENCES article(id)
@@ -60,10 +61,8 @@ try {
         link TEXT NULL,
         files TEXT NULL,
         class TEXT NULL,
-        id_article INT NULL,
         id_block INT NULL,
         FOREIGN KEY (id_block) REFERENCES block(id),
-        FOREIGN KEY (id_article) REFERENCES article(id)
     );
 
     INSERT INTO category (name, description, image) VALUES ('Generated Category', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://picsum.photos/200/300');

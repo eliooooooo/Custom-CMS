@@ -18,15 +18,7 @@
         {% endfor %}
       {% endif %}
     {% elseif category %}
-      {% if category.category|length > 1 %}
-        {% for category in category %}
-          {% include "display/card/card_category.html.twig" %}
-        {% endfor %}
-      {% else %}
-        {% for category in category %}
-            {% include "display/display_category.html.twig" %}
-        {% endfor %}
-      {% endif %}
+      {% include "display/display_category.html.twig" %}
     {% elseif blocks %}
       {% for blocks in blocks %}
         {% include "display/display_blocks.html.twig" %}

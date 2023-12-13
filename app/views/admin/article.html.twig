@@ -10,6 +10,8 @@
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Name</th>
+                    <th>Catchphrase</th>
                     <th>Titre</th>
                     <th>Sous-titre</th>
                     <th>Auteur</th>
@@ -25,6 +27,8 @@
                 {% set i = i + 1 %}
                 <tr id="row-{{i}}">
                     <td class='id'><a href='{{site_url}}article?id={{article.id}}'>{{article.id}}</a></td>
+                    <td class='name'><div class='line-clamp'>{{article.name}}</div></td>
+                    <td class='catchphrase'><div class='line-clamp'>{{article.catchphrase}}</div></td>
                     <td class='title'><div class='line-clamp'>{{article.title}}</div></td>
                     <td class='subtitle'><div class='line-clamp'>{{article.subtitle}}</div></td>
                     <td class='author'><div class='line-clamp'>{{article.author}}</div></td>
@@ -39,6 +43,8 @@
                 <tr id="form-{{i}}" style="display: none;">
                     <form method="POST" action="{{site_url}}article?action=update&id={{article.id}}">
                         <td class='id'>/</td>
+                        <td class='name'><div class='line-clamp'><input type="text" id="name" name="name" value="{{article.name}}" required></div></td>
+                        <td class='catchphrase'><div class='line-clamp'><input type="text" id="catchphrase" name="catchphrase" value="{{article.catchphrase}}" required></div></td>
                         <td class='title'><div class='line-clamp'><input type="text" id="title" name="title" value="{{article.title}}" required></div></td>
                         <td class='subtitle'><div class='line-clamp'><input type="text" id="subtitle" name="subtitle" value="{{article.subtitle}}"></div></td>
                         <td class='author'><div class='line-clamp'><input type="text" id="author" name="author" value="{{article.author}}"></div></td>
@@ -61,6 +67,16 @@
                 <tr>
                     <form method="POST" action="{{site_url}}article?action=create">
                         <td>ID</td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="name" name="name" placeholder="Nom" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="catchphrase" name="catchphrase" placeholder="Catchphrase" required>
+                            </div>
+                        </td>
                         <td>
                             <div class="group-form">
                                 <input type="text" id="title" name="title" placeholder="Titre" required>
