@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Blocks ({{ blocks|length }})</h1>
+
     <div class="admin-panel" >
         <div class="blocks-container">
             <table class='uploads'>
@@ -13,6 +14,8 @@
                         <th>Preview</th>
                         <th>Nom</th>
                         <th>Elements</th>
+                        <th>Type</th>
+                        <th>Class</th>
                         <th>Ordre</th>
                         <th>Article</th>
                         <th>Edition</th>
@@ -24,17 +27,20 @@
                     {% set i = i + 1 %}
                     <tr id="row-{{i}}">
                         <td class='id'><a href="{{site_url}}block?id={{blocks.id}}">{{ blocks.id }}</a></td>
-                        <td class='image'><img src="{{site_url}}public/img/block/{{blocks.name}}" alt="{{ blocks.name }}"></td>
+                        <td class='image'><img src="{{site_url}}public/src/block/{{blocks.type}}" alt="{{ blocks.type }}"></td>
                         <td class='title'><div class='line-clamp'>{{ blocks.name }}</div></td>
                         <td class='element'><div class='line-clamp'>
                             {% for elements in blocks.elements %}
                                 <a href='{{site_url}}element?id={{elements.id}}' >{{ elements.id }}</a><br>
                             {% endfor %}</div>
                         </td>
+                        <td class='class'><div class='line-clamp'>{{ blocks.type }}</div></td>
+                        <td class='class'><div class='line-clamp'>{{ blocks.class }}</div></td>
                         <td class='order'><div class='line-clamp'>{{ blocks.order_elmt }}</div></td>
                         <td class='article'><div class='line-clamp'><a href='{{site_url}}article?id={{blocks.id_article}}' >{{ blocks.id_article }}</a></div></td>
                         <td class='link'>
                             <a href='#' class='update' >Modifier</a>
+                            <a href='{{site_url}}block?action=delete&id={{blocks.id}}' class='delete' >Supprimer</a>
                         </td>
                     </tr>
                     <tr id="form-{{i}}" style="display: none;">
@@ -43,6 +49,14 @@
                             <td class='image'>Non modifiable</td>
                             <td class='title'>Non modifiable</td>
                             <td class='element'>Non modifiable</td>
+                            <td class='class'>
+                                <select name="type">
+                                    {% for type in type %}
+                                        <option value="{{type}}" {% if type == block.type %}selected{% endif %}>{{type}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td class='class'><input type="text" name="class" value="{{block.class}}"></td>
                             <td class='order'><input type="number" min="0" max="100" name="order_elmt" value="{{ blocks.order_elmt }}"></td>
                             <td class='article'>
                                 <select name="id_article">
@@ -57,12 +71,42 @@
                         </form>
                     </tr>
                 {% endfor %}
+                    <tr>
+                        <form method="POST" action="{{site_url}}block?action=create">
+                            <td class='id'>ID</td>
+                            <td class='image'>/</td>
+                            <td class='title'>
+                                <input type="text" name="name" id="name" placeholder="Nom du block" required>
+                            </td>
+                            <td class='element'>/</td>
+                            <td class='class'>
+                                <select name="type">
+                                    {% for type in type %}
+                                        <option value="{{type}}" required>{{type}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td class='class'><input type="text" name="class" placeholder="Class du block"></td>
+                            <td class='order'><input type="number" min="0" max="100" name="order_elmt"></td>
+                            <td class='article'>
+                                <select name="id_article">
+                                        <option value="">Article</option>
+                                    {% for article in article.articles %}
+                                        <option value="{{article.id}}" >{{article.title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td class='link'>
+                                <input type="submit" value="Créer">
+                            </td>
+                        </form>
+                    <tr>
                 </tbody>
             </table>
             <div class='blocks-info'>
                 <p><b>Nombre de blocks :</b> {{ blocks|length }}</p>
                 <p>De nouveaux blocs ne peuvent pas être crées depuis cette page. Pour tout besoin, référez vous aux devs <b>le plus tôt</b> possible !</p>
-                <p>Pour pouvoir visualiser le block dans la preview, chaque block existant doit avoir une image de preview dans le dossier <i>public/img/block</i> avec le même nom que le block.</p>
+                <p>Pour pouvoir visualiser le block dans la preview, chaque block existant doit avoir une image de preview dans le dossier <i>public/src/block</i> avec le même nom que le block.</p>
             </div>
         </div>
     </div>

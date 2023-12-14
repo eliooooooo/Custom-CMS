@@ -3,6 +3,7 @@
 class Block {
     // liste des attributs
     public $name;
+    public $type;
     public $class;
     public $order_elmt;
     public $id_article;
@@ -17,6 +18,11 @@ class Block {
         return get_object_vars($this);
     }
 
+    public static function gettype() {
+        $type = ['full', '2-columns', '3-columns', 'galerie-image', 'swiper1', 'swiper2', 'swiper-audio'];
+        return $type;
+    }
+
     /**
      * Permet de lire un ou plusieurs block
      *
@@ -24,34 +30,44 @@ class Block {
      * @return array
      */
     static function read(int $id = null) {
-      $pdo = connexion();
-      $SqlGenerator = new SqlGenerator($pdo);
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
 
-      if ($id === null) {
-        // Requête pour récupérer tous les block
-        $block = $SqlGenerator->select('block');
+        if ($id === null) {
+            // Requête pour récupérer tous les block
+            $block = $SqlGenerator->select('block');
 
-        // Pour chaque block, récupérer ses éléments
-        foreach ($block as &$singleBlock) {
-            $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
+            // Pour chaque block, récupérer ses éléments
+            foreach ($block as &$singleBlock) {
+                $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
 
-            // Ajouter les éléments au block
-            $singleBlock['elements'] = $elements;
+                // Trier les éléments par ordre_elmt
+                usort($elements, function($a, $b) {
+                    return $a['order_elmt'] <=> $b['order_elmt'];
+                });
+
+                // Ajouter les éléments au block
+                $singleBlock['elements'] = $elements;
+            }
+
+            // Retourner les blocks avec leurs éléments
+            return ['block' => $block];
+        } else {
+            // Requête pour sélectionner un block
+            $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $id);
+            $block = $SqlGenerator->select('block', '*', 'id = ' . $id);
+
+            // Trier les éléments par ordre_elmt
+            usort($elements, function($a, $b) {
+                return $a['ordre_elmt'] <=> $b['ordre_elmt'];
+            });
+
+            // Ajouter les éléments à l'block
+            $block[0]['elements'] = $elements;
+
+            // Retourner les deux résultats sous forme de tableau
+            return ['blocks' => $block];
         }
-
-        // Retourner les blocks avec leurs éléments
-        return ['block' => $block];
-      } else {
-        // Requête pour sélectionner un block
-        $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $id);
-        $block = $SqlGenerator->select('block', '*', 'id = ' . $id);
-
-        // Ajouter les éléments à l'block
-        $block[0]['elements'] = $elements;
-
-        // Retourner les deux résultats sous forme de tableau
-        return ['blocks' => $block];
-      }
     }
 
     /**
