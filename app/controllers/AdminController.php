@@ -17,8 +17,8 @@ Class AdminController extends ControllerBase {
         $article = ['article' => $article->read()];
         $category = new Category();
         $category = ['category' => $category->read()];
-        // Récupérer tous les fichiers disponibles dans le dossier public/img/uploads
-        $files = scandir('public/img/uploads');
+        // Récupérer tous les fichiers disponibles dans le dossier public/src/uploads
+        $files = scandir('public/src/uploads');
         $files = array_diff($files, array('.', '..'));
         $files = ['files' => $files];
         $data = array_merge($element, $block, $article, $category, $files, $tags, $type);
@@ -70,7 +70,7 @@ Class AdminController extends ControllerBase {
      */
     function upload(){
         $data = $this->getall();
-        $target_dir = "public/img/uploads/";
+        $target_dir = "public/src/uploads/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -131,7 +131,7 @@ Class AdminController extends ControllerBase {
      */
     function deletefile(){
         $data = $this->getall();
-        $target_dir = "public/img/uploads/";
+        $target_dir = "public/src/uploads/";
         $target_file = $target_dir . basename($_POST["file"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

@@ -15,15 +15,15 @@
           acticles</a>
     </div>
     <div class="paralax">
-      <div class="paralax-item p-item{{i}} {{element.name}}" style="background: url('{{site_url}}public/img/uploads/{{element.files}}')"></div>
+      <div class="paralax-item p-item{{i}} {{element.name}}" style="background: url('{{site_url}}public/src/uploads/{{element.files}}')"></div>
     </div>
   {% else %}
-    <div class="single-category {{element.name}}" style="background: url('{{site_url}}public/img/uploads/{{element.files}}')">
+    <div class="single-category {{element.name}}" style="background: url('{{site_url}}public/src/uploads/{{element.files}}')">
     {% set j = 0 %}
     {% for element in element.articles %}
       {% set j = j + 1 %}
       <div class="badge-article-{{j}}">
-        <img src="{{site_url}}public/img/icons/{{element.name}}">
+        <img src="{{site_url}}public/src/icons/{{element.name}}">
         <h1>{{element.catchphrase}}</h1>
       </div>
     {% endfor %}
