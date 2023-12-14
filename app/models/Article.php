@@ -24,10 +24,10 @@ class Article {
     /**
      * Permet de lire un ou plusieurs articles
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
+    static function read($id = null) {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 

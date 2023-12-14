@@ -6,7 +6,7 @@ class ElementController extends ControllerBase {
   /**
    * Permet de lire un ou plusieurs elements
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
   public function read($id = null){
@@ -39,10 +39,10 @@ class ElementController extends ControllerBase {
   /**
    * Permet de mettre à jour un element
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
-  public function update(int $id){
+  public function update($id){
     $element = new Element();
     $element->setAttributes($_POST);
     $element->update($id);
@@ -57,7 +57,7 @@ class ElementController extends ControllerBase {
   /**
    * Permet de supprimer un element
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
   public function delete($id){

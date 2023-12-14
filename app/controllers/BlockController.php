@@ -6,10 +6,10 @@ class BlockController extends ControllerBase {
   /**
    * Permet de lire un ou plusieurs blocks
    *
-   * @param int $id
+   * @param $id
    * @return void
    */ 
-  public function read(int $id = null){
+  public function read($id = null){
     $data = ['blocks' => Block::read($id)];
 
     $this->render('read', $data);
@@ -32,10 +32,10 @@ class BlockController extends ControllerBase {
   /**
    * Permet de mettre à jour un block
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
-  public function update(int $id){
+  public function update($id){
     $block = new Block();
     $block->setAttributes($_POST);
     $block->update($id);
@@ -47,7 +47,7 @@ class BlockController extends ControllerBase {
   /**
    * Permet de supprimer un block
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
   public function delete($id){

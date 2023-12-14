@@ -34,10 +34,10 @@ class Element {
     /**
      * Permet de lire un ou plusieurs éléments
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
+    static function read($id = null) {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 

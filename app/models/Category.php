@@ -20,10 +20,10 @@ class Category {
     /**
      * Permet de lire une ou plusieurs catégories
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
+    static function read($id = null) {
       $pdo = connexion();
       $SqlGenerator = new SqlGenerator($pdo);
       $categories = [];
