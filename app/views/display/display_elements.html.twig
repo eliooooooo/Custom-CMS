@@ -16,7 +16,7 @@
 {% elseif element.tags == 'a' %}
   <a href="{{element.link}}" class="element {{element.class}}"> {{element.content}} </a>
 {% else %}
-  <{{element.tags}} class="element {{element.class}}" > {{element.content}} </{{element.tags}}>
+  <{{element.tags}} class="element {{element.class}}" > {{element.content|raw}} </{{element.tags}}>
 {% endif %}
 {# <a href="element?action=delete&id={{element.id}}">Delete</a>
 <a href="element?action=read&id={{element.id}}">En savoir plus</a> #}
