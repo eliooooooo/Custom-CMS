@@ -27,7 +27,7 @@
                     {% set i = i + 1 %}
                     <tr id="row-{{i}}">
                         <td class='id'><a href="{{site_url}}block?id={{blocks.id}}">{{ blocks.id }}</a></td>
-                        <td class='image'><img src="{{site_url}}public/img/block/{{blocks.type}}" alt="{{ blocks.type }}"></td>
+                        <td class='image'><img src="{{site_url}}public/src/block/{{blocks.type}}" alt="{{ blocks.type }}"></td>
                         <td class='title'><div class='line-clamp'>{{ blocks.name }}</div></td>
                         <td class='element'><div class='line-clamp'>
                             {% for elements in blocks.elements %}
@@ -106,7 +106,7 @@
             <div class='blocks-info'>
                 <p><b>Nombre de blocks :</b> {{ blocks|length }}</p>
                 <p>De nouveaux blocs ne peuvent pas être crées depuis cette page. Pour tout besoin, référez vous aux devs <b>le plus tôt</b> possible !</p>
-                <p>Pour pouvoir visualiser le block dans la preview, chaque block existant doit avoir une image de preview dans le dossier <i>public/img/block</i> avec le même nom que le block.</p>
+                <p>Pour pouvoir visualiser le block dans la preview, chaque block existant doit avoir une image de preview dans le dossier <i>public/src/block</i> avec le même nom que le block.</p>
             </div>
         </div>
     </div>
