@@ -13,7 +13,9 @@
                     <th>Nom</th>
                     <th>Description</th>
                     <th>Class</th>
-                    <th>Fichier</th>
+                    <th>Layer 1</th>
+                    <th>Layer 2</th>
+                    <th>Layer 3</th>
                     <th>Ordre</th>
                     <th>Edition</th>
                 </tr>
@@ -27,7 +29,9 @@
                     <td class='title'><div class='line-clamp'>{{category.name}}</div></td>
                     <td class='subtitle'><div class='line-clamp'>{{category.description}}</div></td>
                     <td class='class'><div class='line-clamp'>{{category.class}}</div></td>
-                    <td class='files'><div class='line-clamp'>{{category.files}}</div></td>
+                    <td class='files'><div class='line-clamp'>{{category.layer1}}</div></td>
+                    <td class='files'><div class='line-clamp'>{{category.layer2}}</div></td>
+                    <td class='files'><div class='line-clamp'>{{category.layer3}}</div></td>
                     <td class='order'>{{category.order_cat}}</td>
                     <td class='link ' >
                         <a href="#" class='update'>Modifier</a>
@@ -41,7 +45,23 @@
                         <td class='subtitle'><div class='line-clamp'><input type="textarea" id="description" name="description" value="{{category.description}}"></div></td>
                         <td class='class'><div class='line-clamp'><input type="text" id="class" name="class" value="{{category.class}}"></div></td>
                         <td class='files'><div class='line-clamp'>
-                            <select name="files" id="files">
+                            <select name="layer1" id="layer1">
+                                <option value="" disabled selected>Fichier</option>
+                            {% for files in files %}
+                                <option value="{{files}}" >{{ files }}</option>
+                            {% endfor %}
+                            </select>
+                        </div></td>
+                        <td class='files'><div class='line-clamp'>
+                            <select name="layer2" id="layer2">
+                                <option value="" disabled selected>Fichier</option>
+                            {% for files in files %}
+                                <option value="{{files}}" >{{ files }}</option>
+                            {% endfor %}
+                            </select>
+                        </div></td>
+                        <td class='files'><div class='line-clamp'>
+                            <select name="layer3" id="layer3">
                                 <option value="" disabled selected>Fichier</option>
                             {% for files in files %}
                                 <option value="{{files}}" >{{ files }}</option>
@@ -75,7 +95,27 @@
                         </td>
                         <td>
                             <div class="group-form">
-                                <select name="files" id="files">
+                                <select name="layer1" id="layer1">
+                                    <option value="" disabled selected>Fichier</option>
+                                {% for files in files %}
+                                    <option value="{{files}}" >{{ files }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <select name="layer2" id="layer2">
+                                    <option value="" disabled selected>Fichier</option>
+                                {% for files in files %}
+                                    <option value="{{files}}" >{{ files }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <select name="layer3" id="layer3">
                                     <option value="" disabled selected>Fichier</option>
                                 {% for files in files %}
                                     <option value="{{files}}" >{{ files }}</option>

@@ -5,7 +5,9 @@ class Category {
     public $name;
     public $description;
     public $class;
-    public $files;
+    public $layer1;
+    public $layer2;
+    public $layer3;
     public $order_cat;
 
     /**

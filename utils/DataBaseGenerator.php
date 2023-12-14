@@ -29,7 +29,9 @@ try {
         name VARCHAR(255) NOT NULL,
         description TEXT NULL,
         class TEXT NULL,
-        files TEXT NULL
+        layer1 TEXT NULL,
+        layer2 TEXT NULL,
+        layer3 TEXT NULL
     );
 
     CREATE TABLE IF NOT EXISTS article (
