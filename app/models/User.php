@@ -19,10 +19,10 @@ class User {
     /**
      * Vérfie si le mot de passe est correct
      * 
-     * @param string $password
+     * @param $password
      * @return bool
      */
-    public function verifyPassword(string $password) {
+    public function verifyPassword($password) {
         return password_verify($password, $this->password);
     }
 

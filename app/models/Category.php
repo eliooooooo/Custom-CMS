@@ -58,14 +58,6 @@ class Category {
                   foreach ($articles as &$article) {
                     $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
       
-                    // Pour chaque block, récupérer ses éléments
-                    //   foreach ($blocks as &$block) {
-                    //       $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                    //       $block['elements'] = $elements;
-                    //   }
-      
-                    // Ajouter les éléments et les blocks à l'article
-                    //   $article['blocks'] = $blocks;
                     $category['articles'][] = $article;            
                   }
               }
@@ -104,10 +96,10 @@ class Category {
     /**
      * Permet de supprimer une catégorie
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    static function delete(int $id){
+    static function delete($id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -118,10 +110,10 @@ class Category {
     /**
      * Permet de mettre à jour une catégorie
      *
-     * @param array $attributes
+     * @param $attributes
      * @return void
      */
-    function setAttributes(array $attributes) {
+    function setAttributes($attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -135,10 +127,10 @@ class Category {
     /**
      * Permet de mettre à jour une catégorie
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    function update(int $id) {
+    function update($id) {
         if ($id === null) {
             throw new Exception('Erreur : l\'ID est null.');
         }
