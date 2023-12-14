@@ -13,7 +13,7 @@ $configArray = [
         'id' => 1, // Admin id
         'name' => 'admin', // Admin name
         'email' => 'admin@iha.fr', // Admin email
-        'password' => password_hash('admin', PASSWORD_DEFAULT), // Admin password
+        'password' => 'admin', // Admin password
     ],
     'site' => [
         'name' => 'Les animaux de la forêt', // Site name

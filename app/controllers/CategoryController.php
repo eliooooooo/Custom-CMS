@@ -6,10 +6,10 @@ class CategoryController extends ControllerBase {
   /**
    * Permet de lire une ou plusieurs category
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
-  public function read(int $id = null){
+  public function read($id = null){
     $data = ['category' => Category::read($id)];
     $this->render('read', $data);
   }
@@ -31,10 +31,10 @@ class CategoryController extends ControllerBase {
   /**
    * Permet de mettre à jour une category
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
-  public function update(int $id){
+  public function update($id){
     $category = new Category();
     $category->setAttributes($_POST);
     $category->update($id);
@@ -46,10 +46,10 @@ class CategoryController extends ControllerBase {
   /**
    * Permet de supprimer une category
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
-  public function delete(int $id){
+  public function delete($id){
     Category::delete($id);
     $data = AdminController::getall();
     $this->render('admin/category', $data);

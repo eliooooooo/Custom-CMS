@@ -26,10 +26,10 @@ class Block {
     /**
      * Permet de lire un ou plusieurs block
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
+    static function read($id = null) {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -43,7 +43,7 @@ class Block {
 
                 // Trier les éléments par ordre_elmt
                 usort($elements, function($a, $b) {
-                    return $a['order_elmt'] <=> $b['order_elmt'];
+                    return $a['order_elmt'] = $b['order_elmt'];
                 });
 
                 // Ajouter les éléments au block
@@ -59,7 +59,7 @@ class Block {
 
             // Trier les éléments par ordre_elmt
             usort($elements, function($a, $b) {
-                return $a['ordre_elmt'] <=> $b['ordre_elmt'];
+                return $a['ordre_elmt'] = $b['ordre_elmt'];
             });
 
             // Ajouter les éléments à l'block
@@ -97,10 +97,10 @@ class Block {
     /**
      * Permet de mettre à jour un block
      *
-     * @param array $attributes
+     * @param $attributes
      * @return void
      */
-    function setAttributes(array $attributes) {
+    function setAttributes($attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -114,10 +114,10 @@ class Block {
     /**
      * Permet de supprimer un block
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    static function delete(int $id){
+    static function delete($id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -128,7 +128,7 @@ class Block {
     /**
      * Permet de mettre à jour un block
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
     function update($id) {

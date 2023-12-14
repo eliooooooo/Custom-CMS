@@ -6,10 +6,10 @@ class ArticleController extends ControllerBase {
   /**
    * Permet de lire un ou plusieurs articles
    *
-   * @param int $id
+   * @param $id
    * @return void
    */ 
-  public function read(int $id = null){
+  public function read($id = null){
     $data = ['article' => Article::read($id)];
     // var_dump($data);
     $this->render('read', $data);
@@ -32,10 +32,10 @@ class ArticleController extends ControllerBase {
   /**
    * Permet de mettre à jour un article
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
-  public function update(int $id){
+  public function update($id){
     $article = new Article();
     $article->setAttributes($_POST);
     $article->update($id);
@@ -47,7 +47,7 @@ class ArticleController extends ControllerBase {
   /**
    * Permet de supprimer un article
    *
-   * @param int $id
+   * @param $id
    * @return void
    */
   public function delete($id){
