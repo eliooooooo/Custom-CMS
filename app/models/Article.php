@@ -97,6 +97,43 @@ class Article {
             return ['article' => $article];
         }
     }
+
+    static function readbycat($id) {
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
+
+        // Requête pour récupérer tous les articles
+        $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $id);
+
+        // Pour chaque article, récupérer ses blocs
+        foreach ($articles as &$article) {
+            $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+
+            // Pour chaque block, récupérer ses éléments
+            foreach ($blocks as &$block) {
+                $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+
+                // Trier les éléments par ordre_elmt
+                usort($elements, function($a, $b) {
+                    return $a['order_elmt'] = $b['order_elmt'];
+                });
+
+                $block['elements'] = $elements;
+            }
+
+            // Trier les blocs par order_elmt
+            usort($blocks, function($a, $b) {
+                return $a['order_elmt'] - $b['order_elmt'];
+            });
+
+            // Ajouter les blocs à l'article
+            $article['blocks'] = $blocks;
+        }
+
+        // Retourner les articles avec leurs blocs
+        return ['articles' => $articles];
+    }
+
     /**
      * Permet de créer un article
      *
