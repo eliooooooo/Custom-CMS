@@ -11,14 +11,16 @@ import 'swiper/css/pagination';
 const swiper = new Swiper('.swiper1-js', {
   spaceBetween: 0,
   slidesPerView: 1,
-  centeredSlides: true,
   loop: true,
-  grabCursor: true,
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
   autoplay: {
     delay: 4000,
     disableOnInteraction: false,
   },
-  modules: [Autoplay],
+  modules: [Autoplay, Navigation],
 });
 
 const swiper2 = new Swiper('.swiper2-js', {
