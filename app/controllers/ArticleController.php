@@ -16,6 +16,18 @@ class ArticleController extends ControllerBase {
   }
 
   /**
+   * Permet de lire plusieurs articles se une catégorie
+   *
+   * @param $id
+   * @return void
+   */
+  public function readbycat($id){
+    $data = ['article' => Article::readbycat($id)];
+    // var_dump($data);
+    $this->render('read', $data);
+  }
+
+  /**
    * Permet de créer un article
    *
    * @return void
