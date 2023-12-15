@@ -15,6 +15,12 @@ class ArticleController extends ControllerBase {
     $this->render('read', $data);
   }
 
+  public function readbycat($id){
+    $data = ['article' => Article::readbycat($id)];
+    // var_dump($data);
+    $this->render('read', $data);
+  }
+
   /**
    * Permet de créer un article
    *

@@ -1,3 +1,14 @@
+<nav>
+  <ul>
+    {% for article in article %}
+      <li>
+        <a href='#' class='article-{{article.id}}'>
+          <img src='{{site_url}}public/src/icons/{{article.name}}'>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
 <div class="wrapper">
   {% for article in article %}
     <div class="article full {{article.class}}" >
