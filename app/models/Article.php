@@ -102,6 +102,8 @@ class Article {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
+        $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+
         // Requête pour récupérer tous les articles
         $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $id);
 
@@ -115,7 +117,7 @@ class Article {
 
                 // Trier les éléments par ordre_elmt
                 usort($elements, function($a, $b) {
-                    return $a['order_elmt'] = $b['order_elmt'];
+                    return $a['order_elmt'] - $b['order_elmt'];
                 });
 
                 $block['elements'] = $elements;
@@ -128,6 +130,7 @@ class Article {
 
             // Ajouter les blocs à l'article
             $article['blocks'] = $blocks;
+            $article['category'] = $category;
         }
 
         // Retourner les articles avec leurs blocs
