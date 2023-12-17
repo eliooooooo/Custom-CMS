@@ -134,6 +134,40 @@ class Article {
         return ['articles' => $articles];
     }
 
+    public function readByArticle($id) {
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
+    
+        // Récupérer l'article par son ID
+        $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
+    
+        // Si l'article n'existe pas, retourner null
+        if (!$article) {
+          return null;
+        }
+    
+        // Récupérer les blocs de l'article
+        $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $id);
+    
+        // Pour chaque block, récupérer ses éléments
+        foreach ($blocks as &$singleBlock) {
+          $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
+    
+          // Trier les éléments par ordre_elmt
+          usort($elements, function($a, $b) {
+            return $a['order_elmt'] - $b['order_elmt'];
+          });
+    
+          // Ajouter les éléments au block
+          $singleBlock['elements'] = $elements;
+        }
+    
+        // Ajouter les blocs à l'article
+        $article[] = $blocks;
+    
+        return $article;
+    }
+
     /**
      * Permet de créer un article
      *

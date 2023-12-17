@@ -3,11 +3,11 @@
 {% block title %}Admin - Article{% endblock %}
 
 {% block content %}
-    {% for article in article %}
+    <h1>Article {{article[0].id}}: {{article[0].name}}</h1>
+    <h2>{{article[0].title}} ({{article[0].catchphrase}})</h2>
+    <p>{{article[0].subtitle}}</p>
 
-    <h1>Article {{article.id}} ({{ article.articles|length }})</h1>
 
-    {% endfor %}
     <div class="admin-panel" >
         <table>
             <thead>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             {% set i = 0 %}
-            {% for article in article.articles %}
+            {% for blocks in article[1] %}
                 {% set i = i + 1 %}
                 <tr id="row-{{i}}">
                     <td class='id'><a href='{{site_url}}article?id={{article.id}}'>{{article.id}}</a></td>
@@ -123,5 +123,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> #}
 {% endblock %}
