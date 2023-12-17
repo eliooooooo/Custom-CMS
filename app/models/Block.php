@@ -70,6 +70,28 @@ class Block {
         }
     }
 
+    public function readByArticle($id) {
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
+
+        $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $id);
+
+        // Pour chaque block, récupérer ses éléments
+        foreach ($blocks as &$singleBlock) {
+            $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
+
+            // Trier les éléments par ordre_elmt
+            usort($elements, function($a, $b) {
+                return $a['order_elmt'] - $b['order_elmt'];
+            });
+
+            // Ajouter les éléments au block
+            $singleBlock['elements'] = $elements;
+        }
+
+        return $blocks;
+    }
+
     /**
      * Permet de créer un block
      *

@@ -52,9 +52,13 @@ Class AdminController extends ControllerBase {
     /**
      * Affiche la page article de l'administration
      */
-    function article() {
-        $data = $this->getall();
-        $this->render('admin/article', $data);
+    // function article() {
+    //     $data = $this->getall();
+    //     $this->render('admin/article', $data);
+    // }
+    function article($id) {
+      $block = new Block();
+      $blocks = ['blocks' => $block->readByArticle($id)];
     }
 
     /**

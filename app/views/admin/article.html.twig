@@ -3,7 +3,8 @@
 {% block title %}Admin - Article{% endblock %}
 
 {% block content %}
-    <h1>Tous les articles ({{ article.articles|length }})</h1>
+    {{dump(blocks)}}
+    {# <h1>Tous les articles ({{ article.articles|length }})</h1>
 
     <div class="admin-panel" >
         <table>
@@ -120,5 +121,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> #}
 {% endblock %}
