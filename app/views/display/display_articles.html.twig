@@ -12,6 +12,31 @@
 <div class="wrapper">
   {% for article in article %}
     <div class="article full {{article.class}}" >
+    {% if is_connected %}
+      <details class="admin-edit">  
+          <form method="POST" action="{{site_url}}article?action=update&id={{article.id}}">
+              <div class='id'>/</div>
+              <div class='name'><div class='line-clamp'><input type="text" id="name" name="name" value="{{article.name}}" required></div></div>
+              <div class='catchphrase'><div class='line-clamp'><input type="text" id="catchphrase" name="catchphrase" value="{{article.catchphrase}}" required></div></div>
+              <div class='title'><div class='line-clamp'><input type="text" id="title" name="title" value="{{article.title}}" required></div></div>
+              <div class='subtitle'><div class='line-clamp'><input type="text" id="subtitle" name="subtitle" value="{{article.subtitle}}"></div></div>
+              <div class='author'><div class='line-clamp'><input type="text" id="author" name="author" value="{{article.author}}"></div></div>
+              <div class='class'><div class='line-clamp'><input type="text" id="class" name="class" value="{{article.class}}"></div></div>
+              <div class='order'><div class='line-clamp'><input type="number" min="0" max="100" id="ordre_article" name="ordre_article" value="{{article.ordre_article}}"></div></div>
+              <div class='category'><div class='line-clamp'>
+                  <select name="id_category" id="id_category" required>
+                      {% set article_id_category = article.id_category %}
+                      {% for category in category.category %}
+                          <option value="{{category.id}}" {% if article_id_category == category.id %} selected {% endif %}>{{ category.name }}</option>
+                      {% endfor %}
+                  </select>
+              </div></div>
+              <div class='link' >
+                  <input type="submit" value="Modifier">
+              </div>
+          </form>
+      </details>
+    {% endif %}
       <div class="article-info">
         <h2>{{article.title}}</h2>
         <h4>{{article.subtitle}}</h4>
