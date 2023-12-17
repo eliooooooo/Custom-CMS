@@ -15,7 +15,8 @@
   </audio>
 {% elseif element.tags == 'audio-player' %}
   <div class="audio-listener">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Old_book_bindings.jpg/400px-Old_book_bindings.jpg">
+    {# Remplir le champs lien pour renseigner l'image de l'element audio-player #}
+    <img src="{{site_url}}public/src/uploads/{{ element.link }}">
     <h1>{{ element.content }}</h1>
     <p>{{element.alt}}</p>
     <audio id="song">
