@@ -5,17 +5,20 @@
   </div>
 </div>
 <div class="wrapper">
-  <nav class="nav-article">
-    <ul>
-      {% for article in article.category.articles %}
-        <li>
-          <a href='#' class='article-{{article.id}}' title="{{article.catchphrase}}">
-            <img src='{{site_url}}public/src/icons/{{article.name}}'>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </nav>
+  <div class="article-left">
+    <a><img src="{{site_url}}public/src/icons/{{article.category[0].name}}.svg" width="40px" fill="white"></a>
+    <nav class="nav-article">
+      <ul>
+        {% for article in article.category.articles %}
+          <li>
+            <a href='#' class='article-{{article.id}}' title="{{article.catchphrase}}">
+              <img src='{{site_url}}public/src/icons/{{article.name}}'>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
   <div class="article-container">
     {% for article in article.category.articles %}
       <div class="article full {{article.class}}" >
