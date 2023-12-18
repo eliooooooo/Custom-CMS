@@ -142,22 +142,3 @@ $p-item : 'p-item1_1', 'p-item1_2', 'p-item1_3', 'p-item2_1', 'p-item2_2', 'p-it
     background-color: red;
     }
 }
-
-// .category {
-//     background-color: $color1;
-
-//     &.full {
-//         background-color: $color1;
-//         height: 100%;
-//         padding: 20px;
-//         display: flex;
-//         flex-direction: column;
-
-//         .cat-info {
-//             background-color: $color2;
-//             color: white;
-//             padding: 20px;
-//             border-radius: 10px;
-//         }
-//     }
-// }
