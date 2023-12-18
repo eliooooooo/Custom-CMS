@@ -90,3 +90,50 @@
 
 
 }
+
+.article-banner {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .alignement-article-banner {
+        // left: 50%;
+        // top: 50%;
+        // transform: translate(-50%, -50%);
+        margin: auto;
+        display: flex;
+        position: relative;
+        align-items: center;
+        flex-direction: row;
+
+        h1 {
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: fit-content;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+.nav-article {
+    display: block;
+    background-color: black;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 200px;
+
+    ul {
+        margin: auto;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
