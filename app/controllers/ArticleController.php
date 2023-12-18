@@ -22,7 +22,7 @@ class ArticleController extends ControllerBase {
    * @return void
    */
   public function readbycat($id){
-    $data = ['category' => Article::readbycat($id)];
+    $data = ['article' => Article::readbycat($id)];
     $this->render('read', $data);
   }
 

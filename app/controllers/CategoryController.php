@@ -14,6 +14,11 @@ class CategoryController extends ControllerBase {
     $this->render('read', $data);
   }
 
+  public function readbycat($id = null){
+    $data = ['category' => Category::read($id)];
+    $this->render('read', $data);
+  }
+
   /**
    * Permet de créer une category
    *

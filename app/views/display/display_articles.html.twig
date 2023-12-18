@@ -1,21 +1,20 @@
-<nav>
+<nav class="nav-article">
   <ul>
-    {% for article in article %}
+    {% for article in article.category.articles %}
       <li>
-        <a href='#' class='article-{{article.id}}'>
+        <a href='#' class='article-{{article.id}}' title="{{article.catchphrase}}">
           <img src='{{site_url}}public/src/icons/{{article.name}}'>
         </a>
       </li>
     {% endfor %}
   </ul>
 </nav>
+<div class="article-category" style="background-image: url('{{site_url}}public/src/uploads/{{article.category[0].files}}'); background-size: cover; background-repeat: no-repeat;">
+  <h1>{{article.category[0].name}}</h1>
+</div>
 <div class="article-container">
-  {% for article in article %}
-    {% for cat in article.category %}
-      <div class="article-category" style="background-image: url('{{site_url}}public/src/uploads/{{cat.files}}'); background-size: cover; background-repeat: no-repeat;">
-        <h1>{{cat.name}}</h1>
-      </div>
-    {% endfor %}
+  {% for article in article.category.articles %}
+
     <div class="article full {{article.class}}" >
       <div class="article-info">
         <h2>{{article.title}}</h2>
@@ -26,4 +25,4 @@
       {% endfor %}
     </div>
   {% endfor %}
-</div>
+</div>  

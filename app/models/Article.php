@@ -130,11 +130,12 @@ class Article {
 
             // Ajouter les blocs à l'article
             $article['blocks'] = $blocks;
-            $article['category'] = $category;
         }
 
+        $category['articles'] = $articles;
+
         // Retourner les articles avec leurs blocs
-        return ['articles' => $articles];
+        return ['category' => $category];
     }
 
     public function readByArticle($id) {
