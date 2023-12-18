@@ -84,35 +84,35 @@ class Category {
                 return $a['order_cat'] - $b['order_cat'];
             });
 
-            } else {
-                // Requête pour récupérer la catégorie spécifique
-                $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
-                if ($category && count($category) > 0) {
-                    $categories[] = $category[0]; // Accéder au premier élément du tableau
-                }
-                // Pour chaque catégorie, récupérer ses articles
-                foreach ($categories as &$category) {
-                  if (isset($category["id"])) {
-                    $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
-                    
-                    usort($articles, function($a, $b) {
-                      return $a['ordre_article'] - $b['ordre_article'];
-                  });
-                    
-                  $category['articles'] = [];
-          
-                      // Pour chaque article, récupérer ses éléments et ses blocks
-                      foreach ($articles as &$article) {
-                        $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
-          
-                        $category['articles'][] = $article;            
-                      }
-                  }
-                }
-          
+        } else {
+            // Requête pour récupérer la catégorie spécifique
+            $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+            if ($category && count($category) > 0) {
+                $categories[] = $category[0]; // Accéder au premier élément du tableau
             }
-            // Retourner les catégories avec leurs articles
-            return ['category' => $categories];
+            // Pour chaque catégorie, récupérer ses articles
+            foreach ($categories as &$category) {
+                if (isset($category["id"])) {
+                $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
+                
+                usort($articles, function($a, $b) {
+                    return $a['ordre_article'] - $b['ordre_article'];
+                });
+                
+                $category['articles'] = [];
+        
+                    // Pour chaque article, récupérer ses éléments et ses blocks
+                    foreach ($articles as &$article) {
+                    $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+        
+                    $category['articles'][] = $article;            
+                    }
+                }
+            }
+        
+        }
+        // Retourner les catégories avec leurs articles
+        return ['category' => $categories];
     }
 
     /**

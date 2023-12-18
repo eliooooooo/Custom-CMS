@@ -89,4 +89,26 @@
             width: -webkit-fill-available;
         }
     }
+
+    img {
+        max-width: 100%;
+    }
+}
+
+nav {
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    padding: 5px;
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        gap: 30px;
+        a {
+            text-decoration: none;
+            color: white;
+            font-weight: 900;
+        }
+    }
 }

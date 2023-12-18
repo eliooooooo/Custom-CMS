@@ -3,5 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block page %}
+    {% include './components/admin_toolbar.html.twig' %}
+    {% include './components/nav.html.twig' %}
     {% block content %}{% endblock %}
 {% endblock %}
