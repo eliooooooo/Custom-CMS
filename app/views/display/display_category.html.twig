@@ -1,33 +1,72 @@
 {% if category.category|length > 1 %}
-  <div id="button">
-      <button id="forward">Avancer</button>
-      <button id="backward">Revenir</button>
-  </div>
+<div id="button">
+  <button id="forward">Avancer</button>
+  <button id="backward">Revenir</button>
+</div>
 {% endif %}
+
 <div class="titles">
-{% set i = 0 %}
-{% for element in category.category %}
+  {% set i = 0 %}
+  {% for element in category.category %}
   {% set i = i + 1 %}
   {% if category.category|length > 1 %}
-    <div class="titre titre{{i}} {% if i == 1 %}block{% else %}hidden{% endif %}">
-      <h1>{{element.name}}</h1>
-      <a href="{{site_url}}category?id={{element.id}}" style="padding: 5px 20px; background-color: white; text-decoration: none; color: blue;">Voir
-          acticles</a>
+  <div class="titre titre{{i}} {% if i == 1 %}block{% else %}hidden{% endif %}">
+    <h1>{{element.name}}</h1>
+    <a href="{{site_url}}category?id={{element.id}}"
+      style="padding: 5px 20px; background-color: white; text-decoration: none; color: blue;">Voir
+      acticles</a>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+<div class="paralax">
+  {% set i = 0 %}
+  {% for element in category.category %}
+  {% set i = i + 1 %}
+  <div class="paralax-item p-item{{i}}_1">
+  </div>
+  <div class="paralax-item p-item{{i}}_2">
+  </div>
+  <div class="paralax-item p-item{{i}}_3">
+  </div>
+  {% endfor %}
+</div>
+<div class="container"></div>
+<style src="{{site_url}}public/assets/js/categories.js"></style>
+{# <div class="titles">
+  {% set i = 0 %}
+  {% for element in category.category %}
+  {% set i = i + 1 %}
+  {% if category.category|length > 1 %}
+  <div class="titre titre{{i}} {% if i == 1 %}block{% else %}hidden{% endif %}">
+    <h1>{{element.name}}</h1>
+    <a href="{{site_url}}category?id={{element.id}}"
+      style="padding: 5px 20px; background-color: white; text-decoration: none; color: blue;">Voir
+      acticles</a>
+  </div>
+  <div class="paralax">
+    <div class="paralax-item p-item1_1 {{element.name}}"
+      style="background: url('{{site_url}}public/src/uploads/{{element.layer1}}')">
     </div>
-    <div class="paralax">
-      <div class="paralax-item p-item{{i}} {{element.name}}" style="background: url('{{site_url}}public/src/uploads/{{element.files}}')"></div>
+    <div class="paralax-item p-item1_2 {{element.name}}"
+      style="background: url('{{site_url}}public/src/uploads/{{element.layer2}}')">
     </div>
+    <div class="paralax-item p-item1_3 {{element.name}}"
+      style="background: url('{{site_url}}public/src/uploads/{{element.layer3}}')">
+    </div>
+  </div>
   {% else %}
-    <div class="single-category {{element.name}}" style="background: url('{{site_url}}public/src/uploads/{{element.files}}')">
+  <div class="single-category {{element.name}}"
+    style="background: url('{{site_url}}public/src/uploads/{{element.files}}')">
     {% set j = 0 %}
     {% for element in element.articles %}
-      {% set j = j + 1 %}
-      <div class="badge-article-{{j}}">
-        <img src="{{site_url}}public/src/icons/{{element.name}}">
-        <h1>{{element.catchphrase}}</h1>
-      </div>
-    {% endfor %}
+    {% set j = j + 1 %}
+    <div class="badge-article-{{j}}">
+      <img src="{{site_url}}public/src/icons/{{element.name}}">
+      <h1>{{element.catchphrase}}</h1>
     </div>
+    {% endfor %}
+  </div>
   {% endif %}
-{% endfor %}
-</div>
+  {% endfor %}
+</div> #}
