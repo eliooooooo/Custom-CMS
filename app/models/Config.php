@@ -11,10 +11,10 @@ class Config {
     /**
      * Get the config file array.
      * 
-     * @param array $config
-     * @param string $prefix
+     * @param $config
+     * @param $prefix
      */
-    public static function set(array $config, string $prefix = ''){
+    public static function set($config, $prefix = ''){
       foreach ($config as $key => $value) {
         if (is_array($value)) {
           self::set($value, $prefix . $key . '_');
@@ -36,10 +36,10 @@ class Config {
     /**
      * Get the specific config value.
      * 
-     * @param string $key
+     * @param $key
      * @return string
      */
-    public function getSpecific(string $key){
+    public function getSpecific($key){
       return self::$configs[$key];
     }
 }

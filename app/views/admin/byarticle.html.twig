@@ -1,0 +1,127 @@
+{% extends "page.html.twig" %}
+
+{% block title %}Admin - Article{% endblock %}
+
+{% block content %}
+    <h1>Article {{article[0].id}}: {{article[0].name}}</h1>
+    <h2>{{article[0].title}} ({{article[0].catchphrase}})</h2>
+    <p>{{article[0].subtitle}}</p>
+
+
+    <div class="admin-panel" >
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Catchphrase</th>
+                    <th>Titre</th>
+                    <th>Sous-titre</th>
+                    <th>Auteur</th>
+                    <th>Class</th>
+                    <th>Ordre</th>
+                    <th>Catégorie</th>
+                    <th>Edition</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set i = 0 %}
+            {% for blocks in article[1] %}
+                {% set i = i + 1 %}
+                <tr id="row-{{i}}">
+                    <td class='id'><a href='{{site_url}}article?id={{article.id}}'>{{article.id}}</a></td>
+                    <td class='name'><div class='line-clamp'>{{article.name}}</div></td>
+                    <td class='catchphrase'><div class='line-clamp'>{{article.catchphrase}}</div></td>
+                    <td class='title'><div class='line-clamp'>{{article.title}}</div></td>
+                    <td class='subtitle'><div class='line-clamp'>{{article.subtitle}}</div></td>
+                    <td class='author'><div class='line-clamp'>{{article.author}}</div></td>
+                    <td class='class'><div class='line-clamp'>{{article.class}}</div></td>
+                    <td class='order'><div class='line-clamp'>{{article.ordre_article}}</div></td>
+                    <td class='category'><div class='line-clamp'><a href='{{site_url}}category?id={{article.id_category}}'>{{article.id_category}}</a></div></td>
+                    <td class='link' >
+                        <a href="#" class='update'>Modifier</a>
+                        <a href="{{site_url}}article?action=delete&id={{article.id}}">Supprimer</a>
+                    </td>
+                </tr>
+                <tr id="form-{{i}}" style="display: none;">
+                    <form method="POST" action="{{site_url}}article?action=update&id={{article.id}}">
+                        <td class='id'>/</td>
+                        <td class='name'><div class='line-clamp'><input type="text" id="name" name="name" value="{{article.name}}" required></div></td>
+                        <td class='catchphrase'><div class='line-clamp'><input type="text" id="catchphrase" name="catchphrase" value="{{article.catchphrase}}" required></div></td>
+                        <td class='title'><div class='line-clamp'><input type="text" id="title" name="title" value="{{article.title}}" required></div></td>
+                        <td class='subtitle'><div class='line-clamp'><input type="text" id="subtitle" name="subtitle" value="{{article.subtitle}}"></div></td>
+                        <td class='author'><div class='line-clamp'><input type="text" id="author" name="author" value="{{article.author}}"></div></td>
+                        <td class='class'><div class='line-clamp'><input type="text" id="class" name="class" value="{{article.class}}"></div></td>
+                        <td class='order'><div class='line-clamp'><input type="number" min="0" max="100" id="ordre_article" name="ordre_article" value="{{article.ordre_article}}"></div></td>
+                        <td class='category'><div class='line-clamp'>
+                            <select name="id_category" id="id_category" required>
+                                {% set article_id_category = article.id_category %}
+                                {% for category in category.category %}
+                                    <option value="{{category.id}}" {% if article_id_category == category.id %} selected {% endif %}>{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div></td>
+                        <td class='link' >
+                            <input type="submit" value="Modifier">
+                        </td>
+                    </form>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <form method="POST" action="{{site_url}}article?action=create">
+                        <td>ID</td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="name" name="name" placeholder="Nom" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="catchphrase" name="catchphrase" placeholder="Catchphrase" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="title" name="title" placeholder="Titre" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="subtitle" name="subtitle" placeholder="Sous-titre">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="author" name="author" placeholder="Auteur">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="text" id="class" name="class" placeholder="Class">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <input type="number" min="0" max="100" id="ordre_article" name="ordre_article" placeholder="Ordre">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="group-form">
+                                <select name="id_category" id="id_category" required>
+                                    <option value="" disabled selected>Catégorie</option>
+                                    {% set article_id_category = article.id_category %}
+                                    {% for category in category.category %}
+                                        <option value="{{category.id}}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="submit" value="Créer">
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+    </div> #}
+{% endblock %}

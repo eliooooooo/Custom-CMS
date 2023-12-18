@@ -19,45 +19,55 @@ class Block {
     }
 
     public static function gettype() {
-        $type = ['full', '2-columns', '3-columns', 'galerie-image'];
+        $type = ['full', 'deux-columns', 'trois-columns', 'galerie-image', 'swiper1', 'swiper2', 'swiper-audio', 'block-info'];
         return $type;
     }
 
     /**
      * Permet de lire un ou plusieurs block
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
-      $pdo = connexion();
-      $SqlGenerator = new SqlGenerator($pdo);
+    static function read($id = null) {
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
 
-      if ($id === null) {
-        // Requête pour récupérer tous les block
-        $block = $SqlGenerator->select('block');
+        if ($id === null) {
+            // Requête pour récupérer tous les block
+            $block = $SqlGenerator->select('block');
 
-        // Pour chaque block, récupérer ses éléments
-        foreach ($block as &$singleBlock) {
-            $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
+            // Pour chaque block, récupérer ses éléments
+            foreach ($block as &$singleBlock) {
+                $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
 
-            // Ajouter les éléments au block
-            $singleBlock['elements'] = $elements;
+                // Trier les éléments par ordre_elmt
+                usort($elements, function($a, $b) {
+                    return $a['order_elmt'] = $b['order_elmt'];
+                });
+
+                // Ajouter les éléments au block
+                $singleBlock['elements'] = $elements;
+            }
+
+            // Retourner les blocks avec leurs éléments
+            return ['block' => $block];
+        } else {
+            // Requête pour sélectionner un block
+            $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $id);
+            $block = $SqlGenerator->select('block', '*', 'id = ' . $id);
+
+            // Trier les éléments par ordre_elmt
+            usort($elements, function($a, $b) {
+                return $a['ordre_elmt'] = $b['ordre_elmt'];
+            });
+
+            // Ajouter les éléments à l'block
+            $block[0]['elements'] = $elements;
+
+            // Retourner les deux résultats sous forme de tableau
+            return ['blocks' => $block];
         }
-
-        // Retourner les blocks avec leurs éléments
-        return ['block' => $block];
-      } else {
-        // Requête pour sélectionner un block
-        $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $id);
-        $block = $SqlGenerator->select('block', '*', 'id = ' . $id);
-
-        // Ajouter les éléments à l'block
-        $block[0]['elements'] = $elements;
-
-        // Retourner les deux résultats sous forme de tableau
-        return ['blocks' => $block];
-      }
     }
 
     /**
@@ -87,10 +97,10 @@ class Block {
     /**
      * Permet de mettre à jour un block
      *
-     * @param array $attributes
+     * @param $attributes
      * @return void
      */
-    function setAttributes(array $attributes) {
+    function setAttributes($attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -104,10 +114,10 @@ class Block {
     /**
      * Permet de supprimer un block
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    static function delete(int $id){
+    static function delete($id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -118,7 +128,7 @@ class Block {
     /**
      * Permet de mettre à jour un block
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
     function update($id) {

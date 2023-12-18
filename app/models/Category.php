@@ -5,7 +5,9 @@ class Category {
     public $name;
     public $description;
     public $class;
-    public $files;
+    public $layer1;
+    public $layer2;
+    public $layer3;
     public $order_cat;
 
     /**
@@ -20,10 +22,10 @@ class Category {
     /**
      * Permet de lire une ou plusieurs catégories
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
+    static function read($id = null) {
       $pdo = connexion();
       $SqlGenerator = new SqlGenerator($pdo);
       $categories = [];
@@ -43,38 +45,74 @@ class Category {
             if ($category && count($category) > 0) {
                 $categories[] = $category[0]; // Accéder au premier élément du tableau
             }
-        }
-
-      // Pour chaque catégorie, récupérer ses articles
-      foreach ($categories as &$category) {
-        if (isset($category["id"])) {
-          $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
-          
-          usort($articles, function($a, $b) {
-            return $a['ordre_article'] - $b['ordre_article'];
-        });
-          
-        $category['articles'] = [];
-
-            // Pour chaque article, récupérer ses éléments et ses blocks
-            foreach ($articles as &$article) {
-                $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
-
-                // Pour chaque block, récupérer ses éléments
-                foreach ($blocks as &$block) {
-                    $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                    $block['elements'] = $elements;
-                }
-
-                // Ajouter les éléments et les blocks à l'article
-                $article['blocks'] = $blocks;
-                $category['articles'][] = $article;            
+            // Pour chaque catégorie, récupérer ses articles
+            foreach ($categories as &$category) {
+              if (isset($category["id"])) {
+                $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
+                
+                usort($articles, function($a, $b) {
+                  return $a['ordre_article'] - $b['ordre_article'];
+              });
+                
+              $category['articles'] = [];
+      
+                  // Pour chaque article, récupérer ses éléments et ses blocks
+                  foreach ($articles as &$article) {
+                    $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+      
+                    $category['articles'][] = $article;            
+                  }
+              }
             }
+      
         }
-      }
+        // Retourner les catégories avec leurs articles
+        return ['category' => $categories];
+    }
 
-      // Retourner les catégories avec leurs articles
-      return ['category' => $categories];
+    static function readbycat($id = null){
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
+        $categories = [];
+
+        if ($id === null) {
+            // Requête pour récupérer toutes les catégories
+            $categories = $SqlGenerator->select('category', '*');
+
+            // Trier les catégories par ordre_cat
+            usort($categories, function($a, $b) {
+                return $a['order_cat'] - $b['order_cat'];
+            });
+
+            } else {
+                // Requête pour récupérer la catégorie spécifique
+                $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+                if ($category && count($category) > 0) {
+                    $categories[] = $category[0]; // Accéder au premier élément du tableau
+                }
+                // Pour chaque catégorie, récupérer ses articles
+                foreach ($categories as &$category) {
+                  if (isset($category["id"])) {
+                    $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $category["id"]);
+                    
+                    usort($articles, function($a, $b) {
+                      return $a['ordre_article'] - $b['ordre_article'];
+                  });
+                    
+                  $category['articles'] = [];
+          
+                      // Pour chaque article, récupérer ses éléments et ses blocks
+                      foreach ($articles as &$article) {
+                        $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
+          
+                        $category['articles'][] = $article;            
+                      }
+                  }
+                }
+          
+            }
+            // Retourner les catégories avec leurs articles
+            return ['category' => $categories];
     }
 
     /**
@@ -104,10 +142,10 @@ class Category {
     /**
      * Permet de supprimer une catégorie
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    static function delete(int $id){
+    static function delete($id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -118,10 +156,10 @@ class Category {
     /**
      * Permet de mettre à jour une catégorie
      *
-     * @param array $attributes
+     * @param $attributes
      * @return void
      */
-    function setAttributes(array $attributes) {
+    function setAttributes($attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -135,10 +173,10 @@ class Category {
     /**
      * Permet de mettre à jour une catégorie
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    function update(int $id) {
+    function update($id) {
         if ($id === null) {
             throw new Exception('Erreur : l\'ID est null.');
         }

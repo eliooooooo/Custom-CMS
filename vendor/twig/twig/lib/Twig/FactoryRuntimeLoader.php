@@ -4,10 +4,7 @@ use Twig\RuntimeLoader\FactoryRuntimeLoader;
 
 class_exists('Twig\RuntimeLoader\FactoryRuntimeLoader');
 
-@trigger_error('Using the "Twig_FactoryRuntimeLoader" class is deprecated since Twig version 2.7, use "Twig\RuntimeLoader\FactoryRuntimeLoader" instead.', \E_USER_DEPRECATED);
-
-if (false) {
-    /** @deprecated since Twig 2.7, use "Twig\RuntimeLoader\FactoryRuntimeLoader" instead */
+if (\false) {
     class Twig_FactoryRuntimeLoader extends FactoryRuntimeLoader
     {
     }

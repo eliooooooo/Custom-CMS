@@ -97,7 +97,7 @@ if (empty($path)) {
         $controller = new $controllerName();
 
         try {
-          $controller->$admin_fnct();
+          $controller->$admin_fnct($id);
         } catch (Exception $e) {
             // Décommenter pour afficher les erreurs
             echo $e->getMessage();

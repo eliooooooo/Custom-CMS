@@ -1,11 +1,35 @@
-{% for article in article %}
-  <div class="article full {{article.class}}" >
-    <div class="article-info">
-      <h2>{{article.title}}</h2>
-      <h4>{{article.subtitle}}</h4>
-    </div>
-    {% for blocks in article.blocks %}
-      {% include "display/display_blocks.html.twig" %}
-    {% endfor %}
+<div class="article-category article-banner" style="background-image: url('{{site_url}}public/src/uploads/{{article.category[0].files}}'); background-size: cover; background-repeat: no-repeat;">
+  <div class="alignement-article-banner">  
+    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !"><img src="{{site_url}}public/src/icons/home.svg" width="40px" fill="white"></a>
+    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !"><h1>{{article.category[0].name}}</h1></a>
   </div>
-{% endfor %}
+</div>
+<div class="wrapper">
+  <div class="article-left">
+    <a><img src="{{site_url}}public/src/icons/{{article.category[0].name}}.svg" width="40px" fill="white"></a>
+    <nav class="nav-article">
+      <ul>
+        {% for article in article.category.articles %}
+          <li>
+            <a href='#' class='article-{{article.id}}' title="{{article.catchphrase}}">
+              <img src='{{site_url}}public/src/icons/{{article.name}}'>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  <div class="article-container">
+    {% for article in article.category.articles %}
+      <div class="article full {{article.class}}" >
+        <div class="article-info">
+          <h2>{{article.title}}</h2>
+          <h4>{{article.subtitle}}</h4>
+        </div>
+        {% for blocks in article.blocks %}
+          {% include "display/display_blocks.html.twig" %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>  
+</div>

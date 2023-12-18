@@ -1,44 +1,8 @@
 @import "./../variables/color.scss";
 
 .article {
-    &.card {
-        background-color: white;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
-        max-width: 450px;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-
-        .content {
-            height: 100%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            p, h2 {
-                color : $color2;
-            }
-
-            a {
-                color: $color2;
-                background-color: $color1;
-                width: fit-content;
-                padding: 15px 45px;
-                font-weight: bold;
-
-                &:hover {
-                    color: $color1;
-                    background-color: $color2;
-                }
-            }
-        }
-    }
 
     &.full {
-        background-color: $color1;
         height: 100%;
         padding: 20px;
         display: flex;
@@ -46,8 +10,7 @@
         margin-bottom: 20px;
 
         .article-info {
-            background-color: $color2;
-            color: white;
+            color: black;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -68,9 +31,7 @@
         }
 
         figure {
-            display: block;
             max-width: 60%;
-            margin: auto;
             
             figcaption {
                 background-color: $color2;
@@ -91,4 +52,59 @@
     }
 
 
+}
+
+.article-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.article-banner {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .alignement-article-banner {
+        // left: 50%;
+        // top: 50%;
+        // transform: translate(-50%, -50%);
+        margin: auto;
+        display: flex;
+        position: relative;
+        align-items: center;
+        flex-direction: row;
+
+        h1 {
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: fit-content;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+.nav-article {
+    display: block;
+    background-color: black;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 200px;
+    top: 100px;
+    position: sticky;
+
+    ul {
+        margin: auto;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 }

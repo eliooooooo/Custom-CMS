@@ -10,9 +10,9 @@ class SqlGenerator {
     /**
      * Permet de Générer une requête SELECT
      *
-     * @param string $table
-     * @param string $columns
-     * @param string $conditions
+     * @param $table
+     * @param $columns
+     * @param $conditions
      * @return string
      */
     public function select($table, $columns = "*", $conditions = "") {
@@ -29,8 +29,8 @@ class SqlGenerator {
     /**
      * Permet de Générer une requête INSERT
      *
-     * @param string $table
-     * @param array $data
+     * @param $table
+     * @param $data
      * @return void
      */
     public function insert($table, $data) {
@@ -46,9 +46,9 @@ class SqlGenerator {
     /**
      * Permet de Générer une requête UPDATE
      *
-     * @param string $table
-     * @param array $data
-     * @param string $where
+     * @param $table
+     * @param $data
+     * @param $where
      * @return void
      */
     public function update($table, $data, $where) {
@@ -69,8 +69,8 @@ class SqlGenerator {
     /**
      * Permet de Générer une requête DELETE
      *
-     * @param string $table
-     * @param string $conditions
+     * @param $table
+     * @param $conditions
      * @return void
      */
     public function delete($table, $conditions = "") {

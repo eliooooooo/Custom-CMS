@@ -47,6 +47,7 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         class TEXT NULL,
+        type VARCHAR(255) NULL,
         order_elmt INT NULL,
         id_article INT,
         FOREIGN KEY (id_article) REFERENCES article(id)
