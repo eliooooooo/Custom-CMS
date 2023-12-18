@@ -45,7 +45,7 @@ class Article {
 
                     // Trier les éléments par ordre_elmt
                     usort($elements, function($a, $b) {
-                        return $a['order_elmt'] = $b['order_elmt'];
+                        return $a['order_elmt'] - $b['order_elmt'];
                     });
 
                     $block['elements'] = $elements;
