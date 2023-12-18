@@ -1,0 +1,10 @@
+.deux-columns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+.deux-columns * {
+  width: 100%;
+}/*# sourceMappingURL=2-columns.css.map */

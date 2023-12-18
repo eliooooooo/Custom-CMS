@@ -5,6 +5,5 @@ package-lock.json
 .editorconfig
 dist
 composer.lock
-uploads/
 .vscode
 README2.md

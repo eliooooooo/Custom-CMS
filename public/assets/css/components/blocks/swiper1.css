@@ -1,0 +1,19 @@
+.swiper1 {
+  width: 400px;
+  margin: auto;
+}
+.swiper1 .swiper-wrapper {
+  height: 400px;
+  width: 400px;
+}
+.swiper1 .swiper-wrapper .swiper-slide {
+  height: 400px;
+  width: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper1 .swiper-wrapper .swiper-slide img {
+  height: 400px;
+  width: 400px;
+}/*# sourceMappingURL=swiper1.css.map */

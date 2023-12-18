@@ -1,9 +1,7 @@
 <header>
     {# Si l'utilisateur avec l'id_user 1 est connecté, alors on affiche l'admin toolbar #}
-    {% if is_connected == true %}   
-        {% include './components/admin_toolbar.html.twig' %}
+    {% if is_connected == true %}
+    {% include './components/admin_toolbar.html.twig' %}
     {% endif %}
 
-    {# On affiche la navigation #}
-    {% include './components/nav.html.twig' %}
 </header>

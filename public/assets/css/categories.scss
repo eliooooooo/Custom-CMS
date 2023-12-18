@@ -11,8 +11,14 @@ $p-item2_3: 6;
 $p-item3_1: 5;
 $p-item3_2: 4;
 $p-item3_3 : 3;
-$edito:2;
+$edito:3;
+$editoAlertZ:15;
 $fond: 1;
+
+//couleurs
+
+$editoAlert:black;
+$editoAlertText:white;
 
 html {
   scroll-behavior: smooth;
@@ -144,5 +150,35 @@ $p-item : 'p-item1_1', 'p-item1_2', 'p-item1_3', 'p-item2_1', 'p-item2_2', 'p-it
     button{
     cursor: pointer;
     background-color: red;
+    }
+}
+
+.titre3{
+    a{
+        display: none;
+    }
+    button{
+        display: block;
+    }
+}
+
+.editoAlert{
+    position: fixed;
+    z-index: $editoAlertZ;
+    width: 500px;
+    background-color: $editoAlert;
+    color: $editoAlertText;
+    text-align: center;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 15px;
+    padding: 10px;
+    a, button{
+        border-radius: 15px;
+        text-decoration: none;
+        color:$editoAlertText;
+        background-color: red;
+        border:0;
+        padding: 5px;
     }
 }

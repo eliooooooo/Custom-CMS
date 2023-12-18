@@ -3,20 +3,19 @@
   <button id="forward">Avancer</button>
   <button id="backward">Revenir</button>
 </div>
-{% endif %}
+
 
 <div class="titles">
   {% set i = 0 %}
   {% for element in category.category %}
   {% set i = i + 1 %}
-  {% if category.category|length > 1 %}
   <div class="titre titre{{i}} {% if i == 1 %}block{% else %}hidden{% endif %}">
     <h1>{{element.name}}</h1>
     <a href="{{site_url}}category?id={{element.id}}"
       style="padding: 5px 20px; background-color: white; text-decoration: none; color: blue;">Voir
       acticles</a>
+    <button class="hidden">Voir articles</button>
   </div>
-  {% endif %}
   {% endfor %}
 </div>
 <div class="paralax">
@@ -31,8 +30,21 @@
   </div>
   {% endfor %}
 </div>
+<div class="editoAlert hidden">
+  <h1>Hep hep pas si vite</h1>
+  <p>Tu pars déjà ? Pour une experience optimale, nous te conseillons de consulter tout les articles.</p>
+  <p>Es-tu sur de vouloir continuer ?</p>
+  <a href="{{site_url}}category?id=4">Continuer</a>
+  <button id="editoClose">Retour</button>
+</div>
 <div class="container"></div>
+
 <style src="{{site_url}}public/assets/js/categories.js"></style>
+{% endif %}
+
+
+
+
 {# <div class="titles">
   {% set i = 0 %}
   {% for element in category.category %}

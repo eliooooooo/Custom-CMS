@@ -1,0 +1,14 @@
+.notification {
+  width: 100%;
+  padding: 10px 0;
+  margin: 0;
+  text-align: center;
+}
+.notification--green {
+  background-color: green;
+  color: white;
+}
+.notification--red {
+  background-color: red;
+  color: white;
+}/*# sourceMappingURL=notification.css.map */

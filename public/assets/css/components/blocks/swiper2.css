@@ -1,0 +1,42 @@
+.swiper2 {
+  position: relative;
+  height: auto;
+}
+.swiper2 .swiper-wrapper {
+  height: auto;
+}
+.swiper2 .swiper-wrapper .swiper-slide {
+  height: auto;
+}
+.swiper2 .swiper-wrapper .swiper-slide img {
+  width: 100%;
+  height: auto;
+}
+.swiper2 .swiper-button-prev {
+  height: 100%;
+  width: 150px;
+  color: white;
+  top: 20px;
+}
+.swiper2 .swiper-button-prev:hover {
+  scale: 1.2;
+}
+.swiper2 .swiper-button-next {
+  height: 100%;
+  width: 150px;
+  color: white;
+  top: 20px;
+}
+.swiper2 .swiper-button-next:hover {
+  scale: 1.2;
+}
+.swiper2 .swiper-pagination {
+  display: flex;
+  flex-direction: row;
+  bottom: 20px !important;
+  left: 50% !important;
+  transform: translateY(-50%) !important;
+}
+.swiper2 .swiper-pagination .swiper-pagination-bullet {
+  background-color: white;
+}/*# sourceMappingURL=swiper2.css.map */

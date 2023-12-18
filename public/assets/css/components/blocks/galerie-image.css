@@ -1,0 +1,17 @@
+.galerie-image {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: nowrap;
+  width: auto;
+  margin: auto;
+  align-items: center;
+}
+.galerie-image .alignement {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.galerie-image .alignement img {
+  width: 70%;
+}/*# sourceMappingURL=galerie-image.css.map */

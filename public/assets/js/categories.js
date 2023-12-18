@@ -137,7 +137,12 @@ backward.addEventListener('click', () => {
 })
 
 
+let editoAlert = document.querySelector('.editoAlert');
+let edito = document.querySelector('.titre3 button');
 
+edito.addEventListener('click', () => {
+    editoAlert.classList.remove('hidden');
+})
 
 
 

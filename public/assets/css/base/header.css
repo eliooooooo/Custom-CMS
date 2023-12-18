@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: #1b271b;
+  display: flex;
+}
+header nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 20px;
+}
+header nav ul a {
+  color: white;
+  text-decoration: none;
+}/*# sourceMappingURL=header.css.map */
