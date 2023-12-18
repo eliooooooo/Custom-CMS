@@ -1,0 +1,224 @@
+@import './../variables/color.scss';
+
+/**
+ ====================================
+ Block deux colonnes
+ ====================================
+*/
+
+.deux-columns {
+    display: flex;
+    flex-direction: row;    
+    flex-wrap: nowrap;
+    gap: 40px;
+    justify-content: space-between;
+
+    * {
+        width: 100%;    
+    }
+}
+
+/**
+ ====================================
+ Block full 
+ ====================================
+*/
+
+.left {
+    float: left;
+    width: 40%;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    img {
+        width: 100%;
+    }
+}
+
+.right {
+    float: right;
+    width: 40%;
+    margin-bottom: 20px;
+    margin-left: 40px;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    img {
+        width: 100%;
+    }
+}
+
+/**
+ ====================================
+ Swiper 1
+ ====================================
+*/
+
+$width : 400px;
+
+.swiper1 {
+    width: $width;
+    margin: auto;
+
+    .swiper-wrapper {
+        height: $width;
+        width: $width;
+
+        .swiper-slide {
+            height: $width;
+            width: $width;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            img {
+                height: $width;
+                width: $width;
+            }
+        }
+    }
+}
+
+/**
+ ====================================
+ Swiper 2
+ ====================================
+*/
+
+$height : auto;
+
+.swiper2 {
+    position: relative;
+    height: $height;
+
+    .swiper-wrapper {
+        height: $height;
+
+        .swiper-slide {
+            height: $height;
+
+            img {
+                width: 100%;
+                height: $height;
+            }
+        }
+    }
+
+    .swiper-button-prev {
+        height: 100%;
+        width: 150px;
+        color: white;
+        top: 20px;
+
+        &:hover {
+            scale: 1.2;
+        }
+    }
+    .swiper-button-next {
+        height: 100%;
+        width: 150px;
+        color: white;
+        top: 20px;
+
+        &:hover {
+            scale: 1.2;
+        }
+    }
+
+    .swiper-pagination {
+        display: flex;
+        flex-direction: row;
+        bottom: 20px !important;
+        left: 50% !important;
+        transform: translateY(-50%) !important;
+        .swiper-pagination-bullet {
+            background-color: white;
+        }
+    }
+}
+
+/**
+ ====================================
+ Swiper 2
+ ====================================
+*/
+
+
+.music-player{
+    background: rgb(255, 255, 255);
+    width: 400px;
+    padding: 25px 35px;
+    text-align: center;
+    margin: auto;
+}
+
+#progress{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgb(255, 50, 50);
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 40px 0 5px 0;
+}
+
+#progress::-webkit-slider-thumb,
+#progress::-moz-range-thumb {
+    background: rgb(255, 50, 50);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 8px solid #fff;
+    box-shadow: 0 5px 5px rgba(255, 26, 26, 0.22);
+}
+
+.controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div{
+        width: 60px;
+        height: 60px;
+        margin: 20px;
+        background: #fff;
+        display: inline-flex;
+        align-items:center;
+        justify-content: center;
+        border-radius: 50%;
+        color: rgb(255, 50, 50);
+        box-shadow: 0 10px 20px rgba(255, 26, 26, 0.22);
+        cursor: pointer;
+        &:nth-child(2){
+            transform: scale(1.5);
+            background: rgb(255, 50, 50);
+            color: #fff;
+        }
+        svg{
+        width: 20px;
+        height: 20px;
+        }
+        
+
+    }
+}
+    
+.block{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
+.time{
+    display: flex;
+    justify-content: space-between;
+    color: rgb(255, 50, 50);
+    #start, #end{
+        margin: 0;
+    }
+}
