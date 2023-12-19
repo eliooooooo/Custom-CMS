@@ -141,7 +141,7 @@ $height : auto;
 
 /**
  ====================================
- Swiper 2
+ Audio
  ====================================
 */
 
@@ -201,8 +201,6 @@ $height : auto;
         width: 20px;
         height: 20px;
         }
-        
-
     }
 }
     
@@ -222,3 +220,30 @@ $height : auto;
         margin: 0;
     }
 }
+
+/**
+ ====================================
+ Galerie d'image
+ ====================================
+*/
+
+.galerie-image {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: nowrap;
+    width: auto;
+    margin: auto;
+    align-items: center;
+
+    .alignement {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        img {
+            width: 70%;
+        }
+    }
+}
+
