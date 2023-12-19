@@ -51,58 +51,50 @@ body {
 $p-item : 'p-item1_1', 'p-item1_2', 'p-item1_3', 'p-item2_1', 'p-item2_2', 'p-item2_3'  ;
 
 
+
 .p-item1_1 {
-    background-image: url('../../../src/uploads/theme1_1.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item1_1;
 }
 .p-item1_2 {
-    background-image: url('../../../src/uploads/theme1_2.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item1_2;
 }
 .p-item1_3 {
-    background-image: url('../../../src/uploads/theme1_3.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item1_3;
 }
 .p-item2_1 {
-    background-image: url('../../../src/uploads/theme2_1.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item2_1;
 }
 
 .p-item2_2 {
-    background-image: url('../../../src/uploads/theme2_2.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item2_2;
 }
 .p-item2_3 {
-    background-image: url('../../../src/uploads/theme2_3.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item2_3;
 }
 .p-item3_1 {
-    background-image: url('../../../src/uploads/theme3_1.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item3_1;
 }
 
 .p-item3_2 {
-    background-image: url('../../../src/uploads/theme3_2.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item3_2;
 }
 .p-item3_3 {
-    background-image: url('../../../src/uploads/theme3_3.svg');
     background-size: cover;
     background-position: center;
     z-index: $p-item3_3;
@@ -142,6 +134,30 @@ $p-item : 'p-item1_1', 'p-item1_2', 'p-item1_3', 'p-item2_1', 'p-item2_2', 'p-it
     background-color: red;
     }
 }
+
+.icone_cat{
+    width: 50px;
+    height: 50px;
+    color: blue;
+}
+
+.link_to_article{
+    width: fit-content;
+    height: fit-content;
+   display: block;
+   z-index: 2;
+   &:hover{
+       cursor: pointer;
+   }
+}
+
+.cat_svg{
+    pointer-events: none;
+}
+
+
+    
+
 
 // .category {
 //     background-color: $color1;

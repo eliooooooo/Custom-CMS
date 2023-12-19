@@ -13,14 +13,9 @@
       let scale11 = 1 + w * 1e-5 * p_b;
       let scale12 = 1 + w * 19e-6 * p_b;
       let scale13 = 1 + w * 28e-6 * p_b;
-      document.querySelector(".p-item1_3").style = `transform: translate3d(${hr_2}px,0,0) scale(${scale11})`;
-      document.querySelector(".p-item1_2").style = `transform: translate3d(${hr_2}px,0,0) scale(${scale12});`;
-      document.querySelector(".p-item1_1").style = `transform: translate3d(${hr_2}px,0,0) scale(${scale13});`;
-      if (s > 2 * vh - 200) {
-        this.document.querySelector(".p-item1_1").style = "display:none;";
-        this.document.querySelector(".p-item1_2").style = "display:none;";
-        this.document.querySelector(".p-item1_3").style = "display:none;";
-      }
+      document.querySelector(".p-item1_3").style.transform = `translate3d(${hr_2}px,0,0) scale(${scale11})`;
+      document.querySelector(".p-item1_2").style.transform = `translate3d(${hr_2}px,0,0) scale(${scale12})`;
+      document.querySelector(".p-item1_1").style.transform = `translate3d(${hr_2}px,0,0) scale(${scale13})`;
       if (s > 2 * vh) {
         let newS = s - 2 * vh;
         p = newS / h * 100;
@@ -29,14 +24,9 @@
         let scale22 = 1 + w * 28e-6 * p_b;
         let scale23 = 1 + w * 38e-6 * p_b;
         let hr_3 = w / 8e4 * p_b;
-        document.querySelector(".p-item2_1").style = `transform:  scale(${scale21})`;
-        document.querySelector(".p-item2_2").style = `transform:  scale(${scale22})`;
-        document.querySelector(".p-item2_3").style = `transform: scale(${scale23})`;
-      }
-      if (s > 3 * vh) {
-        this.document.querySelector(".p-item2_1").style = "display:none;";
-        this.document.querySelector(".p-item2_2").style = "display:none;";
-        this.document.querySelector(".p-item2_3").style = "display:none;";
+        document.querySelector(".p-item2_1").style.transform = `scale(${scale21})`;
+        document.querySelector(".p-item2_2").style.transform = `scale(${scale22})`;
+        document.querySelector(".p-item2_3").style.transform = `scale(${scale23})`;
       }
       if (s > 4 * vh) {
         let newS = s - 4 * vh;
