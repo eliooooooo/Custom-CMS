@@ -41,7 +41,12 @@
   </div>
 {% elseif element.tags == 'credits' %}
   <div class='credits'>
-    
+    <h4>Crédits :</h4>
+    {% set texte = element.content %}
+    {% set tableau = texte|split('/') %}
+    {% for texte in tableau %}
+      <li>{{ texte }}</li>
+    {% endfor %}
   </div>
 {% elseif element.tags == 'audio-player' %}
   <div class="audio-listener">
