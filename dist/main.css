@@ -377,18 +377,6 @@ body {
   border-radius: 10px;
   margin-bottom: 20px;
 }
-.article.full a {
-  display: inline-block;
-  color: #cee7c7;
-  background-color: #1b271b;
-  width: fit-content;
-  padding: 15px 45px;
-  font-weight: bold;
-}
-.article.full a:hover {
-  color: #1b271b;
-  background-color: #cee7c7;
-}
 .article.full figure {
   max-width: 60%;
 }

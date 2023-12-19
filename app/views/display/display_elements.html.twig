@@ -6,13 +6,43 @@
 {% elseif element.tags == 'img' %}
   <img src="public/src/uploads/{{element.files}}" alt="{{element.files}}" class="element {{element.class}}"/>
 {% elseif element.tags == 'video' %}
-  <video class="element {{element.class}}" controls>
+  <video class="element {{element.class}}" preload="metadata" controls>
     <source src="public/src/uploads/{{element.files}}" type="video/mp4">
   </video>
 {% elseif element.tags == 'audio' %}
   <audio class="element {{element.class}}" controls>
     <source src="public/src/uploads/{{element.files}}" type="audio/ogg">
   </audio>
+{% elseif element.tags == 'voir-plus' %}
+  <div class='voir-plus'>
+    <h3>Pour aller plus loin :</h3>
+    <ul>
+      {% set liens = element.link %}
+      {% set texte = element.alt %}
+      {% set tableau = liens|split(',') %}
+      {% set i = 0 %}
+      {% for liens in tableau %}
+        {% set tableauTexte = texte|split(',') %}
+        <li><a href="{{liens}}" target="_blank">{{ tableauTexte[i] }}</a></li>
+        {% set i = i + 1 %}
+      {% endfor %}
+    </ul>
+  </div>
+{% elseif element.tags == 'source' %}
+  <div class='sources'>
+    <h3>Sources :</h3>
+    <ul>
+      {% set texte = element.content %}
+      {% set tableau = texte|split('/') %}
+      {% for texte in tableau %}
+        <li>{{ texte }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% elseif element.tags == 'credits' %}
+  <div class='credits'>
+    
+  </div>
 {% elseif element.tags == 'audio-player' %}
   <div class="audio-listener">
     {# Remplir le champs lien pour renseigner l'image de l'element audio-player #}

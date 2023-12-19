@@ -16,20 +16,6 @@
             margin-bottom: 20px;
         }
 
-        a {
-            display: inline-block;
-            color: $color1;
-            background-color: $color2;
-            width: fit-content;
-            padding: 15px 45px;
-            font-weight: bold;
-    
-            &:hover {
-                color: $color2;
-                background-color: $color1;
-            }
-        }
-
         figure {
             max-width: 60%;
             
