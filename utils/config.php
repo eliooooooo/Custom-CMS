@@ -17,7 +17,7 @@ $configArray = [
     ],
     'site' => [
         'name' => 'Les animaux de la forêt', // Site name
-        'url' => '/~burkle/SAE_301_CUEJ/', // Site url ex: /~user/SAE_301_CMS/
+        'url' => '/mini-sites/sauvage/', // Site url ex: /~user/SAE_301_CMS/
         'description' => 'Découvrez les différents animaux de la forêt et leurs secrets', // Site description
         'author' => 'BURKLE Elitt', // Site author
     ],

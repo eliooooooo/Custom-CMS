@@ -18,9 +18,9 @@ use Twig\Compiler;
  */
 class CheckSecurityNode extends Node
 {
-    private $usedFilters;
-    private $usedTags;
-    private $usedFunctions;
+    protected $usedFilters;
+    protected $usedTags;
+    protected $usedFunctions;
 
     public function __construct(array $usedFilters, array $usedTags, array $usedFunctions)
     {
@@ -45,13 +45,10 @@ class CheckSecurityNode extends Node
         }
 
         $compiler
-            ->write("\n")
-            ->write("public function checkSecurity()\n")
-            ->write("{\n")
-            ->indent()
-            ->write('static $tags = ')->repr(array_filter($tags))->raw(";\n")
-            ->write('static $filters = ')->repr(array_filter($filters))->raw(";\n")
-            ->write('static $functions = ')->repr(array_filter($functions))->raw(";\n\n")
+            ->write("\$this->sandbox = \$this->env->getExtension('\Twig\Extension\SandboxExtension');\n")
+            ->write('$tags = ')->repr(array_filter($tags))->raw(";\n")
+            ->write('$filters = ')->repr(array_filter($filters))->raw(";\n")
+            ->write('$functions = ')->repr(array_filter($functions))->raw(";\n\n")
             ->write("try {\n")
             ->indent()
             ->write("\$this->sandbox->checkSecurity(\n")
@@ -64,7 +61,7 @@ class CheckSecurityNode extends Node
             ->outdent()
             ->write("} catch (SecurityError \$e) {\n")
             ->indent()
-            ->write("\$e->setSourceContext(\$this->source);\n\n")
+            ->write("\$e->setSourceContext(\$this->getSourceContext());\n\n")
             ->write("if (\$e instanceof SecurityNotAllowedTagError && isset(\$tags[\$e->getTagName()])) {\n")
             ->indent()
             ->write("\$e->setTemplateLine(\$tags[\$e->getTagName()]);\n")
@@ -81,8 +78,6 @@ class CheckSecurityNode extends Node
             ->write("throw \$e;\n")
             ->outdent()
             ->write("}\n\n")
-            ->outdent()
-            ->write("}\n")
         ;
     }
 }

@@ -17,6 +17,7 @@
     </div>
     {% for element in blocks.elements %}
         {% if element.tags == 'audio' %}
+<<<<<<< HEAD
         <div class="music-player">
             <audio id="song" preload="metadata">
                 <source src="{{site_url}}public/src/uploads/{{ element.files }}" type="audio/mpeg">
@@ -61,6 +62,9 @@
                 </div>
             </div>
             {# <h1>{{ element.content }}</h1>
+=======
+            <h1>{{ element.content }}</h1>
+>>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
             <p>{{element.alt}}</p>
             <audio id="song">
                 <source src="{{site_url}}public/src/uploads/{{ element.files }}" type="audio/mpeg">
@@ -85,7 +89,11 @@
                         <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5"/>
                     </svg>
                 </div>
+<<<<<<< HEAD
             </div> #}
+=======
+            </div>
+>>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
         {% endif %}
     {% endfor %}
 </div>

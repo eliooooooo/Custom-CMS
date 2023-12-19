@@ -9,6 +9,15 @@
 @import "./components/wrapper.scss";
 @import "./components/notification.scss";
 @import "./admin/admin-panel.scss";
+<<<<<<< HEAD
+=======
+@import "./components/blocks/2-columns.scss";
+@import "./components/blocks/galerie-image.scss";
+@import "./components/blocks/full.scss";
+@import "./components/blocks/swiper1.scss";
+@import "./components/blocks/swiper2.scss";
+@import "./components/blocks/audio.scss";
+>>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
 @import "./components/category.scss";
 @import "./components/article.scss";
 @import "./components/blocks.scss";
