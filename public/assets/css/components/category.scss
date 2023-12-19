@@ -51,93 +51,55 @@ body {
 $p-item : 'p-item1_1', 'p-item1_2', 'p-item1_3', 'p-item2_1', 'p-item2_2', 'p-item2_3'  ;
 
 
-<<<<<<< HEAD
-.p-item1_1 {
-    background-image: url('../../../src/uploads/theme1_1.svg');
-=======
 
 .p-item1_1 {
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item1_1;
 }
 .p-item1_2 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme1_2.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item1_2;
 }
 .p-item1_3 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme1_3.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item1_3;
 }
 .p-item2_1 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme2_1.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item2_1;
 }
 
 .p-item2_2 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme2_2.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item2_2;
 }
 .p-item2_3 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme2_3.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item2_3;
 }
 .p-item3_1 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme3_1.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item3_1;
 }
 
 .p-item3_2 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme3_2.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item3_2;
 }
 .p-item3_3 {
-<<<<<<< HEAD
-    background-image: url('../../../src/uploads/theme3_3.svg');
-=======
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
     background-size: cover;
     background-position: center;
     z-index: $p-item3_3;
 }
 
-<<<<<<< HEAD
 
 .titles{
     width: 100vw;
@@ -161,31 +123,6 @@ $p-item : 'p-item1_1', 'p-item1_2', 'p-item1_3', 'p-item2_1', 'p-item2_2', 'p-it
     display: block;
 }
 
-=======
-
-.titles{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: $titles;
-}
-
-.titre {
-    width: fit-content;
-    margin-left: 50%;
-    transform: translate(-50%, 0);
-    display:block;
-}
-
-.hidden {
-    display: none;
-}
-
-.block {
-    display: block;
-}
-
->>>>>>> 1329546e987e5f99d74ebac877a1531ab182359e
 #button{
     height: 100vh;
     z-index: $button;
