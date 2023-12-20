@@ -12,6 +12,7 @@
 @import "./components/category.scss";
 @import "./components/article.scss";
 @import "./components/blocks.scss";
+@import "./components/frontpage.scss";
 
 .hidden {
     display: none;

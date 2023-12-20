@@ -29,7 +29,7 @@
             {% for article in article.articles %}
                 {% set i = i + 1 %}
                 <tr id="row-{{i}}">
-                    <td class='id'><a href='{{site_url}}article?id={{article.id}}'>{{article.id}}</a></td>
+                    <td class='id'><a href='{{site_url}}article?action=readbycat&id={{article.id_category}}&article={{article.id}}'>{{article.id}}</a></td>
                     <td class='name'><div class='line-clamp'>{{article.name}}</div></td>
                     <td class='catchphrase'><div class='line-clamp'>{{article.catchphrase}}</div></td>
                     <td class='title'><div class='line-clamp'>{{article.title}}</div></td>

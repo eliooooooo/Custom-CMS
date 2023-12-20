@@ -22,7 +22,7 @@
                         {% if ext == 'jpg' or ext == 'jpeg' or ext == 'png' or ext == 'gif' or ext == 'svg' or ext == 'webp' %}
                             <td><div class='line-clamp'><img src="{{site_url}}public/src/uploads/{{ file }}" alt="{{ file }}" /></div></td>
                         {% else %}
-                            <td><div class='line-clamp'><img src="{{site_url}}public/src/file.png" alt="{{ file }}" /></div></td>
+                            <td><div class='line-clamp'><img class="file-generic" src="{{site_url}}public/src/file.png" alt="{{ file }}" /></div></td>
                         {% endif %}
                         <td><div class='line-clamp'>{{ file }}</div></td>
                         <td class='link' >
