@@ -243,6 +243,10 @@ nav ul a {
   color: white;
   font-weight: 900;
 }
+.file-generic {
+  width: 100px;
+  margin: auto;
+}
 
 /* public/assets/css/components/category.scss */
 html {
