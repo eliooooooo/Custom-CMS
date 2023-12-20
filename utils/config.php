@@ -13,11 +13,11 @@ $configArray = [
         'id' => 1, // Admin id
         'name' => 'admin', // Admin name
         'email' => 'admin@iha.fr', // Admin email
-        'password' => password_hash('admin', PASSWORD_DEFAULT), // Admin password
+        'password' => 'admin', // Admin password
     ],
     'site' => [
         'name' => 'Les animaux de la forêt', // Site name
-        'url' => '/~burkle/INFO_3_Blog/', // Site url ex: /~user/SAE_301_CMS/
+        'url' => '/~burkle/SAE_301_CUEJ/', // Site url ex: /~user/SAE_301_CMS/
         'description' => 'Découvrez les différents animaux de la forêt et leurs secrets', // Site description
         'author' => 'BURKLE Elitt', // Site author
     ],

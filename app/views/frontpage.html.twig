@@ -5,25 +5,10 @@
 {% block content %}
 
     <div class="home-page">
-        <div class="title">
-            <h1>Bienvenue sur le ce blog !</h1>
-            <h2>Venez découvrir les animaux de la forêt.</h2>
-        </div>
-        <img src="https://static.vecteezy.com/ti/photos-gratuite/p2/6831702-panorama-banner-background-of-tropical-forest-paysage-scene-for-usage-in-concept-of-environmental-ecology-and-durable-energy-or-earth-day-wild-wood-scenic-using-pour-fond-d-ecran-du-spa-et-du-tourisme-gratuit-photo.jpg" alt="forêt" width="100%">
-
-        <p>
-        Découvrez la magie et la diversité de la vie sauvage forestière ! Notre site vous emmène dans un voyage captivant à travers les bois et les écosystèmes forestiers, où la faune fascinante évolue en harmonie.
-        </p>
-        <p>
-        Explorez les catégories dédiées à chaque habitant des forêts : des créatures majestueuses volant dans les cieux aux insectes infatigables qui travaillent au sol, des cervidés élégants qui parcourent les bois aux habitants marins mystérieux des lacs et des rivières.
-        </p>
-        <p>
-        Plongez dans des articles riches en informations, des anecdotes surprenantes et des images à couper le souffle qui vous transporteront au cœur des habitats forestiers. Apprenez-en davantage sur leurs comportements, leurs interactions avec l'environnement et leur rôle vital dans la préservation de ces écosystèmes naturels.
-        </p>
-        <p>
-        Que vous soyez un passionné de la nature, un étudiant curieux ou simplement un amoureux des grands espaces verts, notre site est votre porte d'entrée vers un monde fascinant où la vie sauvage règne en maître.
-        </p>
-        
+        <video class="intro" autoplay controls>
+            <source src="{{site_url}}public/src/uploads/Coccinelle-demoiselle.mp4" type="video/mp4">
+        </video>
+        <a class="skip-intro" href="{{site_url}}category">Passer l'introduction</a>
     </div>
 
 {% endblock %}

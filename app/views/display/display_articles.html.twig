@@ -1,18 +1,64 @@
-{% for article in article %}
-  <div class="article full {{article.class}}" >
-    <div class="article-info">
-      <h2>{{article.title}}</h2>
-      <h4>{{article.subtitle}}</h4>
+<div class="article-category article-banner"
+  style="background-image: url('{{site_url}}public/src/uploads/{{article.category[0].files}}'); background-size: cover; background-repeat: no-repeat;">
+  <div class="alignement-article-banner">
+    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !"><img
+        src="{{site_url}}public/src/icons/home.svg" width="40px" fill="white"></a>
+    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !">
+      <h1>{{article.category[0].name}}</h1>
+    </a>
+  </div>
+</div>
+<div class="wrapper">
+  <div class="article-left">
+    <a class="retour" href="{{site_url}}category?action=readbycat&id=1" ><img src="{{site_url}}public/src/icons/arrow.svg" width="80px" style="margin-top: 60px; margin-bottom: 60px;"></a>
+    <nav class="nav-article" style="width: 50px; height: 200px; background-color: #064F4A;">
+      <ul>
+        {% set i = 0 %}
+        {% for article in article.category.articles %}
+        {% set i = i + 1 %}
+        <li>
+          <button class='btn-article btn-article-{{i}}' title="{{article.catchphrase}}">
+            {# <img class="article-icon" src="{{site_url}}public/src/icons/loup3-min.svg" alt=""> #}
+            {# <object type="image/svg+xml" class="article-icon"
+              data="{{site_url}}public/src/icons/loup3-min.svg"></object> #}
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  <div class="article-container">
+    {% set i = 0 %}
+    {% for article in article.category.articles %}
+    {% set i = i + 1 %}
+    <div class="article full {{article.class}} article-{{i}}">
+      <div class="article-info">
+        <h2>{{article.title}}</h2>
+        <p>{{article.subtitle}}</p>
+      </div>
+      {% for blocks in article.blocks %}
+      {% include "display/display_blocks.html.twig" %}
+      {% endfor %}
+      <div class='auteur'>
+        {% set auteurs = article.author %}
+        {% set tableau = auteurs|split('/') %}
+        {% for auteur in tableau %}
+          {% if auteur starts with 'JRI:' %}
+            {% set auteur = auteur|replace({'JRI:': ''}) %}
+            <p>JRI : {{auteur}}</p>
+          {% elseif auteur starts with 'Redac:' %}
+            {% set auteur = auteur|replace({'Redac:': ''}) %}
+            <p>Rédactrice : {{auteur}}</p>
+          {% else %}
+            <p>{{auteur}}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
-    {% for item in article.items %}
-      {% if item.element %}
-        {% set element = item.element %}
-        {% include "display/display_elements.html.twig" %}
-      {% endif %}
-      {% if item.block %}
-        {% set blocks = item.block %}
-        {% include "display/display_blocks.html.twig" %}
-      {% endif %}
     {% endfor %}
   </div>
-{% endfor %}
+</div>
+
+{% block script %}
+  <script src="{{site_url}}public/assets/js/articles.js"></script>
+{% endblock %}

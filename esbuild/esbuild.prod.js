@@ -7,10 +7,12 @@ require("esbuild")
         entryPoints: ["./public/assets/js/main.js"],
         bundle: true,
         outdir: './dist',
+        loader: {
+            '.svg': 'file',
+        },
         minify: true,
         plugins: [sassPlugin(), postcss.default({
             plugins: [
-                require('tailwindcss'),
                 require('autoprefixer'),
             ],
         })],

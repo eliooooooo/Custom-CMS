@@ -3,11 +3,9 @@
 {% block title %}{% endblock %}
 
 {% block page %}
-    {% include './components/header.html.twig' %}
-    <main>
-        <div class="wrapper">
-            {% block content %}{% endblock %}
-        </div>
-    </main>
-    {% include './components/footer.html.twig' %}
+    {% if is_connected %}
+        {% include './components/admin_toolbar.html.twig' %}
+        {% include './components/nav.html.twig' %}
+    {% endif %}
+    {% block content %}{% endblock %}
 {% endblock %}

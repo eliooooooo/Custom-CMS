@@ -11,7 +11,6 @@ class Element {
     public $class;
     public $order_elmt;
     public $id_block;
-    public $id_article;
 
     /**
      * permet de récupérer les attributs de l'objet
@@ -28,17 +27,17 @@ class Element {
      * @return array
      */
     public static function gettags() {
-        $tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'img', 'figure', 'audio', 'video'];
+        $tags = ['h3', 'p', 'a', 'infographie', 'figure', 'audio', 'audio-player', 'video', 'voir-plus', 'source', 'credits', 'q'];
         return $tags;
       }
 
     /**
      * Permet de lire un ou plusieurs éléments
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
+    static function read($id = null) {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -80,10 +79,10 @@ class Element {
     /**
      * Permet de mettre à jour un élément
      *
-     * @param array $attributes
+     * @param $attributes
      * @return void
      */
-    function setAttributes(array $attributes) {
+    function setAttributes($attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -97,10 +96,10 @@ class Element {
     /**
      * Permet de supprimer un élément
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    static function delete(int $id){
+    static function delete($id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -111,10 +110,10 @@ class Element {
     /**
      * Permet de mettre à jour un élément
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    function update(int $id) {
+    function update($id) {
         if ($id === null) {
             throw new Exception('Erreur : l\'ID est null.');
         }
@@ -137,5 +136,5 @@ class Element {
             $SqlGenerator->update('element', $data, 'id = ' . $id);
         }
     }
-  }
+}
   

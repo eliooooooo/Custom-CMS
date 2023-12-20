@@ -1,6 +1,5 @@
 @import "./base/base.scss";
 @import "./base/header.scss";
-@import "./base/footer.scss";
 @import "./base/login.scss";
 @import "./base/admintoolbar.scss";
 @import "./base/frontpage.scss";
@@ -10,11 +9,29 @@
 @import "./components/wrapper.scss";
 @import "./components/notification.scss";
 @import "./admin/admin-panel.scss";
-@import "./components/blocks/2-columns.scss";
-@import "./components/blocks/galerie-image.scss";
 @import "./components/category.scss";
 @import "./components/article.scss";
+@import "./components/blocks.scss";
+@import "./components/frontpage.scss";
 
 .hidden {
     display: none;
+}
+
+p {
+    text-align: justify;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'League Gothic', sans-serif;
+    font-weight: 400 !important;
 }

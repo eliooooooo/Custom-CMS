@@ -1,5 +1,7 @@
 RewriteEngine On
-RewriteBase /~burkle/INFO_3_Blog/
+RewriteBase /~burkle/SAE_301_CUEJ/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
+
+AddType image/svg+xml svg svgz

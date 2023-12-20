@@ -2,6 +2,8 @@
 
 class Article {
     // liste des attributs
+    public $name;
+    public $catchphrase;
     public $title;
     public $subtitle;
     public $author;
@@ -22,83 +24,152 @@ class Article {
     /**
      * Permet de lire un ou plusieurs articles
      *
-     * @param int $id
+     * @param $id
      * @return array
      */
-    static function read(int $id = null) {
+    static function read($id = null) {
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
-        $items = [];
 
         if ($id === null) {
             // Requête pour récupérer tous les articles
             $articles = $SqlGenerator->select('article');
 
-            // Pour chaque article, récupérer ses éléments et ses blocks
+            // Pour chaque article, récupérer ses blocs
             foreach ($articles as &$article) {
-                $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $article["id"]);
                 $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
-                $items = array();
 
                 // Pour chaque block, récupérer ses éléments
                 foreach ($blocks as &$block) {
-                    $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                    $block['elements'] = $blockElements;
-                    $blockItem = array();
-                    $blockItem['block'] = $block;
-                    array_push($items, $blockItem);
+                    $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+
+                    // Trier les éléments par ordre_elmt
+                    usort($elements, function($a, $b) {
+                        return $a['order_elmt'] - $b['order_elmt'];
+                    });
+
+                    $block['elements'] = $elements;
                 }
 
-                foreach ($elements as &$element) {
-                    $elementItem = array();
-                    $elementItem['element'] = $element;
-                    array_push($items, $elementItem);
-                }
-
-                usort($items, function($a, $b) {
-                    $orderA = isset($a['block']) ? $a['block']['order_elmt'] : $a['element']['order_elmt'];
-                    $orderB = isset($b['block']) ? $b['block']['order_elmt'] : $b['element']['order_elmt'];
-                    return $orderA - $orderB;
+                // Trier les blocs par order_elmt
+                usort($blocks, function($a, $b) {
+                    return $a['order_elmt'] - $b['order_elmt'];
                 });
 
-                // Ajouter les éléments et les blocks à l'article
-                $article['items'] = $items;
+                // Ajouter les blocs à l'article
+                $article['blocks'] = $blocks;
             }
 
-            // Retourner les articles avec leurs éléments et leurs blocks
+            // Retourner les articles avec leurs blocs
             return ['articles' => $articles];
         } else {
-            $elements = $SqlGenerator->select('element', '*', 'id_article = ' . $id);
-            $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $id);
+            // Requête pour récupérer l'article spécifique
             $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
-            $items = array();
+
+            // Vérifier si l'article existe
+            if (count($article) > 0) {
+                $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $id);
+
+                // Pour chaque block, récupérer ses éléments
+                foreach ($blocks as &$block) {
+                    if (isset($block["id"])) {
+                        $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+
+                        // Trier les éléments par ordre_elmt
+                        usort($elements, function($a, $b) {
+                            return $a['order_elmt'] - $b['order_elmt'];
+                        });
+
+                        $block['elements'] = $elements;
+                    }
+                }
+
+                // Trier les blocs par order_elmt
+                usort($blocks, function($a, $b) {
+                    return $a['order_elmt'] - $b['order_elmt'];
+                });
+
+                // Ajouter les blocs à l'article
+                $article[0]['blocks'] = $blocks;
+            }
+
+            // Retourner l'article avec ses blocs
+            return ['article' => $article];
+        }
+    }
+
+    static function readbycat($id) {
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
+
+        $category = $SqlGenerator->select('category', '*', 'id = ' . $id);
+
+        // Requête pour récupérer tous les articles
+        $articles = $SqlGenerator->select('article', '*', 'id_category = ' . $id);
+
+        // Pour chaque article, récupérer ses blocs
+        foreach ($articles as &$article) {
+            $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $article["id"]);
 
             // Pour chaque block, récupérer ses éléments
             foreach ($blocks as &$block) {
-                $blockElements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
-                $block['elements'] = $blockElements;
-                $blockItem = array();
-                $blockItem['block'] = $block;
-                array_push($items, $blockItem);
+                $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $block["id"]);
+
+                // Trier les éléments par ordre_elmt
+                usort($elements, function($a, $b) {
+                    return $a['order_elmt'] - $b['order_elmt'];
+                });
+
+                $block['elements'] = $elements;
             }
 
-            foreach ($elements as &$element) {
-                $elementItem = array();
-                $elementItem['element'] = $element;
-                array_push($items, $elementItem);
-            }
-
-            usort($items, function($a, $b) {
-                $orderA = isset($a['block']) ? $a['block']['order_elmt'] : $a['element']['order_elmt'];
-                $orderB = isset($b['block']) ? $b['block']['order_elmt'] : $b['element']['order_elmt'];
-                return $orderA - $orderB;
+            // Trier les blocs par order_elmt
+            usort($blocks, function($a, $b) {
+                return $a['order_elmt'] - $b['order_elmt'];
             });
 
-            // Ajouter les éléments et les blocks à l'article
-            $article[0]['items'] = $items;
-            // Retourner les deux résultats sous forme de tableau
-            return ['article' => $article];
+            // Ajouter les blocs à l'article
+            $article['blocks'] = $blocks;
         }
+
+        $category['articles'] = $articles;
+
+        // Retourner les articles avec leurs blocs
+        return ['category' => $category];
+    }
+
+    public function readByArticle($id) {
+        $pdo = connexion();
+        $SqlGenerator = new SqlGenerator($pdo);
+    
+        // Récupérer l'article par son ID
+        $article = $SqlGenerator->select('article', '*', 'id = ' . $id);
+    
+        // Si l'article n'existe pas, retourner null
+        if (!$article) {
+          return null;
+        }
+    
+        // Récupérer les blocs de l'article
+        $blocks = $SqlGenerator->select('block', '*', 'id_article = ' . $id);
+    
+        // Pour chaque block, récupérer ses éléments
+        foreach ($blocks as &$singleBlock) {
+          $elements = $SqlGenerator->select('element', '*', 'id_block = ' . $singleBlock["id"]);
+    
+          // Trier les éléments par ordre_elmt
+          usort($elements, function($a, $b) {
+            return $a['order_elmt'] - $b['order_elmt'];
+          });
+    
+          // Ajouter les éléments au block
+          $singleBlock['elements'] = $elements;
+        }
+    
+        // Ajouter les blocs à l'article
+        $article[] = $blocks;
+    
+        return $article;
     }
 
     /**
@@ -128,10 +199,10 @@ class Article {
     /**
      * Permet de mettre à jour un article
      *
-     * @param array $attributes
+     * @param $attributes
      * @return void
      */
-    function setAttributes(array $attributes) {
+    function setAttributes($attributes) {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -145,10 +216,10 @@ class Article {
     /**
      * Permet de supprimer un article
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
-    static function delete(int $id){
+    static function delete($id){
         $pdo = connexion();
         $SqlGenerator = new SqlGenerator($pdo);
 
@@ -159,7 +230,7 @@ class Article {
     /**
      * Permet de mettre à jour un article
      *
-     * @param int $id
+     * @param $id
      * @return void
      */
     function update($id) {

@@ -17,7 +17,6 @@
                     <th>Class</th>
                     <th>Ordre</th>
                     <th>Block</th>
-                    <th>Article</th>
                     <th>Edition</th>
                 </tr>
             </thead>
@@ -26,7 +25,7 @@
             {% for element in element %}
                 {% set i = i + 1 %}
                 <tr id="row-{{i}}">
-                    <td class='id'><a href='{{site_url}}element?id={{element.id}}'>{{element.id}}</a></td>
+                    <td class='id'>{{element.id}}</td>
                     <td class='balise'><div class='line-clamp'>{{element.tags}}</div></td>
                     <td class='content'><div class='line-clamp'>{{element.content}}</div></td>
                     <td class='alt'><div class='line-clamp'>{{element.alt}}</div></td>
@@ -34,8 +33,7 @@
                     <td class='files'><div class='line-clamp'>{{element.files}}</div></td>
                     <td class='class'><div class='line-clamp'>{{element.class}}</div></td>
                     <td class='order'><div class='line-clamp'>{{element.order_elmt}}</div></td>
-                    <td class='block'><div class='line-clamp'><a href='{{site_url}}block?id={{element.id_block}}'>{{element.id_block}}</a></div></td>
-                    <td class='article'><div class='line-clamp'><a href='{{site_url}}article?id={{element.id_article}}'>{{element.id_article}}</a></div></td>
+                    <td><div>{{element.id_block}}</div></td>
                     <td class='link' >
                         <a href="#" class='update'>Modifier</a>
                         <a href="{{site_url}}element?action=delete&id={{element.id}}">Supprimer</a>
@@ -69,17 +67,9 @@
                         <td class='block'><div class='line-clamp'>
                             <select name="id_block" id="id_block">
                                 <option value="" disabled selected>Block</option>
+                                <option value="0" >Aucun</option>
                             {% for blocks in blocks.block %}
                                 <option value="{{blocks.id}}" >{{ blocks.name }}</option>
-                            {% endfor %}
-                            </select>
-                            </div>
-                        </td>
-                        <td class='article'><div class='line-clamp'>
-                            <select name="id_article" id="id_article">
-                                <option value="" disabled selected>Article</option>
-                            {% for article in article.articles %}
-                                <option value="{{article.id}}" >{{ article.title }}</option>
                             {% endfor %}
                             </select>
                             </div>
@@ -142,19 +132,9 @@
                             <div class="group-form">
                                 <select name="id_block" id="id_block">
                                     <option value="" disabled selected>Block</option>
+                                    <option value="0" >Aucun</option>
                                 {% for blocks in blocks.block %}
                                     <option value="{{blocks.id}}" >{{ blocks.name }}</option>
-                                {% endfor %}
-                                </select>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="group-form">
-                                <select name="id_article" id="id_article">
-                                    <option value="" disabled selected>Article</option>
-                                {% for article in article.articles %}
-                                    <option value="{{article.id}}" >{{ article.title }}</option>
                                 {% endfor %}
                                 </select>
                                 </div>
@@ -168,4 +148,7 @@
             </tbody>
         </table>
     </div>
+{% endblock %}
+{% block script %}
+    <script src="{{site_url}}public/assets/js/admin-panel.js"></script>
 {% endblock %}

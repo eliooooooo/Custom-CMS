@@ -1,8 +1,9 @@
 <nav>
 	<ul>
-		<li><a href="{{site_url}}">Home</a></li>
-		<li><a href="{{site_url}}category">Categories</a></li>
-		<li><a href="{{site_url}}article">Articles</a></li>
+		<li><a href="{{site_url}}" title="Page accueil vidéo">Page 0</a></li>
+		<li><a href="{{site_url}}category" title="Page présentation catégories">Page 1</a></li>
+		<li><a href="{{site_url}}category?action=readbycat&id=1" title="Page articles par catégorie">Page 2</a></li>
+		<li><a href="{{site_url}}article?action=readbycat&id=1" title="Page lecture articles">Page 3</a></li>
 		<li><a href="{{site_url}}{% if is_connected %}login?action=logout{% else %}login{% endif %}">{% if is_connected %}{{admin_name}}{% else %}Login{% endif %}</a></li>
 	</ul>
 </nav>

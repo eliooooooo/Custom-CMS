@@ -1,18 +1,64 @@
-{% for category in category %}
-  <div class="category full {{category.class}}" >
-    <div class="cat-info">
-      <h1>{{category.name}} - {{ category.articles|length }}</h1>
-      <p>{{category.description}}</p>
-    </div>
-    {% if category.files %}
-      {# <img src="{{site_url}}public/img/uploads/{{category.files}}" alt="{{category.files}}"> #}
-    {% endif %}
-    {% for article in category %}
-      {% if article[0]|length > 1 %}
-        {% include "display/card/card_article.html.twig" %}
-      {% else %}
-        {% include "display/display_articles.html.twig" %}
-      {% endif %}
-    {% endfor %}
+{% if category.category|length > 1 %}
+<div id="button">
+  <button id="forward"></button>
+  <button id="backward"></button>
+</div>
+
+<div class="titles">
+  {% set i = 0 %}
+  {% for element in category.category %}
+  {% set i = i + 1 %}
+  <div class="titre titre{{i}} {% if i == 1 %}block{% else %}hidden{% endif %}">
+    <h1>{{element.name}}</h1>
+    <a href="{{site_url}}category?action=readbycat&id={{element.id}}"
+      style="padding: 5px 20px; background-color: white; text-decoration: none; color: blue;">Voir
+      acticles</a>
+    <button class="hidden">Voir articles</button>
   </div>
+  {% endfor %}
+</div>
+<div class="paralax">
+  {% set i = 0 %}
+  {% for element in category.category %}
+  {% set i = i + 1 %}
+  <div class="paralax-item p-item{{i}}_1"
+    style="background-image : url({{site_url}}public/src/uploads/theme{{i}}_1.svg)">
+  </div>
+  <div class="paralax-item p-item{{i}}_2"
+    style="background-image : url({{site_url}}public/src/uploads/theme{{i}}_2.svg)">
+  </div>
+  <div class="paralax-item p-item{{i}}_3"
+    style="background-image :url({{site_url}}public/src/uploads/theme{{i}}_3.svg)">
+  </div>
+  {% endfor %}
+</div>
+<div class="editoAlert hidden">
+  <h1>Hep hep pas si vite</h1>
+  <p>Tu pars déjà ? Pour une experience optimale, nous te conseillons de consulter tout les articles.</p>
+  <p>Es-tu sur de vouloir continuer ?</p>
+  <a href="{{site_url}}category?id=4">Continuer</a>
+  <button id="editoClose">Retour</button>
+</div>
+<div class="container"></div>
+{% else %}
+
+{% set i = 0 %}
+{% for article in category.category[0].articles %}
+{% set i = i + 1 %}
+<div>
+  <a href="{{site_url}}article?action=readbycat&id={{article.id_category}}&article={{i}}" class="link_to_article">
+    <object type="image/svg+xml" class="cat_svg" data="{{site_url}}public/src/icons/loup3-min.svg"></object>
+  </a>
+</div>
 {% endfor %}
+
+{% endif %}
+
+{% block script %}
+{% if category.category|length > 1 %}
+<script src="{{site_url}}public/assets/js/categories.js"></script>
+{% else %}
+
+<script src="{{site_url}}public/assets/js/category.js"></script>
+{% endif %}
+{% endblock %}
