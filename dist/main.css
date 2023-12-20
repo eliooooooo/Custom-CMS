@@ -243,6 +243,10 @@ nav ul a {
   color: white;
   font-weight: 900;
 }
+.file-generic {
+  width: 100px;
+  margin: auto;
+}
 
 /* public/assets/css/components/category.scss */
 html {
@@ -819,6 +823,41 @@ q:after {
 .credits p {
   padding: 0;
   margin: 0;
+}
+
+/* public/assets/css/components/frontpage.scss */
+.home-page {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.intro {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+.skip-intro {
+  z-index: 3;
+  position: absolute;
+  bottom: 100px;
+  right: 40px;
+  padding: 20px;
+  background-color: white;
+  color: #064F4A;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: #064F4A 0px 0px 10px;
+  transition: all 0.2s ease-in-out;
+}
+.skip-intro:hover {
+  background-color: #064F4A;
+  color: white;
 }
 
 /* public/assets/css/style.css */
