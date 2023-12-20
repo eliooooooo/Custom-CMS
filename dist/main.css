@@ -490,6 +490,9 @@ body {
 .cat_svg {
   pointer-events: none;
 }
+.cat_svg svg:hover {
+  fill: red;
+}
 
 /* public/assets/css/components/article.scss */
 .article.full {
@@ -577,6 +580,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.article-icon {
+  pointer-events: none;
+  display: block;
 }
 
 /* public/assets/css/style.css */

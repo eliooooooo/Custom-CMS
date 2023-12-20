@@ -43,10 +43,11 @@
 
 {% else %}
 
+{% set i = 0 %}
 {% for article in category.category[0].articles %}
-
+{% set i = i + 1 %}
 <div>
-  <a href="{{site_url}}article?action=readbycat&id={{article.id_category}}" class="link_to_article">
+  <a href="{{site_url}}article?action=readbycat&id={{article.id_category}}&article={{i}}" class="link_to_article">
     <object type="image/svg+xml" class="cat_svg" data="{{site_url}}public/src/icons/loup3-min.svg"></object>
   </a>
 </div>

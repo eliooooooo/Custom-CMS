@@ -1,7 +1,11 @@
-<div class="article-category article-banner" style="background-image: url('{{site_url}}public/src/uploads/{{article.category[0].files}}'); background-size: cover; background-repeat: no-repeat;">
-  <div class="alignement-article-banner">  
-    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !"><img src="{{site_url}}public/src/icons/home.svg" width="40px" fill="white"></a>
-    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !"><h1>{{article.category[0].name}}</h1></a>
+<div class="article-category article-banner"
+  style="background-image: url('{{site_url}}public/src/uploads/{{article.category[0].files}}'); background-size: cover; background-repeat: no-repeat;">
+  <div class="alignement-article-banner">
+    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !"><img
+        src="{{site_url}}public/src/icons/home.svg" width="40px" fill="white"></a>
+    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !">
+      <h1>{{article.category[0].name}}</h1>
+    </a>
   </div>
 </div>
 <div class="wrapper">
@@ -9,27 +13,40 @@
     <a><img src="{{site_url}}public/src/icons/{{article.category[0].name}}.svg" width="40px" fill="white"></a>
     <nav class="nav-article">
       <ul>
+        {% set i = 0 %}
         {% for article in article.category.articles %}
-          <li>
-            <a href='#' class='article-{{article.id}}' title="{{article.catchphrase}}">
-              <img src='{{site_url}}public/src/icons/{{article.name}}'>
-            </a>
-          </li>
+        {% set i = i + 1 %}
+        <li>
+          <button class='btn-article btn-article-{{i}}' title="{{article.catchphrase}}">
+            <img class="article-icon" src="{{site_url}}public/src/icons/loup3-min.svg" alt="">
+            {# <object type="image/svg+xml" class="article-icon"
+              data="{{site_url}}public/src/icons/loup3-min.svg"></object> #}
+          </button>
+        </li>
         {% endfor %}
       </ul>
     </nav>
   </div>
   <div class="article-container">
+    {% set i = 0 %}
     {% for article in article.category.articles %}
-      <div class="article full {{article.class}}" >
-        <div class="article-info">
-          <h2>{{article.title}}</h2>
-          <h4>{{article.subtitle}}</h4>
-        </div>
-        {% for blocks in article.blocks %}
-          {% include "display/display_blocks.html.twig" %}
-        {% endfor %}
+    {% set i = i + 1 %}
+    <div class="article full {{article.class}} article-{{i}}">
+      <div class="article-info">
+        <h2>{{article.title}}</h2>
+        <h4>{{article.subtitle}}</h4>
       </div>
+      {% for blocks in article.blocks %}
+      {% include "display/display_blocks.html.twig" %}
+      {% endfor %}
+      <p>Autheur : {{article.author}}</p>
+    </div>
     {% endfor %}
-  </div>  
+  </div>
 </div>
+
+
+
+{% block script %}
+<script src="{{site_url}}public/assets/js/articles.js"></script>
+{% endblock %}
