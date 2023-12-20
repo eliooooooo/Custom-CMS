@@ -3,7 +3,7 @@
     <img src="public/src/uploads/{{element.files}}" alt="{{element.files}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
     <figcaption>{{element.content}}</figcaption>
   </figure>
-{% elseif element.tags == 'img' %}
+{% elseif element.tags == 'infographie' %}
   <img src="public/src/uploads/{{element.files}}" alt="{{element.files}}" class="element {{element.class}}"/>
 {% elseif element.tags == 'video' %}
   <video class="element {{element.class}}" preload="metadata" controls>

@@ -18,7 +18,7 @@
         {% set i = i + 1 %}
         <li>
           <button class='btn-article btn-article-{{i}}' title="{{article.catchphrase}}">
-            <img class="article-icon" src="{{site_url}}public/src/icons/loup3-min.svg" alt="">
+            {# <img class="article-icon" src="{{site_url}}public/src/icons/loup3-min.svg" alt=""> #}
             {# <object type="image/svg+xml" class="article-icon"
               data="{{site_url}}public/src/icons/loup3-min.svg"></object> #}
           </button>
@@ -58,3 +58,7 @@
     {% endfor %}
   </div>
 </div>
+
+{% block script %}
+  <script src="{{site_url}}public/assets/js/articles.js"></script>
+{% endblock %}

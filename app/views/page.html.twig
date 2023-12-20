@@ -3,7 +3,9 @@
 {% block title %}{% endblock %}
 
 {% block page %}
-    {% include './components/admin_toolbar.html.twig' %}
-    {% include './components/nav.html.twig' %}
+    {% if is_connected %}
+        {% include './components/admin_toolbar.html.twig' %}
+        {% include './components/nav.html.twig' %}
+    {% endif %}
     {% block content %}{% endblock %}
 {% endblock %}

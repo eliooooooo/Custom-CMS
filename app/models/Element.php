@@ -27,7 +27,7 @@ class Element {
      * @return array
      */
     public static function gettags() {
-        $tags = ['h3', 'p', 'a', 'img', 'figure', 'audio', 'audio-player', 'video', 'voir-plus', 'source', 'credits', 'q'];
+        $tags = ['h3', 'p', 'a', 'infographie', 'figure', 'audio', 'audio-player', 'video', 'voir-plus', 'source', 'credits', 'q'];
         return $tags;
       }
 
