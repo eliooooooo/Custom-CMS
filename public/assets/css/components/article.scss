@@ -1,43 +1,13 @@
 @import "./../variables/color.scss";
 
 .article {
+    margin: 20px;
+    gap: 30px;
 
-    &.full {
-        height: 100%;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-
-        .article-info {
-            color: black;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        figure {
-            max-width: 60%;
-            
-            figcaption {
-                background-color: $color2;
-                color: white;
-                width: calc(100% - 20px);
-                padding: 10px;
-            }
-        }
-
-        video {
-            margin: auto;
-            display: block;
-        }
-
-        img {
-            margin: auto;
-        }
+    h3 {
+        font-size: larger;
+        
     }
-
-
 }
 
 .article-container {
@@ -76,13 +46,20 @@
     }
 }
 
+.retour {
+    img {
+        position: sticky;
+        top: 10px;
+    }
+}
+
 .nav-article {
     display: block;
     background-color: black;
     width: fit-content;
     padding: 20px;
     border-radius: 200px;
-    top: 100px;
+    top: 150px;
     position: sticky;
 
     ul {
@@ -92,5 +69,33 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+}
+
+.article-info {
+    h2 {
+        color: #064F4A;
+        width: 70%;
+        margin: auto;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 35px;
+        font-size: 36px;
+    }
+
+    p {
+        font-weight: bold;
+        margin: auto;
+        font-size: 18px;
+    }
+}
+
+.auteur {
+    float: right;
+    p {
+        margin: auto;
+        font-size: 18px;
+        font-style: italic;
+        text-align: right;
     }
 }

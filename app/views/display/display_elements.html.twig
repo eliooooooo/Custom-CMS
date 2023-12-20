@@ -14,8 +14,8 @@
     <source src="public/src/uploads/{{element.files}}" type="audio/ogg">
   </audio>
 {% elseif element.tags == 'voir-plus' %}
-  <div class='voir-plus'>
-    <h3>Pour aller plus loin :</h3>
+  <div class='voir-plus {{element.class}}'>
+    <p>Pour aller plus loin :</p>
     <ul>
       {% set liens = element.link %}
       {% set texte = element.alt %}
@@ -29,8 +29,8 @@
     </ul>
   </div>
 {% elseif element.tags == 'source' %}
-  <div class='sources'>
-    <h3>Sources :</h3>
+  <div class='sources {{element.class}}'>
+    <p>Sources :</p>
     <ul>
       {% set texte = element.content %}
       {% set tableau = texte|split('/') %}
@@ -40,24 +40,26 @@
     </ul>
   </div>
 {% elseif element.tags == 'credits' %}
-  <div class='credits'>
-    <h4>Crédits :</h4>
+  <div class='credits {{element.class}}'>
+    <p>Crédits :</p>
+    <ul>
     {% set texte = element.content %}
     {% set tableau = texte|split('/') %}
     {% for texte in tableau %}
       <li>{{ texte }}</li>
     {% endfor %}
+    </ul>
   </div>
 {% elseif element.tags == 'audio-player' %}
-  <div class="audio-listener">
+  <div class="audio-listener {{element.class}}">
     {# Remplir le champs lien pour renseigner l'image de l'element audio-player #}
     <img src="{{site_url}}public/src/uploads/{{ element.link }}">
-    <h1>{{ element.content }}</h1>
-    <p>{{element.alt}}</p>
     <audio id="song">
         <source src="{{site_url}}public/src/uploads/{{ element.files }}" type="audio/mpeg">
     </audio>
     <input type="range" value="0" id="progress">
+    <h1>{{ element.content }}</h1>
+    <p>{{element.alt}}</p>
     <div class="controls">
         <div onclick="playbackward()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="backward">

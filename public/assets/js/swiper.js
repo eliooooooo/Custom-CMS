@@ -1,4 +1,3 @@
-// core version + navigation, pagination modules:
 import Swiper from 'swiper';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 // import Swiper and modules styles
