@@ -153,6 +153,9 @@ $p-item : 'p-item1_1', 'p-item1_2', 'p-item1_3', 'p-item2_1', 'p-item2_2', 'p-it
 
 .cat_svg{
     pointer-events: none;
+    svg:hover{
+        fill: red;
+    }
 }
 
 

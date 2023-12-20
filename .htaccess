@@ -3,3 +3,14 @@ RewriteBase /~burkle/SAE_301_CUEJ/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
+
+AddType image/svg+xml svg svgz
+<IfModule mod_deflate.c>
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE "image/svg+xml" \
+        "text/css" \
+        "text/html" \
+        "text/javascript"
+        ... etc
+    </IfModule>
+</IfModule>
