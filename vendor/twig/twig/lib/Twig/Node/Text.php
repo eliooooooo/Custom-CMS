@@ -4,10 +4,7 @@ use Twig\Node\TextNode;
 
 class_exists('Twig\Node\TextNode');
 
-@trigger_error('Using the "Twig_Node_Text" class is deprecated since Twig version 2.7, use "Twig\Node\TextNode" instead.', \E_USER_DEPRECATED);
-
-if (false) {
-    /** @deprecated since Twig 2.7, use "Twig\Node\TextNode" instead */
+if (\false) {
     class Twig_Node_Text extends TextNode
     {
     }

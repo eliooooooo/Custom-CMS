@@ -31,13 +31,17 @@ try {
         class TEXT NULL,
         layer1 TEXT NULL,
         layer2 TEXT NULL,
-        layer3 TEXT NULL
+        layer3 TEXT NULL,
+        order_cat INT NULL,
+        files varchar(255) NULL
     );
 
     CREATE TABLE IF NOT EXISTS article (
         id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        catchphrase TEXT NULL,
         title VARCHAR(255) NOT NULL,
-        subtitle VARCHAR(255) NULL,
+        subtitle TEXT NULL,
         author VARCHAR(255) NULL,
         class TEXT NULL,
         ordre_article INT NULL,
@@ -57,14 +61,15 @@ try {
 
     CREATE TABLE IF NOT EXISTS element (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        tags VARCHAR(11) NOT NULL,
+        tags VARCHAR(30) NOT NULL,
         content TEXT NULL,
-        alt VARCHAR(255) NULL,
+        alt TEXT NULL,
         link TEXT NULL,
         files TEXT NULL,
         class TEXT NULL,
         id_block INT NULL,
-        FOREIGN KEY (id_block) REFERENCES block(id),
+        order_elmt INT NULL,
+        FOREIGN KEY (id_block) REFERENCES block(id)
     );
 
     INSERT INTO category (name, description, image) VALUES ('Generated Category', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://picsum.photos/200/300');

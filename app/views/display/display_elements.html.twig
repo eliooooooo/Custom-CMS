@@ -3,26 +3,63 @@
     <img src="public/src/uploads/{{element.files}}" alt="{{element.files}}" {% if element.class != '' %} class="{{element.class}}" {% endif %}/>
     <figcaption>{{element.content}}</figcaption>
   </figure>
-{% elseif element.tags == 'img' %}
+{% elseif element.tags == 'infographie' %}
   <img src="public/src/uploads/{{element.files}}" alt="{{element.files}}" class="element {{element.class}}"/>
 {% elseif element.tags == 'video' %}
-  <video class="element {{element.class}}" controls>
+  <video class="element {{element.class}}" preload="metadata" controls>
     <source src="public/src/uploads/{{element.files}}" type="video/mp4">
   </video>
 {% elseif element.tags == 'audio' %}
   <audio class="element {{element.class}}" controls>
     <source src="public/src/uploads/{{element.files}}" type="audio/ogg">
   </audio>
+{% elseif element.tags == 'voir-plus' %}
+  <div class='voir-plus {{element.class}}'>
+    <p>Pour aller plus loin :</p>
+    <ul>
+      {% set liens = element.link %}
+      {% set texte = element.alt %}
+      {% set tableau = liens|split(',') %}
+      {% set i = 0 %}
+      {% for liens in tableau %}
+        {% set tableauTexte = texte|split(',') %}
+        <li><a href="{{liens}}" target="_blank">{{ tableauTexte[i] }}</a></li>
+        {% set i = i + 1 %}
+      {% endfor %}
+    </ul>
+  </div>
+{% elseif element.tags == 'source' %}
+  <div class='sources {{element.class}}'>
+    <p>Sources :</p>
+    <ul>
+      {% set texte = element.content %}
+      {% set tableau = texte|split('/') %}
+      {% for texte in tableau %}
+        <li>{{ texte }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% elseif element.tags == 'credits' %}
+  <div class='credits {{element.class}}'>
+    <p>Crédits :</p>
+    <ul>
+    {% set texte = element.content %}
+    {% set tableau = texte|split('/') %}
+    {% for texte in tableau %}
+      <li>{{ texte }}</li>
+    {% endfor %}
+    </ul>
+  </div>
 {% elseif element.tags == 'audio-player' %}
-  <div class="audio-listener">
+  <div class="audio-listener {{element.class}}">
     {# Remplir le champs lien pour renseigner l'image de l'element audio-player #}
     <img src="{{site_url}}public/src/uploads/{{ element.link }}">
-    <h1>{{ element.content }}</h1>
-    <p>{{element.alt}}</p>
     <audio id="song">
         <source src="{{site_url}}public/src/uploads/{{ element.files }}" type="audio/mpeg">
     </audio>
     <input type="range" value="0" id="progress">
+    <h1>{{ element.content }}</h1>
+    <p>{{element.alt}}</p>
     <div class="controls">
         <div onclick="playbackward()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="backward">

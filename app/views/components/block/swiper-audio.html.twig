@@ -17,12 +17,12 @@
     </div>
     {% for element in blocks.elements %}
         {% if element.tags == 'audio' %}
-            <h1>{{ element.content }}</h1>
-            <p>{{element.alt}}</p>
             <audio id="song">
                 <source src="{{site_url}}public/src/uploads/{{ element.files }}" type="audio/mpeg">
             </audio>
             <input type="range" value="0" id="progress">
+            <h1>{{ element.content }}</h1>
+            <p>{{element.alt}}</p>
             <div class="controls">
                 <div onclick="playbackward()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="backward">
