@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 
@@ -17,14 +17,15 @@ foreach (glob('app/models/*.php') as $filename) {
     include_once $filename;
 }
 
-// Import config
+// Import config 
 include_once 'utils/config.php';
 $config = Config::get();
 $project_path = $config['site_url'];
 
 // Initialisation de Twig
 require_once __DIR__ . '/vendor/autoload.php';
-function init_twig() {
+function init_twig()
+{
     // Indique le répertoire ou sont placés les modèles (templates)
     $loader = new \Twig\Loader\FilesystemLoader('app/views');
 
@@ -34,7 +35,7 @@ function init_twig() {
 
     // Renvoie le moteur
     return $twig;
-  }
+}
 $twig = init_twig();
 
 // Premier controlleur (redirige vers les controlleurs concernés)
@@ -97,7 +98,7 @@ if (empty($path)) {
         $controller = new $controllerName();
 
         try {
-          $controller->$admin_fnct($id);
+            $controller->$admin_fnct($id);
         } catch (Exception $e) {
             // Décommenter pour afficher les erreurs
             echo $e->getMessage();
@@ -126,7 +127,7 @@ if (empty($path)) {
         $controller = new $controllerName();
 
         try {
-          $controller->$action($id);
+            $controller->$action($id);
         } catch (Exception $e) {
             // Décommenter pour afficher les erreurs
             echo $e->getMessage();
@@ -140,7 +141,6 @@ if (empty($path)) {
             $errorController = new ErrorController();
             $errorController->notFound();
         }
-
     } else {
         $errorController = new ErrorController();
         $errorController->notFound();
