@@ -1,28 +1,92 @@
 (() => {
+  // public/assets/js/audio.js
+  if (document.querySelector(".song") != null) {
+    document.addEventListener("DOMContentLoaded", () => {
+      let audioElements = document.querySelectorAll(".audio-listener");
+      audioElements.forEach((audioElement) => {
+        let progress = audioElement.querySelector(".progress");
+        let audio = audioElement.querySelector("audio");
+        let ctrlIcon = audioElement.querySelectorAll(".ctrl-play-pause");
+        let start = audioElement.querySelector(".start");
+        let end = audioElement.querySelector(".end");
+        let toggleplay = audioElement.querySelector(".toggleplay");
+        let playbackward = audioElement.querySelector(".playbackward");
+        let playforward = audioElement.querySelector(".playforward");
+        let dur = audio.duration;
+        let secD = Math.floor(dur % 60);
+        let minD = Math.floor(dur / 60);
+        end.innerHTML = minD + ":" + (secD < 10 ? "0" : "") + secD;
+        progress.max = audio.duration;
+        toggleplay.addEventListener("click", () => {
+          if (audio.paused) {
+            audio.play();
+            ctrlIcon[0].classList.add("hidden");
+            ctrlIcon[1].classList.remove("hidden");
+          } else {
+            audio.pause();
+            ctrlIcon[1].classList.add("hidden");
+            ctrlIcon[0].classList.remove("hidden");
+          }
+        });
+        audio.addEventListener("play", () => {
+          setInterval(function() {
+            progress.value = audio.currentTime;
+          }, 500);
+        });
+        progress.addEventListener("change", () => {
+          audio.currentTime = progress.value;
+        });
+        playforward.addEventListener("click", () => {
+          audio.currentTime += 10;
+        });
+        playbackward.addEventListener("click", () => {
+          audio.currentTime -= 10;
+        });
+        audio.addEventListener("loadedmetadata", function() {
+          let dur2 = audio.duration;
+          let secD2 = Math.floor(dur2 % 60);
+          let minD2 = Math.floor(dur2 / 60);
+          end.innerHTML = minD2 + ":" + (secD2 < 10 ? "0" : "") + secD2;
+          progress.max = audio.duration;
+        });
+        audio.addEventListener("timeupdate", function() {
+          let currentTime = audio.currentTime;
+          let sec = Math.floor(currentTime % 60);
+          let min = Math.floor(currentTime / 60);
+          start.innerHTML = min + ":" + (sec < 10 ? "0" : "") + sec;
+        });
+      });
+    });
+  }
+
   // public/assets/js/notification.js
-  var notification = document.querySelector(".notification");
-  setTimeout(
-    () => {
-      notification.style.display = "none";
-    },
-    5e3
-  );
+  if (document.querySelector(".notification")) {
+    const notification = document.querySelector(".notification");
+    setTimeout(
+      () => {
+        notification.style.display = "none";
+      },
+      5e3
+    );
+  }
 
   // public/assets/js/admin-panel.js
-  var modifyLinks = document.querySelectorAll(".update");
-  modifyLinks.forEach(function(link) {
-    link.addEventListener("click", function(event2) {
-      event2.preventDefault();
-      let currentRowId = this.parentNode.parentNode.id;
-      let formId = "form-" + currentRowId.split("-")[1];
-      let form = document.getElementById(formId);
-      if (form.style.display === "table-row") {
-        form.style.display = "none";
-      } else {
-        form.style.display = "table-row";
-      }
+  if (document.querySelector(".admin-panel")) {
+    let modifyLinks = document.querySelectorAll(".update");
+    modifyLinks.forEach(function(link) {
+      link.addEventListener("click", function(event2) {
+        event2.preventDefault();
+        let currentRowId = this.parentNode.parentNode.id;
+        let formId = "form-" + currentRowId.split("-")[1];
+        let form = document.getElementById(formId);
+        if (form.style.display === "table-row") {
+          form.style.display = "none";
+        } else {
+          form.style.display = "table-row";
+        }
+      });
     });
-  });
+  }
 
   // node_modules/swiper/shared/ssr-window.esm.mjs
   function isObject(obj) {
@@ -5190,148 +5254,80 @@
     modules: [Navigation, Pagination]
   });
 
-  // public/assets/js/audio.js
-  document.addEventListener("DOMContentLoaded", () => {
-    let progress = document.querySelector("#progress");
-    let audio = document.querySelector("#song");
-    let ctrlIcon = document.querySelector(".ctrl-play-pause");
-    let start = document.querySelector("#start");
-    let end = document.querySelector("#end");
-    let toggleplay = document.querySelector("#toggleplay");
-    let playbackward = document.querySelector("#playbackward");
-    let playforward = document.querySelector("#playforward");
-    let dur = audio.duration;
-    let secD = Math.floor(dur % 60);
-    let minD = Math.floor(dur / 60);
-    end.innerHTML = minD + ":" + (secD < 10 ? "0" : "") + secD;
-    progress.max = audio.duration;
-    toggleplay.addEventListener("click", () => {
-      console.log(audio.paused);
-      if (audio.paused) {
-        audio.play();
-        ctrlIcon[1].classList.toggle("hidden");
-        ctrlIcon[0].classList.toggle("hidden");
-      } else {
-        audio.pause();
-        ctrlIcon[1].classList.toggle("hidden");
-        ctrlIcon[0].classList.toggle("hidden");
+  // public/assets/js/articles.js
+  var url = new URL(location);
+  var cat;
+  if (document.querySelector(".cat-1")) {
+    cat = "#F7742A";
+  } else if (document.querySelector(".cat-2")) {
+    cat = "#1B99A1";
+  } else if (document.querySelector(".cat-3")) {
+    cat = "#FF6C7C";
+  }
+  var btnArticle = document.querySelector(".btn-article");
+  var btnArticle1 = document.querySelector(".btn-article-1");
+  var btnArticle2 = document.querySelector(".btn-article-2");
+  var btnArticle3 = document.querySelector(".btn-article-3");
+  var article1 = document.querySelector(".article-1");
+  var article2 = document.querySelector(".article-2");
+  var article3 = document.querySelector(".article-3");
+  function updateDisplay() {
+    const urlArticle = url.searchParams.get("article");
+    if (urlArticle != null) {
+      if (urlArticle == 1) {
+        console.log("salut");
+        article1.style.display = "flex";
+        article2.style.display = "none";
+        article3.style.display = "none";
+        btnArticle1.style.color = cat;
+        btnArticle1.style.backgroundColor = "white";
+        btnArticle2.style.color = "white";
+        btnArticle2.style.backgroundColor = cat;
+        btnArticle3.style.color = "white";
+        btnArticle3.style.backgroundColor = cat;
+      } else if (urlArticle == 2) {
+        console.log("salut2");
+        article1.style.display = "none";
+        article2.style.display = "flex";
+        article3.style.display = "none";
+        btnArticle2.style.color = cat;
+        btnArticle2.style.backgroundColor = "white";
+        btnArticle1.style.color = "white";
+        btnArticle1.style.backgroundColor = cat;
+        btnArticle3.style.color = "white";
+        btnArticle3.style.backgroundColor = cat;
+      } else if (urlArticle == 3) {
+        console.log("salut3");
+        article1.style.display = "none";
+        article2.style.display = "none";
+        article3.style.display = "flex";
+        btnArticle3.style.color = cat;
+        btnArticle3.style.backgroundColor = "white";
+        btnArticle2.style.color = "white";
+        btnArticle2.style.backgroundColor = cat;
+        btnArticle1.style.color = "white";
+        btnArticle1.style.backgroundColor = cat;
       }
-    });
-    audio.addEventListener("play", () => {
-      setInterval(function() {
-        progress.value = audio.currentTime;
-        console.log(progress.value, audio.currentTime);
-      }, 500);
-    });
-    progress.addEventListener("change", () => {
-      audio.currentTime = progress.value;
-    });
-    playforward.addEventListener("click", () => {
-      audio.currentTime += 10;
-    });
-    playbackward.addEventListener("click", () => {
-      audio.currentTime += 10;
-    });
-    audio.addEventListener("timeupdate", function() {
-      let currentTime = audio.currentTime;
-      let sec = Math.floor(currentTime % 60);
-      let min = Math.floor(currentTime / 60);
-      start.innerHTML = min + ":" + (sec < 10 ? "0" : "") + sec;
-    });
-  });
-
-  // public/assets/js/categories.js
-  var vh = window.innerHeight;
-  window.onload = function() {
-    window.addEventListener("scroll", function(e) {
-      let s = this.scrollY;
-      let w = this.outerWidth;
-      let h = document.getElementsByClassName("paralax")[0].clientWidth;
-      let h_b = document.getElementsByClassName("container")[0].clientWidth;
-      let p = s / h * 100;
-      let p_b = s / h_b * 100;
-      let hr_2 = w / 1500 * p_b;
-      let scale11 = 1 + w * 1e-5 * p_b;
-      let scale12 = 1 + w * 19e-6 * p_b;
-      let scale13 = 1 + w * 28e-6 * p_b;
-      document.querySelector(".p-item1_3").style.transform = `translate3d(${hr_2}px,0,0) scale(${scale11})`;
-      document.querySelector(".p-item1_2").style.transform = `translate3d(${hr_2}px,0,0) scale(${scale12})`;
-      document.querySelector(".p-item1_1").style.transform = `translate3d(${hr_2}px,0,0) scale(${scale13})`;
-      if (s > 2 * vh) {
-        let newS = s - 2 * vh;
-        p = newS / h * 100;
-        p_b = newS / h_b * 100;
-        let scale21 = 1 + w * 1e-5 * p_b;
-        let scale22 = 1 + w * 28e-6 * p_b;
-        let scale23 = 1 + w * 38e-6 * p_b;
-        let hr_3 = w / 8e4 * p_b;
-        document.querySelector(".p-item2_1").style.transform = `scale(${scale21})`;
-        document.querySelector(".p-item2_2").style.transform = `scale(${scale22})`;
-        document.querySelector(".p-item2_3").style.transform = `scale(${scale23})`;
-      }
-      if (s > 4 * vh) {
-        let newS = s - 4 * vh;
-        p = newS / h * 100;
-        p_b = newS / h_b * 100;
-        let z_5 = 1 + w * 1e-5 * p_b;
-        let hr_5 = w / 1500 * p_b;
-        document.getElementsByClassName("p-item3_1")[0].style = `transform: scale(${z_5})`;
-        document.getElementsByClassName("p-item3_2")[0].style = `transform:scale(${z_5})`;
-        document.getElementsByClassName("p-item3_3")[0].style = `transform: scale(${z_5})`;
-      }
-      if (s > 5 * vh) {
-        document.querySelector(".p-item3_2").style = `display:none`;
-      }
-      let titre1 = document.querySelector(".titre1");
-      let titre2 = document.querySelector(".titre2");
-      let titre3 = document.querySelector(".titre3");
-      first:
-        while (this.scrollY > 0 && this.scrollY < 2 * vh - 250) {
-          titre1.classList = "titre titre1 block";
-          titre2.classList = "titre titre2 hidden";
-          break first;
-        }
-      second:
-        while (this.scrollY >= 2 * vh - 250 && this.scrollY < 4 * vh - 250) {
-          titre1.classList = "titre titre1 hidden";
-          titre2.classList = "titre titre2 block";
-          titre3.classList = "titre titre3 hidden";
-          break second;
-        }
-      third:
-        while (this.scrollY >= 4 * vh - 250 && this.scrollY < 6 * vh - 250) {
-          titre2.classList = "titre titre2 hidden";
-          titre3.classList = "titre titre3 block";
-          break third;
-        }
-    });
-  };
-  var forward = document.querySelector("#forward");
-  var backward = document.querySelector("#backward");
-  var jump = 0;
-  var maxscroll = document.querySelector(".container").offsetHeight;
-  forward.addEventListener("click", () => {
-    if (window.scrollY >= 0 && window.scrollY < 2 * vh) {
-      jump = 2 * vh;
-    } else if (window.scrollY >= 2 * vh && window.scrollY < 4 * vh) {
-      jump = 4 * vh;
-    } else if (window.scrollY >= 4 * vh && window.scrollY < 6 * vh) {
-      jump = 6 * vh;
-    } else if (window.scrollY >= 6 * vh && window.scrollY < 8 * vh) {
-      jump = 8 * vh;
     }
-    window.scroll(0, jump);
+  }
+  btnArticle1.addEventListener("click", () => {
+    url.searchParams.set("article", "1");
+    history.pushState({}, "", url);
+    updateDisplay();
   });
-  backward.addEventListener("click", () => {
-    if (window.scrollY >= 0 && window.scrollY <= 2 * vh) {
-      jump = 0;
-    } else if (window.scrollY > 2 * vh && window.scrollY <= 4 * vh) {
-      jump = 2 * vh;
-    } else if (window.scrollY > 4 * vh && window.scrollY <= 6 * vh) {
-      jump = 4 * vh;
-    } else if (window.scrollY > 6 * vh && window.scrollY <= 8 * vh) {
-      jump = 6 * vh;
-    }
-    window.scroll(0, jump);
+  btnArticle2.addEventListener("click", () => {
+    url.searchParams.set("article", "2");
+    history.pushState({}, "", url);
+    updateDisplay();
   });
+  btnArticle3.addEventListener("click", () => {
+    url.searchParams.set("article", "3");
+    history.pushState({}, "", url);
+    updateDisplay();
+  });
+  window.addEventListener("popstate", () => {
+    updateDisplay();
+    console.log("eeeeeh");
+  });
+  updateDisplay();
 })();

@@ -1,12 +1,115 @@
 @import "./../variables/color.scss";
 
+
+.cat-1 {
+    .nav-article {
+        background-color: $theme_1;
+    }
+    .btn-article {
+        background-color: $theme_1;
+        &:hover {
+            color: $theme_1;
+        }
+    }
+    .article-info h2 {
+        color: $theme_1;
+    }
+}
+
+.cat-2 {
+    .nav-article {
+        background-color: $theme_2;
+    }
+    .btn-article {
+        background-color: $theme_2;
+        &:hover {
+            color: $theme_2;
+        }
+    }
+    .article-info h2 {
+        color: $theme_2;
+    }
+}
+
+.cat-3 {
+    .nav-article {
+        background-color: $theme_3;
+    }
+    .btn-article {
+        background-color: $theme_3;
+        &:hover {
+            color: $theme_3;
+        }
+    }
+
+    .article-info h2 {
+        color: $theme_3;
+    }
+}
+
+.cat-4 {
+    background-color: #182547;
+    p{
+    color: rgb(255,255,255);
+    } 
+    .article-container{
+        margin:auto;
+    }
+    .nav-article {
+        background-color: $theme_4;
+    }
+    .btn-article {
+        background-color: $theme_4;
+        &:hover {
+            color: $theme_4;
+        }
+    }
+    .article-info h2 {
+        color: $theme_4;
+    }
+    nav, .retour, h2{
+        display: none;
+    }
+    .full .audio-listener{
+        width: 100%;
+    }
+    .audio-listener{
+        border-radius: 50px;
+        padding: 20px 5px;
+        flex-direction: row-reverse;
+        height: 50px;
+        background-color: #6e8ddf;
+        .progress{
+            width: 100%;
+            margin-right:20px;
+        }
+        h1{
+        display:none;
+        height: 50px;
+        }
+        p{ 
+        display:none;
+        }
+        .prog, .playbackward, .playforward{  
+            display: none;
+        }
+        .toggleplay{
+            margin: 0 20px;
+            height: 30px;
+            width: 30px;
+        }
+        
+    }
+
+}
+ 
 .article {
     margin: 20px;
     gap: 30px;
 
     h3 {
         font-size: larger;
-        
+        margin-bottom: 0;
     }
 }
 
@@ -22,26 +125,32 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    top: 0;
+    background-size: 100%;
+    background-position: 0 0;
 
     .alignement-article-banner {
-        // left: 50%;
-        // top: 50%;
-        // transform: translate(-50%, -50%);
         margin: auto;
         display: flex;
         position: relative;
         align-items: center;
         flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
 
         h1 {
             color: white;
             text-align: center;
             padding: 20px;
             width: fit-content;
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            font-size: bold;
         }
 
         a {
             text-decoration: none;
+            color: white;
         }
     }
 }
@@ -55,12 +164,12 @@
 
 .nav-article {
     display: block;
-    background-color: black;
     width: fit-content;
     padding: 20px;
     border-radius: 200px;
-    top: 150px;
+    top: 100px;
     position: sticky;
+    width: 50px;
 
     ul {
         margin: auto;
@@ -68,35 +177,54 @@
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
+    }
+}
+
+.btn-article{
+    width: 50px;
+    height: 50px;
+    color: white;
+    border-radius:50%;
+    border: none;
+    padding: 0;
+    &:hover{
+        background-color: white; 
+        transition-duration: 0.5s;
+        cursor: pointer;
+    } 
+    svg{
+        width: 50px;
+        height: 50px;
     }
 }
 
 .article-info {
     h2 {
-        color: #064F4A;
         width: 70%;
         margin: auto;
         text-align: center;
-        font-weight: bold;
         margin-bottom: 35px;
-        font-size: 36px;
+        font-size: 30px;
+        text-transform: uppercase;     
     }
 
     p {
         font-weight: bold;
         margin: auto;
-        font-size: 18px;
+        font-size: 16px;
     }
-}
 
-.auteur {
-    float: right;
-    p {
-        margin: auto;
-        font-size: 18px;
-        font-style: italic;
-        text-align: right;
+    .auteur {
+        float: right;
+        margin-top: 20px;
+        p {
+            margin: auto;
+            font-size: 16px;
+            font-style: italic;
+            text-align: right;
+            font-weight: normal;
+        }
     }
 }
 
@@ -104,4 +232,5 @@
     pointer-events: none;
     display: block;
 }
+
 

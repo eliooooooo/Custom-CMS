@@ -1,0 +1,11 @@
+.deux-columns {
+    display: flex;
+    flex-direction: row;    
+    flex-wrap: nowrap;
+    gap: 40px;
+    justify-content: space-between;
+
+    * {
+        width: 100%;    
+    }
+}

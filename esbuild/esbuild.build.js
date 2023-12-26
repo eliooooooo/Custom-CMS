@@ -9,6 +9,7 @@ require("esbuild")
         outdir: './dist',
         loader: {
             '.svg': 'file',
+            '.ttf': 'file',
         },
         minify: false,
         plugins: [sassPlugin(), postcss.default({

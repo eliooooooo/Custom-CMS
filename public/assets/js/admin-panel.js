@@ -12,7 +12,7 @@ if (document.querySelector('.admin-panel')) {
             // l'identifiant du formulaire correspondant
             let formId = 'form-' + currentRowId.split('-')[1];
             let form = document.getElementById(formId);
-
+ 
             // Si le formulaire est actuellement affiché, le cacher
             if (form.style.display === 'table-row') {
                 form.style.display = 'none';
