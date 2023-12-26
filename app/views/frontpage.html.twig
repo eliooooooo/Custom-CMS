@@ -2,13 +2,27 @@
 
 {% block title %}Bienvenue !{% endblock %}
 
+{% block style %}
+
+<link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+<link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
-    <div class="home-page">
-        <video class="intro" autoplay controls>
-            <source src="{{site_url}}public/src/uploads/Coccinelle-demoiselle.mp4" type="video/mp4">
-        </video>
-        <a class="skip-intro" href="{{site_url}}category">Passer l'introduction</a>
-    </div>
+<div class="home-page">
+    <video id="my-video" poster="{{site_url}}public/src/uploads/miniature.png" class="video-js vjs-theme-city intro"
+        controls preload="metadata" width="640" height="264" data-setup="{}">
+        <source src="{{site_url}}public/src/uploads/VF_TEASER.mp4" poster="" type="video/mp4">
+    </video>
+    <a class="skip-intro" href="{{site_url}}category">Passer l'introduction</a>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+
+<script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
 
 {% endblock %}

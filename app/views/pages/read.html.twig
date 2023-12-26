@@ -1,6 +1,16 @@
 {% extends "page.html.twig" %}
 
-{% block title %}Découvrez !{% endblock %}
+{% block title %}{{site_name}}{% endblock %}
+
+{% if category %}
+  {% block head %}
+    {% for element in category.category %}
+      <link rel="preload" as="image" href="{{site_url}}public/src/uploads/{{element.layer1}}" />
+      <link rel="preload" as="image" href="{{site_url}}public/src/uploads/{{element.layer2}}" />
+      <link rel="preload" as="image" href="{{site_url}}public/src/uploads/{{element.layer3}}" />
+    {% endfor %}
+  {% endblock %}
+{% endif %}
 
 {% block content %}
     {% if element %}

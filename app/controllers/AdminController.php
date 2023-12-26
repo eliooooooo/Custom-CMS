@@ -103,16 +103,16 @@ Class AdminController extends ControllerBase {
         }
 
         // Check file size in KB
-        if ($_FILES["fileToUpload"]["size"] > 2000000) {
-            echo "<p class='notification notification--red' >Désolé, le fichier est trop volumineux.</p>";
-            $uploadOk = 0;
-            $this->render('admin/files', $data);
-        }
+        // if ($_FILES["fileToUpload"]["size"] > 2000000) {
+        //     echo "<p class='notification notification--red' >Désolé, le fichier est trop volumineux.</p>";
+        //     $uploadOk = 0;
+        //     $this->render('admin/files', $data);
+        // }
 
         // Allow certain file formats
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" && $imageFileType != "svg" && $imageFileType != "webp"
-        && $imageFileType != "mp3" && $imageFileType != "mp4" ) {
+        && $imageFileType != "mp3" && $imageFileType != "mp4" && $imageFileType != "wav" ) {
           echo "<p class='notification notification--red'>Désolé, l'extension du fichier n'est pas prise en charge.</p>";
           $uploadOk = 0;
           $this->render('admin/files', $data);

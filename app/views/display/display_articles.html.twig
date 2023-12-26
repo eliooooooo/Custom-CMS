@@ -1,24 +1,39 @@
-<div class="article-category article-banner"
-  style="background-image: url('{{site_url}}public/src/uploads/{{article.category[0].files}}'); background-size: cover; background-repeat: no-repeat;">
-  <div class="alignement-article-banner">
-    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !"><img
-        src="{{site_url}}public/src/icons/home.svg" width="40px" fill="white"></a>
-    <a href="{{site_url}}category" title="Retrouvez les différentes catégories !">
+<div class="article-category article-banner cat-{{article.category[0].id}}"
+  style="background-image: url('{{site_url}}public/src/uploads/{{article.category[0].files}}');">
+  <div class=" alignement-article-banner">
+    <a href="{{site_url}}category#{{article.category[0].id}}" title="Retrouvez les différents thèmes !"
+      style="width:40px;">
+      <svg width="100%" height="100%" viewBox="0 0 161 151" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M21.92 144.4V83.19C21.92 81.56 22.59 79.99 23.76 78.86L75.69 28.89C78.03 26.64 81.72 26.65 84.05 28.91L135.51 78.92C136.64 80.02 138.03 81.44 138.06 83.02L138.56 144.28C138.63 147.65 135.92 150.41 132.55 150.41H105.59C102.27 150.41 99.58 147.72 99.58 144.4V101.51C99.58 98.21 96.92 95.52 93.61 95.5L66.77 95.31C63.45 95.29 60.73 97.97 60.72 101.29L60.5 144.43C60.48 147.74 57.8 150.41 54.49 150.41H27.94C24.62 150.41 21.93 147.72 21.93 144.4H21.92Z"
+          fill="currentColor" />
+        <path
+          d="M85.24 21.3L146.84 81.34C148.23 82.69 150.88 83.95 152.8 83.74C158.25 83.14 159.97 79.16 160.23 76.65C160.4 75.04 159.22 72.48 158.07 71.34L89.27 3.03C88.56 2.33 87.64 1.8 86.79 1.42C82.5 -0.499999 79.32 -0.149999 76.51 0.570001C75.29 0.880001 71.91 2.46 71.01 3.35L2.8 70.53C1.14 72.16 -0.330001 74.67 0.0699993 76.97C0.719999 80.76 3.31 82.24 5.26 82.89C7.67 83.69 10.33 82.95 12.18 81.2L75.31 21.24C78.1 18.59 82.49 18.62 85.25 21.3H85.24Z"
+          fill="currentColor" />
+        <path
+          d="M116.1 29.84V24.28C116.1 22.92 117.02 21.81 118.15 21.81H136.52C137.65 21.81 138.57 22.92 138.57 24.28V51.81C138.57 54.01 136.37 55.11 135.08 53.56L116.71 31.59C116.32 31.13 116.1 30.5 116.1 29.84Z"
+          fill="currentColor" />
+      </svg>
+    </a>
+    <a href="{{site_url}}category#{{article.category[0].id}}" title="Retrouvez les différents thèmes !">
       <h1>{{article.category[0].name}}</h1>
     </a>
+    <div></div>
   </div>
 </div>
-<div class="wrapper">
+<div class="wrapper cat-{{article.category[0].id}}">
   <div class="article-left">
-    <a class="retour" href="{{site_url}}category?action=readbycat&id=1" ><img src="{{site_url}}public/src/icons/arrow.svg" width="80px" style="margin-top: 60px; margin-bottom: 60px;"></a>
-    <nav class="nav-article" style="width: 50px; height: 200px; background-color: #064F4A;">
+    <a class="retour" href="{{site_url}}category?action=readbycat&id={{article.category[0].id}}"><img
+        src="{{site_url}}public/src/icons/retour.svg" width="40px"
+        style="margin: auto; margin-top: 40px; margin-bottom: 40px; margin-left: 25px; top: 30px;"></a>
+    <nav class="nav-article">
       <ul>
         {% set i = 0 %}
         {% for article in article.category.articles %}
         {% set i = i + 1 %}
         <li>
           <button class='btn-article btn-article-{{i}}' title="{{article.catchphrase}}">
-            {# <img class="article-icon" src="{{site_url}}public/src/icons/loup3-min.svg" alt=""> #}
+            {{article.svgIcon|raw}}
             {# <object type="image/svg+xml" class="article-icon"
               data="{{site_url}}public/src/icons/loup3-min.svg"></object> #}
           </button>
@@ -33,32 +48,32 @@
     {% set i = i + 1 %}
     <div class="article full {{article.class}} article-{{i}}">
       <div class="article-info">
-        <h2>{{article.title}}</h2>
-        <p>{{article.subtitle}}</p>
+        <h2>{{article.title|raw}}</h2>
+        <p>{{article.subtitle|raw}}</p>
+        <div class='auteur'>
+          {% set auteurs = article.author %}
+          {% set tableau = auteurs|split('/') %}
+          {% for auteur in tableau %}
+          {% if auteur starts with 'JRI:' %}
+          {% set auteur = auteur|replace({'JRI:': ''}) %}
+          <p>JRI : {{auteur}}</p>
+          {% elseif auteur starts with 'Redac:' %}
+          {% set auteur = auteur|replace({'Redac:': ''}) %}
+          <p>Rédactrice : {{auteur}}</p>
+          {% else %}
+          <p>{{auteur}}</p>
+          {% endif %}
+          {% endfor %}
+        </div>
       </div>
       {% for blocks in article.blocks %}
       {% include "display/display_blocks.html.twig" %}
       {% endfor %}
-      <div class='auteur'>
-        {% set auteurs = article.author %}
-        {% set tableau = auteurs|split('/') %}
-        {% for auteur in tableau %}
-          {% if auteur starts with 'JRI:' %}
-            {% set auteur = auteur|replace({'JRI:': ''}) %}
-            <p>JRI : {{auteur}}</p>
-          {% elseif auteur starts with 'Redac:' %}
-            {% set auteur = auteur|replace({'Redac:': ''}) %}
-            <p>Rédactrice : {{auteur}}</p>
-          {% else %}
-            <p>{{auteur}}</p>
-          {% endif %}
-        {% endfor %}
-      </div>
     </div>
     {% endfor %}
   </div>
 </div>
 
 {% block script %}
-  <script src="{{site_url}}public/assets/js/articles.js"></script>
+<script src="{{site_url}}dist/main.js"></script>
 {% endblock %}

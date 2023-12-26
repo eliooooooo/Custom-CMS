@@ -1,7 +1,8 @@
 <?php
 require_once 'app/controllers/AdminController.php';
 
-class CategoryController extends ControllerBase {
+class CategoryController extends ControllerBase
+{
 
   /**
    * Permet de lire une ou plusieurs category
@@ -9,12 +10,14 @@ class CategoryController extends ControllerBase {
    * @param $id
    * @return void
    */
-  public function read($id = null){
+  public function read($id = null)
+  {
     $data = ['category' => Category::read($id)];
     $this->render('read', $data);
   }
 
-  public function readbycat($id = null){
+  public function readbycat($id = null)
+  {
     $data = ['category' => Category::read($id)];
     $this->render('read', $data);
   }
@@ -25,7 +28,8 @@ class CategoryController extends ControllerBase {
    * @param array $data
    * @return void
    */
-  public function create(){
+  public function create()
+  {
     $category = new Category();
     $category->setAttributes($_POST);
     $newCategoryId = $category->create();
@@ -39,7 +43,8 @@ class CategoryController extends ControllerBase {
    * @param $id
    * @return void
    */
-  public function update($id){
+  public function update($id)
+  {
     $category = new Category();
     $category->setAttributes($_POST);
     $category->update($id);
@@ -54,7 +59,8 @@ class CategoryController extends ControllerBase {
    * @param $id
    * @return void
    */
-  public function delete($id){
+  public function delete($id)
+  {
     Category::delete($id);
     $data = AdminController::getall();
     $this->render('admin/category', $data);
