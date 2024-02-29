@@ -7,4 +7,4 @@ Nous avons voulu respecter le plus possible les demandes des journalistes tout e
 
 Ce site à été développé par [FROMAGEAT Julie](https://github.com/Chocoshed) et moi même. Les visuels et le parcours utilisateurs ont été créer par une équipe différente.
 
-Le site est isponible [ICI](https://www.cuej.info/mini-sites/sauvage/). (Les accès au back-office ont été désactiver pour garantir la sécurité du site et des contenus).
+Le site est isponible [ICI](https://www.cuej.info/mini-sites/sauvage/). (Les accès au back-office ont été désactivés pour garantir la sécurité du site et des contenus).
