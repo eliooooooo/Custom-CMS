@@ -5,6 +5,6 @@ Le but était de créer un CMS custom pour que les journalites puissent entrer l
 
 Nous avons voulu respecter le plus possible les demandes des journalistes tout en respectant les bonnes pratiques et les deadlines du projet.
 
-Ce site à été développé par [FROMAGEAT Julie](https://github.com/Chocoshed) et moi même. Les visuels et le parcours utilisateurs ont été créer par une équipe différente.
+Ce site à été développé par [FROMAGEAT Julie](https://github.com/Chocoshed) et moi même. Avec l'animation front développée par Julie et le back par moi. Les visuels et le parcours utilisateurs ont été créer par une équipe différente.
 
 Le site est isponible [ICI](https://www.cuej.info/mini-sites/sauvage/). (Les accès au back-office ont été désactivés pour garantir la sécurité du site et des contenus).
