@@ -3,7 +3,7 @@ node_modules/
 vendor/
 package-lock.json
 .editorconfig
-dist
+dist/
 composer.lock
 .vscode
 README2.md
